@@ -48,6 +48,8 @@ export default function Shop() {
     }
     const b = searchParams.get('brand');
     setBrand(b ? decodeURIComponent(b) : null);
+    const q = searchParams.get('q');
+    if (q !== null) setSearch(q);
   }, [searchParams]);
 
   const selectCategory = (cat: string | null) => {
@@ -78,7 +80,7 @@ export default function Shop() {
         break;
     }
     return list;
-  }, [products, category, search, sort]);
+  }, [products, category, brand, search, sort]);
 
   // Pagination
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
