@@ -40,8 +40,9 @@ export default function Product() {
   const content = useSiteContent();
 
   const [tab, setTab] = useState<'description' | 'benefits' | 'how'>('description');
-  const [enquiryForm, setEnquiryForm] = useState({ name: '', email: '', message: '' });
+  const [enquiryForm, setEnquiryForm]     = useState({ name: '', email: '', message: '', hp: '' });
   const [enquiryStatus, setEnquiryStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
+  const [enquiryErrors, setEnquiryErrors] = useState<Record<string, string>>({});
 
   if (loading) return <div className="text-center py-20 text-gray-500">Loading…</div>;
   if (error) return <div className="text-center py-20 text-red-500">{error}</div>;
@@ -60,17 +61,30 @@ export default function Product() {
 
   const handleEnquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errs: Record<string, string> = {};
+    const name    = enquiryForm.name.trim();
+    const email   = enquiryForm.email.trim();
+    const message = enquiryForm.message.trim();
+    if (!name || name.length < 2 || !/[a-zA-Z]/.test(name))
+      errs.name = 'Please enter your full name (at least 2 characters).';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))
+      errs.email = 'Please enter a valid email address.';
+    if (!message || message.length < 20)
+      errs.message = `Message too short — please provide more detail (${message.length}/20 characters).`;
+    if (Object.keys(errs).length > 0) { setEnquiryErrors(errs); return; }
+    setEnquiryErrors({});
     setEnquiryStatus('sending');
     try {
       await api.enquiries.create({
-        type: 'product',
-        name: enquiryForm.name,
-        email: enquiryForm.email,
-        message: enquiryForm.message,
-        product_id: product.id,
+        type:         'product',
+        name,
+        email,
+        message,
+        product_id:   product.id,
         product_name: product.name,
-        subject: `Enquiry: ${product.name}`,
-        status: 'new',
+        subject:      `Enquiry: ${product.name}`,
+        status:       'new',
+        _hp:          enquiryForm.hp,
       });
       setEnquiryStatus('done');
     } catch {
@@ -198,27 +212,42 @@ export default function Product() {
               ✅ Thank you! We've received your enquiry and will be in touch shortly.
             </div>
           ) : (
-            <form className="enquiry-form" onSubmit={handleEnquirySubmit}>
+            <form className="enquiry-form" onSubmit={handleEnquirySubmit} noValidate>
+              {/* Honeypot — invisible to real users, filled by bots */}
+              <div style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 1, width: 1, overflow: 'hidden', pointerEvents: 'none' }} aria-hidden="true">
+                <label htmlFor="enq_website">Website</label>
+                <input type="text" id="enq_website" name="hp" value={enquiryForm.hp}
+                  onChange={e => setEnquiryForm({ ...enquiryForm, hp: e.target.value })}
+                  tabIndex={-1} autoComplete="off" />
+              </div>
+
               <input
                 type="text"
-                required
-                placeholder="Your Name"
+                placeholder="Your Name *"
                 value={enquiryForm.name}
-                onChange={(e) => setEnquiryForm({ ...enquiryForm, name: e.target.value })}
+                onChange={e => { setEnquiryForm({ ...enquiryForm, name: e.target.value }); setEnquiryErrors(p => { const n={...p}; delete n.name; return n; }); }}
+                style={enquiryErrors.name ? { borderColor: '#dc2626' } : {}}
               />
+              {enquiryErrors.name && <p style={{ color: '#dc2626', fontSize: 12, margin: '-8px 0 4px' }}>{enquiryErrors.name}</p>}
+
               <input
                 type="email"
-                required
-                placeholder="Your Email"
+                placeholder="Your Email *"
                 value={enquiryForm.email}
-                onChange={(e) => setEnquiryForm({ ...enquiryForm, email: e.target.value })}
+                onChange={e => { setEnquiryForm({ ...enquiryForm, email: e.target.value }); setEnquiryErrors(p => { const n={...p}; delete n.email; return n; }); }}
+                style={enquiryErrors.email ? { borderColor: '#dc2626' } : {}}
               />
+              {enquiryErrors.email && <p style={{ color: '#dc2626', fontSize: 12, margin: '-8px 0 4px' }}>{enquiryErrors.email}</p>}
+
               <textarea
-                placeholder="Your Message"
+                placeholder="Your Message * (at least 20 characters)"
                 rows={4}
                 value={enquiryForm.message}
-                onChange={(e) => setEnquiryForm({ ...enquiryForm, message: e.target.value })}
+                onChange={e => { setEnquiryForm({ ...enquiryForm, message: e.target.value }); setEnquiryErrors(p => { const n={...p}; delete n.message; return n; }); }}
+                style={enquiryErrors.message ? { borderColor: '#dc2626' } : {}}
               />
+              {enquiryErrors.message && <p style={{ color: '#dc2626', fontSize: 12, margin: '-8px 0 4px' }}>{enquiryErrors.message}</p>}
+
               {enquiryStatus === 'error' && (
                 <p style={{ color: '#dc2626', fontSize: 13, margin: '4px 0' }}>Something went wrong — please try again.</p>
               )}

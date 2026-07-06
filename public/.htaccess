@@ -14,6 +14,10 @@ Options -Indexes
   RewriteEngine On
   RewriteBase /
 
+  # SEO: serve robots.txt and sitemap.xml from PHP (correct domain injected at runtime)
+  RewriteRule ^robots\.txt$ /api/robots.php [L]
+  RewriteRule ^sitemap\.xml$ /api/sitemap.php [L]
+
   # Skip rewrite for real files and directories (including /api/*.php)
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
@@ -21,6 +25,11 @@ Options -Indexes
 
   # SPA fallback — send everything else to index.html
   RewriteRule ^ index.html [L]
+</IfModule>
+
+# ── Block direct directory listing of /api ────────────────────────────────────
+<IfModule mod_autoindex.c>
+  IndexIgnore *
 </IfModule>
 
 # ── CORS for /api ─────────────────────────────────────────────────────────────
