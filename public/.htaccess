@@ -3,6 +3,12 @@
 
 Options -Indexes
 
+# ── Block direct web access to the config file ────────────────────────────────
+<Files "xpel-config.php">
+  Order allow,deny
+  Deny from all
+</Files>
+
 # ── API directory: allow PHP to run normally ──────────────────────────────────
 <IfModule mod_rewrite.c>
   RewriteEngine On

@@ -16,10 +16,14 @@
  * This file then loads that, falling back to local dev values.
  */
 
-// Try to load config from parent of public_html (above the web root)
-$extConfig = dirname(dirname(dirname(dirname(__FILE__)))) . '/xpel-config.php';
+// Load config — checks public_html root first, then one level above as fallback.
+// The file is excluded from FTP deploy so it is never overwritten on redeploy.
+$extConfig = dirname(dirname(__FILE__)) . '/xpel-config.php';          // public_html/xpel-config.php
+$extConfigAbove = dirname(dirname(dirname(__FILE__))) . '/xpel-config.php'; // one above public_html
 if (file_exists($extConfig)) {
     require_once $extConfig;
+} elseif (file_exists($extConfigAbove)) {
+    require_once $extConfigAbove;
 }
 
 // Defaults for local dev — override by defining constants in xpel-config.php
