@@ -11,13 +11,10 @@ export default function Footer() {
       <div className="footer-top">
         <div>
           <img
-            src="/images/logo-xpel-beauty-ng-white.svg"
+            src={content.logo}
             alt="Xpel Beauty NG"
             style={{ height: '60px', width: 'auto', display: 'block' }}
-            onError={(e) => {
-              const img = e.target as HTMLImageElement;
-              img.src = '/images/logo-white.svg';
-            }}
+            onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-xpel-beauty-ng.svg'; }}
           />
           <div className="footer-tagline">{content.footerTagline}</div>
         </div>
