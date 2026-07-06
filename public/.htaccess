@@ -1,0 +1,44 @@
+# XpelBeauty NG — Apache config for Hostinger
+# Handles SPA routing AND passes /api/*.php to PHP
+
+Options -Indexes
+
+# ── API directory: allow PHP to run normally ──────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Skip rewrite for real files and directories (including /api/*.php)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # SPA fallback — send everything else to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ── CORS for /api ─────────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  <FilesMatch "\.php$">
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, X-Admin-Token"
+  </FilesMatch>
+</IfModule>
+
+# ── Security headers ──────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ── Cache static assets ───────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp   "access plus 1 year"
+  ExpiresByType image/png    "access plus 1 year"
+  ExpiresByType image/jpeg   "access plus 1 year"
+  ExpiresByType text/css     "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

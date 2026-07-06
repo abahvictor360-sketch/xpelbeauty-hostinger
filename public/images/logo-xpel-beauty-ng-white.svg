@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 210" fill="none" role="img" aria-label="Xpel Beauty NG">
+  <defs>
+    <!-- Same diagonal gradient as the colour logo — keeps brand identity on dark backgrounds -->
+    <linearGradient id="xgw" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#E06020"/>
+      <stop offset="48%"  stop-color="#C8A020"/>
+      <stop offset="100%" stop-color="#A8C020"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ── X mark ── -->
+  <!-- Backslash stroke: top-left → bottom-right -->
+  <line x1="20" y1="10" x2="178" y2="198"
+    stroke="url(#xgw)" stroke-width="40" stroke-linecap="round"/>
+  <!-- Forward-slash stroke: top-right → bottom-left with calligraphic tail curving down-left -->
+  <path d="M 178,10 L 32,180 C 22,194 8,206 4,200"
+    stroke="url(#xgw)" stroke-width="40" stroke-linecap="round" fill="none"/>
+
+  <!-- ── PEL ── white on dark background -->
+  <text
+    x="200" y="138"
+    font-family="'Arial Black','Franklin Gothic Heavy','Impact',sans-serif"
+    font-weight="900"
+    font-size="105"
+    fill="#FFFFFF">PEL</text>
+
+  <!-- ── BEAUTY NG ── soft white, wide tracking -->
+  <text
+    x="203" y="183"
+    font-family="'Arial','Helvetica Neue',sans-serif"
+    font-weight="700"
+    font-size="27"
+    letter-spacing="5"
+    fill="rgba(255,255,255,0.82)">BEAUTY NG</text>
+</svg>

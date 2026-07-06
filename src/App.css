@@ -1,0 +1,17 @@
+/* Additional app-specific styles */
+body {
+  padding-top: var(--header-h, 176px);
+}
+
+/* Responsive body padding */
+@media (max-width: 768px) {
+  body {
+    /* 32px announcement bar + 64px main header = 96px total fixed height */
+    padding-top: 96px;
+  }
+}
+
+/* Admin has its own full-screen layout — no header padding needed */
+body:has(.admin-container) {
+  padding-top: 0 !important;
+}

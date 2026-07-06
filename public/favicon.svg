@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="xg" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#C45220"/>
+      <stop offset="48%"  stop-color="#CA7C29"/>
+      <stop offset="100%" stop-color="#8CA80C"/>
+    </linearGradient>
+  </defs>
+  <!-- Navy rounded-square background -->
+  <rect width="100" height="100" rx="20" fill="#1B2A3B"/>
+  <!-- Backslash stroke: top-left to bottom-right -->
+  <line x1="17" y1="13" x2="83" y2="87"
+        stroke="url(#xg)" stroke-width="16" stroke-linecap="round"/>
+  <!-- Forward-slash with calligraphic tail: top-right to bottom-left -->
+  <path d="M 83,13 L 21,79 C 14,90 6,98 3,92"
+        stroke="url(#xg)" stroke-width="16" stroke-linecap="round" fill="none"/>
+</svg>
