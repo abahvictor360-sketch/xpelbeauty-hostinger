@@ -5,6 +5,7 @@ export interface SiteContent {
   // Global
   announcement: string;
   logo: string;
+  footerLogo: string; // empty = use the header logo
   contactEmail: string;
   contactPhone: string;
   freeShipping: string;
@@ -200,6 +201,7 @@ export interface HeroSlide {
 export const DEFAULT_CONTENT: SiteContent = {
   announcement: 'exceptional products. unbeatable value.',
   logo: '/images/logo-xpel-beauty-ng.png',
+  footerLogo: '',
   contactEmail: 'info@xpelbeauty.com',
   contactPhone: '08034883603',
   freeShipping: '25000',

@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="footer-top">
         <div>
           <img
-            src={content.logo}
+            src={content.footerLogo || content.logo}
             alt="Xpel Beauty NG"
             style={{ height: '60px', width: 'auto', display: 'block' }}
             onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-xpel-beauty-ng.svg'; }}

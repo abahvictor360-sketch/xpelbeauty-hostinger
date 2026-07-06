@@ -1466,6 +1466,19 @@ export default function Admin() {
                 <div className="form-group"><label>…or paste a Logo URL</label>
                   <input className="form-input" value={content.logo.startsWith('data:') ? '' : content.logo} onChange={(e) => updateContent({ logo: e.target.value })} placeholder="https://… or images/logo.png" /></div>
 
+                <h3>Footer Logo</h3>
+                <p className="help-text">Shown in the footer (dark background). Leave empty to use the header logo.</p>
+                <div style={{ background: '#000', padding: '24px', borderRadius: '12px', display: 'flex', justifyContent: 'center' }}>
+                  <img src={content.footerLogo || content.logo} alt="Footer logo preview" style={{ maxHeight: '60px', maxWidth: '100%', objectFit: 'contain' }}
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-white.svg'; }} />
+                </div>
+                <input type="file" accept="image/*" className="file-input" onChange={(e) => handleUpload(e, 'footerLogo')} />
+                <div className="form-group"><label>…or paste a Footer Logo URL</label>
+                  <input className="form-input" value={(content.footerLogo || '').startsWith('data:') ? '' : (content.footerLogo || '')} onChange={(e) => updateContent({ footerLogo: e.target.value })} placeholder="https://… or images/logo-white.svg" /></div>
+                {content.footerLogo && (
+                  <div><button className="btn-danger btn-sm" onClick={() => updateContent({ footerLogo: '' })}>Reset — use header logo</button></div>
+                )}
+
                 <h3>Promo Banner</h3>
                 <p className="help-text">A wide banner image shown on the homepage. Recommended ~1600×500px, under 1.5 MB.</p>
                 {content.banner && (
