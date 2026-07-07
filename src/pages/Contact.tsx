@@ -204,12 +204,13 @@ export default function Contact() {
           </div>
           <div>
             <h4 className="font-semibold mb-2">Phone</h4>
-            <a href="tel:+2348034883603" className="text-gold-raw hover:underline block">08034883603</a>
-            <a href="tel:+2348140764150" className="text-gold-raw hover:underline block">08140764150</a>
+            {(content.contactPhones ?? []).filter(p => p.trim()).map((phone, i) => (
+              <a key={i} href={`tel:${phone.replace(/\s/g, '')}`} className="text-gold-raw hover:underline block">{phone}</a>
+            ))}
           </div>
           <div>
             <h4 className="font-semibold mb-2">Email</h4>
-            <a href="mailto:info@xpelbeauty.com" className="text-gold-raw hover:underline">info@xpelbeauty.com</a>
+            <a href={`mailto:${content.contactEmail}`} className="text-gold-raw hover:underline">{content.contactEmail}</a>
           </div>
           {waEnabled && (
             <div>
@@ -221,15 +222,11 @@ export default function Contact() {
           )}
           <div>
             <h4 className="font-semibold mb-2">Address</h4>
-            <p className="text-gray-700">Xpel Beauty NG<br />Nigeria</p>
+            <p className="text-gray-700" style={{ whiteSpace: 'pre-line' }}>{content.contactAddress}</p>
           </div>
           <div className="bg-gray-50 rounded-lg p-6">
             <h4 className="font-semibold mb-3">Business Hours</h4>
-            <p className="text-gray-700">
-              Monday - Friday: 9:00 AM - 6:00 PM<br />
-              Saturday: 10:00 AM - 4:00 PM<br />
-              Sunday: Closed
-            </p>
+            <p className="text-gray-700" style={{ whiteSpace: 'pre-line' }}>{content.contactHours}</p>
           </div>
         </div>
       </div>

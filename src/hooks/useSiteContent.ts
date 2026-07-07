@@ -8,6 +8,9 @@ export interface SiteContent {
   footerLogo: string; // empty = use the header logo
   contactEmail: string;
   contactPhone: string;
+  contactPhones: string[];  // phone numbers listed on the contact page
+  contactAddress: string;   // multiline — contact page address block
+  contactHours: string;     // multiline — contact page business hours
   freeShipping: string;
   footerTagline: string;
 
@@ -204,6 +207,9 @@ export const DEFAULT_CONTENT: SiteContent = {
   footerLogo: '',
   contactEmail: 'info@xpelbeauty.com',
   contactPhone: '08034883603',
+  contactPhones: ['08034883603', '08140764150'],
+  contactAddress: 'Xpel Beauty NG\nNigeria',
+  contactHours: 'Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM\nSunday: Closed',
   freeShipping: '25000',
   footerTagline: 'exceptional products. unbeatable value.',
 

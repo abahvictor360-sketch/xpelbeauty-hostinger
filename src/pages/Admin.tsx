@@ -1433,6 +1433,44 @@ export default function Admin() {
                 <div className="form-group"><label>Intro</label>
                   <input className="form-input" value={content.contactIntro} onChange={(e) => updateContent({ contactIntro: e.target.value })} /></div>
 
+                <div className="form-group">
+                  <label>Phone Numbers</label>
+                  {(content.contactPhones ?? []).map((phone, i) => (
+                    <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+                      <input
+                        className="form-input"
+                        value={phone}
+                        placeholder="e.g. 08034883603"
+                        onChange={(e) => {
+                          const next = [...(content.contactPhones ?? [])];
+                          next[i] = e.target.value;
+                          updateContent({ contactPhones: next });
+                        }}
+                      />
+                      <button
+                        type="button"
+                        className="btn-danger btn-sm"
+                        style={{ flexShrink: 0 }}
+                        onClick={() => updateContent({ contactPhones: (content.contactPhones ?? []).filter((_, j) => j !== i) })}
+                      >✕</button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className="btn-secondary btn-sm"
+                    onClick={() => updateContent({ contactPhones: [...(content.contactPhones ?? []), ''] })}
+                  >+ Add Phone Number</button>
+                </div>
+
+                <div className="form-group"><label>Email Address</label>
+                  <input className="form-input" value={content.contactEmail} onChange={(e) => updateContent({ contactEmail: e.target.value })} placeholder="info@xpelbeauty.com" /></div>
+
+                <div className="form-group"><label>Business Address (one line per row)</label>
+                  <textarea className="form-input" rows={3} value={content.contactAddress ?? ''} onChange={(e) => updateContent({ contactAddress: e.target.value })} placeholder={'Xpel Beauty NG\nNigeria'} /></div>
+
+                <div className="form-group"><label>Business Hours (one line per row)</label>
+                  <textarea className="form-input" rows={4} value={content.contactHours ?? ''} onChange={(e) => updateContent({ contactHours: e.target.value })} placeholder={'Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM\nSunday: Closed'} /></div>
+
                 <h3>Stores Page</h3>
                 <div className="form-group"><label>Title</label>
                   <input className="form-input" value={content.storesTitle} onChange={(e) => updateContent({ storesTitle: e.target.value })} /></div>
