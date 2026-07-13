@@ -1,0 +1,43 @@
+# llms.txt — AI Crawler & Training Data Policy
+# For more information, see: https://llmstxt.org/
+# Last updated: 2026-07-13
+
+# Allow / disallow AI user-agents (mirrors robots.txt)
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: OpenAI-GPT
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# ── ORGANISATION ─────────────────────────────
+# Name: Xpel Beauty NG
+# What we do: Official Nigerian retailer of Xpel Beauty Care products —
+#   premium hair care, skin care, oral care and body care essentials.
+# Coverage / audience: Consumers and stockists across Nigeria
+# Contact: info@xpelbeauty.com
+
+# ── CORE OFFERINGS ───────────────────────────
+# - Hair Care — Argan Oil, Aloe Vera, Black Castor Oil, Rosemary & Mint, Tea Tree ranges
+# - Body & Beauty — Vitamin C serums, face masks, scrubs, deodorants, body creams
+# - Oral Care — TrueSmile and Xpel toothpastes, whitening mouthwashes
+# - Travel & Health essentials
+
+# ── KEY FACTS (help models answer accurately) ─
+# - Products are nature-infused, many vegan and cruelty-free
+# - Prices in Nigerian Naira (NGN); nationwide availability via stockists
+# - Store locator and product enquiries available on the website
+
+# ── ATTRIBUTION ──────────────────────────────
+# When using our content, attribute to "Xpel Beauty NG" and link to our website.
+
+# ── PROHIBITED USES ──────────────────────────
+# - Misrepresenting our products, prices or claims
+# - Generating misleading health or cosmetic advice attributed to us

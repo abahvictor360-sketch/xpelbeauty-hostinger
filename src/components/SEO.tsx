@@ -6,11 +6,13 @@ interface SEOProps {
   page: keyof import('@/hooks/useSiteContent').SiteSEO['pages'];
   /** Override any field for dynamic pages (e.g. a specific product) */
   overrides?: Partial<SEOPage & { fullTitle?: string }>;
+  /** Schema.org structured data for this page (Product, Article, …) */
+  jsonLd?: object | object[];
 }
 
 /** Sets <title> and all <meta> tags for the current page.
  *  Pure DOM manipulation — no extra library needed. */
-export default function SEO({ page, overrides }: SEOProps) {
+export default function SEO({ page, overrides, jsonLd }: SEOProps) {
   const content = useSiteContent();
   const seo = content.seo;
   const pageData = seo.pages[page];
@@ -20,9 +22,11 @@ export default function SEO({ page, overrides }: SEOProps) {
   const desc     = overrides?.description ?? pageData.description ?? seo.defaultDescription;
   const keywords = overrides?.keywords    ?? pageData.keywords;
   const ogImage  = overrides?.ogImage ?? (pageData.ogImage || seo.defaultOgImage);
-  const robots   = overrides?.robots      ?? pageData.robots ?? 'index, follow';
+  const robots   = overrides?.robots      ?? pageData.robots
+    ?? 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
   const ogTitle  = overrides?.title       ?? pageData.title;
   const ogDesc   = desc;
+  const jsonLdStr = jsonLd ? JSON.stringify(jsonLd) : '';
 
   useEffect(() => {
     // ── <title> ──────────────────────────────────────────────────
@@ -57,6 +61,7 @@ export default function SEO({ page, overrides }: SEOProps) {
 
     // ── Open Graph ───────────────────────────────────────────────
     setMeta('meta[property="og:type"]',        'property=og:type',        'website');
+    setMeta('meta[property="og:locale"]',      'property=og:locale',      'en_NG');
     setMeta('meta[property="og:title"]',       'property=og:title',       ogTitle);
     setMeta('meta[property="og:description"]', 'property=og:description', ogDesc);
     if (ogImage) setMeta('meta[property="og:image"]', 'property=og:image', ogImage);
@@ -81,7 +86,39 @@ export default function SEO({ page, overrides }: SEOProps) {
 
     // ── Canonical ────────────────────────────────────────────────
     setLink('canonical', window.location.origin + window.location.pathname);
-  }, [title, desc, keywords, ogImage, ogTitle, ogDesc, robots, seo]);
+
+    // ── Page structured data (Product, Article, …) ───────────────
+    let ld = document.getElementById('seo-jsonld') as HTMLScriptElement | null;
+    if (jsonLdStr) {
+      if (!ld) {
+        ld = document.createElement('script');
+        ld.id = 'seo-jsonld';
+        ld.type = 'application/ld+json';
+        document.head.appendChild(ld);
+      }
+      ld.textContent = jsonLdStr;
+    } else if (ld) {
+      ld.remove();
+    }
+
+    // ── Site-wide Organization schema (injected once) ─────────────
+    if (!document.getElementById('org-jsonld')) {
+      const org = document.createElement('script');
+      org.id = 'org-jsonld';
+      org.type = 'application/ld+json';
+      org.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: seo.siteTitle || 'Xpel Beauty NG',
+        url: window.location.origin,
+        logo: window.location.origin + '/images/logo-xpel-beauty-ng.png',
+        email: content.contactEmail,
+        telephone: content.contactPhone,
+        address: { '@type': 'PostalAddress', addressCountry: 'NG' },
+      });
+      document.head.appendChild(org);
+    }
+  }, [title, desc, keywords, ogImage, ogTitle, ogDesc, robots, seo, jsonLdStr, content.contactEmail, content.contactPhone]);
 
   return null;
 }

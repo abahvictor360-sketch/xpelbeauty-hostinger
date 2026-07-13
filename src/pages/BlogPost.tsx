@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useBlogPost } from '@/hooks/useBlog';
+import SEO from '@/components/SEO';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -9,8 +10,35 @@ export default function BlogPost() {
   if (error) return <div className="text-red-500 text-center py-12">{error}</div>;
   if (!post) return <div className="text-center py-12">Blog post not found</div>;
 
+  const postDesc = post.excerpt || (post.content || '').slice(0, 155);
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
+      <SEO
+        page="blog"
+        overrides={{
+          fullTitle: `${post.title} | Xpel Beauty NG`,
+          description: postDesc,
+          ogImage: post.image || '',
+        }}
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: post.title,
+          description: postDesc,
+          image: post.image && !post.image.startsWith('data:')
+            ? (post.image.startsWith('http') ? post.image : window.location.origin + post.image)
+            : undefined,
+          author: { '@type': 'Person', name: post.author },
+          datePublished: post.created_at,
+          dateModified: post.updated_at || post.created_at,
+          publisher: {
+            '@type': 'Organization',
+            name: 'Xpel Beauty NG',
+            logo: { '@type': 'ImageObject', url: window.location.origin + '/images/logo-xpel-beauty-ng.png' },
+          },
+        }}
+      />
       <Link to="/blog" className="text-gold-raw hover:underline mb-4 inline-block">
         ← Back to Blog
       </Link>

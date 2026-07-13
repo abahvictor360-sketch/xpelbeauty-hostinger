@@ -102,6 +102,22 @@ export default function Product() {
           ogImage: product.image || '',
           keywords: `${product.name}, ${product.brand}, buy beauty products nigeria`,
         }}
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: product.name,
+          image: (() => { const img = resolveImg(product.image); return img.startsWith('http') ? img : window.location.origin + img; })(),
+          description: product.description || `${product.name} by ${product.brand}`,
+          brand: { '@type': 'Brand', name: product.brand },
+          category: product.category,
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: 'NGN',
+            price: product.price,
+            availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+            url: window.location.origin + `/product/${product.id}`,
+          },
+        }}
       />
       <div className="product-wrap">
         {/* Breadcrumb */}
