@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useBlogPost } from '@/hooks/useBlog';
+import { siteOrigin } from '@/lib/site';
 import SEO from '@/components/SEO';
 
 export default function BlogPost() {
@@ -27,7 +28,7 @@ export default function BlogPost() {
           headline: post.title,
           description: postDesc,
           image: post.image && !post.image.startsWith('data:')
-            ? (post.image.startsWith('http') ? post.image : window.location.origin + post.image)
+            ? (post.image.startsWith('http') ? post.image : siteOrigin() + post.image)
             : undefined,
           author: { '@type': 'Person', name: post.author },
           datePublished: post.created_at,
@@ -35,7 +36,7 @@ export default function BlogPost() {
           publisher: {
             '@type': 'Organization',
             name: 'Xpel Beauty NG',
-            logo: { '@type': 'ImageObject', url: window.location.origin + '/images/logo-xpel-beauty-ng.png' },
+            logo: { '@type': 'ImageObject', url: siteOrigin() + '/images/logo-xpel-beauty-ng.png' },
           },
         }}
       />

@@ -4,6 +4,7 @@ import { CheckCircle2 } from 'lucide-react';
 import { useProduct } from '@/hooks/useProducts';
 import { api } from '@/lib/api';
 import { useSiteContent } from '@/hooks/useSiteContent';
+import { siteOrigin } from '@/lib/site';
 import SEO from '@/components/SEO';
 
 const FALLBACK_IMG = '/images/product-placeholder.svg';
@@ -106,7 +107,7 @@ export default function Product() {
           '@context': 'https://schema.org',
           '@type': 'Product',
           name: product.name,
-          image: (() => { const img = resolveImg(product.image); return img.startsWith('http') ? img : window.location.origin + img; })(),
+          image: (() => { const img = resolveImg(product.image); return img.startsWith('http') ? img : siteOrigin() + img; })(),
           description: product.description || `${product.name} by ${product.brand}`,
           brand: { '@type': 'Brand', name: product.brand },
           category: product.category,
@@ -115,7 +116,7 @@ export default function Product() {
             priceCurrency: 'NGN',
             price: product.price,
             availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-            url: window.location.origin + `/product/${product.id}`,
+            url: siteOrigin() + `/product/${product.id}`,
           },
         }}
       />
