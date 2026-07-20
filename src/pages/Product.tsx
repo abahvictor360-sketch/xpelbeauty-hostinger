@@ -148,6 +148,15 @@ export default function Product() {
             <h1 className="product-name">{product.name}</h1>
             <div className="product-rating">★★★★★ <span>(verified favourite)</span></div>
 
+            <div className="product-price-row">
+              {product.price > 0 && (
+                <span className="product-price">₦{Number(product.price).toLocaleString('en-NG')}</span>
+              )}
+              <span className={`product-stock-chip ${product.stock > 0 ? 'in' : 'out'}`}>
+                {product.stock > 0 ? 'In stock' : 'Out of stock'}
+              </span>
+            </div>
+
             <p className="product-short">
               {product.description ||
                 `A nature-infused ${product.category?.toLowerCase()} essential, thoughtfully formulated to care for you every day.`}

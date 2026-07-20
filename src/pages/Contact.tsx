@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Phone, Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { api } from '@/lib/api';
 import PromoBanner from '@/components/PromoBanner';
@@ -73,8 +74,11 @@ export default function Contact() {
       <h1 className="text-5xl font-cormorant mb-3">{content.contactTitle}</h1>
       <p className="text-gray-600 mb-8">{content.contactIntro}</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="xp-contact-grid">
         {/* Contact Form */}
+        <div className="xp-contact-form-card">
+        <h3 className="xp-contact-form-title">Send a message</h3>
+        <p className="xp-contact-form-sub">Fill in the form and we'll reply within a few hours.</p>
         {status === 'done' ? (
           <div style={{ padding: '32px', background: '#f0fdf4', borderRadius: '12px', border: '1px solid #bbf7d0', textAlign: 'center' }}>
             <p style={{ fontSize: '24px', marginBottom: '8px' }}>✅</p>
@@ -193,42 +197,69 @@ export default function Contact() {
             )}
           </form>
         )}
-
-        {/* Contact Info */}
-        <div className="space-y-8">
-          <div>
-            <h3 className="text-2xl font-cormorant mb-4">Get in Touch</h3>
-            <p className="text-gray-700 mb-6">
-              Have questions? We'd love to hear from you. Reach out through any of the following channels.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2">Phone</h4>
-            {(content.contactPhones ?? []).filter(p => p.trim()).map((phone, i) => (
-              <a key={i} href={`tel:${phone.replace(/\s/g, '')}`} className="text-gold-raw hover:underline block">{phone}</a>
-            ))}
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2">Email</h4>
-            <a href={`mailto:${content.contactEmail}`} className="text-gold-raw hover:underline">{content.contactEmail}</a>
-          </div>
-          {waEnabled && (
-            <div>
-              <h4 className="font-semibold mb-2">WhatsApp</h4>
-              <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-gold-raw hover:underline">
-                Chat with us on WhatsApp
-              </a>
-            </div>
-          )}
-          <div>
-            <h4 className="font-semibold mb-2">Address</h4>
-            <p className="text-gray-700" style={{ whiteSpace: 'pre-line' }}>{content.contactAddress}</p>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-6">
-            <h4 className="font-semibold mb-3">Business Hours</h4>
-            <p className="text-gray-700" style={{ whiteSpace: 'pre-line' }}>{content.contactHours}</p>
-          </div>
         </div>
+
+        {/* Contact Info — navy panel */}
+        <aside className="xp-contact-panel">
+          <h3 className="xp-contact-panel-title">Get in touch</h3>
+          <p className="xp-contact-panel-sub">
+            Have questions? We'd love to hear from you. Reach out through any of the following channels.
+          </p>
+
+          <div className="xp-contact-rows">
+            <div className="xp-contact-row">
+              <span className="xp-contact-row-icon" aria-hidden="true"><Phone size={17} strokeWidth={2} /></span>
+              <div>
+                <p className="xp-contact-row-label">Phone</p>
+                <p className="xp-contact-row-value">
+                  {(content.contactPhones ?? []).filter(p => p.trim()).map((phone, i) => (
+                    <a key={i} href={`tel:${phone.replace(/\s/g, '')}`} style={{ display: 'block' }}>{phone}</a>
+                  ))}
+                </p>
+              </div>
+            </div>
+
+            <div className="xp-contact-row">
+              <span className="xp-contact-row-icon" aria-hidden="true"><Mail size={17} strokeWidth={2} /></span>
+              <div>
+                <p className="xp-contact-row-label">Email</p>
+                <p className="xp-contact-row-value">
+                  <a href={`mailto:${content.contactEmail}`}>{content.contactEmail}</a>
+                </p>
+              </div>
+            </div>
+
+            {waEnabled && (
+              <div className="xp-contact-row">
+                <span className="xp-contact-row-icon" aria-hidden="true"><MessageCircle size={17} strokeWidth={2} /></span>
+                <div>
+                  <p className="xp-contact-row-label">WhatsApp</p>
+                  <p className="xp-contact-row-value">
+                    <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer">
+                      Chat with us on WhatsApp
+                    </a>
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div className="xp-contact-row">
+              <span className="xp-contact-row-icon" aria-hidden="true"><MapPin size={17} strokeWidth={2} /></span>
+              <div>
+                <p className="xp-contact-row-label">Address</p>
+                <p className="xp-contact-row-value">{content.contactAddress}</p>
+              </div>
+            </div>
+
+            <div className="xp-contact-row">
+              <span className="xp-contact-row-icon" aria-hidden="true"><Clock size={17} strokeWidth={2} /></span>
+              <div>
+                <p className="xp-contact-row-label">Business Hours</p>
+                <p className="xp-contact-row-value">{content.contactHours}</p>
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );

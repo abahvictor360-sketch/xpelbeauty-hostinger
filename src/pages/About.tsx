@@ -27,10 +27,10 @@ export default function About() {
   }));
 
   const pillars = [
-    { icon: <Sprout size={34} strokeWidth={1.5} />, gradient: 'linear-gradient(135deg,#22c55e,#16a34a)', glow: 'rgba(34,197,94,.25)', title: content.pillar1Title, desc: content.pillar1Desc },
-    { icon: <HeartHandshake size={34} strokeWidth={1.5} />, gradient: 'linear-gradient(135deg,#f472b6,#db2777)', glow: 'rgba(244,114,182,.25)', title: content.pillar2Title, desc: content.pillar2Desc },
-    { icon: <Stethoscope size={34} strokeWidth={1.5} />, gradient: 'linear-gradient(135deg,#60a5fa,#7c3aed)', glow: 'rgba(96,165,250,.25)', title: content.pillar3Title, desc: content.pillar3Desc },
-    { icon: <Globe2 size={34} strokeWidth={1.5} />, gradient: 'linear-gradient(135deg,#fbbf24,#d97706)', glow: 'rgba(251,191,36,.25)', title: content.pillar4Title, desc: content.pillar4Desc },
+    { icon: <Sprout size={30} strokeWidth={1.5} />, title: content.pillar1Title, desc: content.pillar1Desc },
+    { icon: <HeartHandshake size={30} strokeWidth={1.5} />, title: content.pillar2Title, desc: content.pillar2Desc },
+    { icon: <Stethoscope size={30} strokeWidth={1.5} />, title: content.pillar3Title, desc: content.pillar3Desc },
+    { icon: <Globe2 size={30} strokeWidth={1.5} />, title: content.pillar4Title, desc: content.pillar4Desc },
   ];
 
   const plan = [
@@ -103,15 +103,7 @@ export default function About() {
           <div className="about-pillars-grid">
             {pillars.map((p) => (
               <div key={p.title} className="about-pillar-card-new">
-                <span
-                  className="about-pillar-icon"
-                  style={{
-                    background: p.gradient,
-                    boxShadow: `0 8px 24px ${p.glow}`,
-                    color: '#fff',
-                    border: 'none',
-                  }}
-                >{p.icon}</span>
+                <span className="about-pillar-icon-brand">{p.icon}</span>
                 <h3>{p.title}</h3>
                 <p>{p.desc}</p>
               </div>

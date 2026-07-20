@@ -1,0 +1,527 @@
+/* ════════════════════════════════════════════════════════════════
+   XPEL REDESIGN LAYER — loaded last, refines Product / About /
+   Stores / Contact / Mega menu. Brand tokens stay untouched:
+   --gold-raw (admin-themeable), --navy, Cormorant Garamond + Jost.
+   Signature motif: the pastel circle "stage" with a gold orbit ring.
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+  --stage-sand:  #f6e6cf;
+  --stage-mint:  #d8efe2;
+  --stage-blush: #f7dfe6;
+  --stage-sky:   #e3e9f7;
+  --ink-soft:    #5c5c5c;
+}
+
+/* ─────────────────────────────────────────────
+   1 · PRODUCT PAGE
+   ───────────────────────────────────────────── */
+
+.product-crumb {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-weight: 600;
+}
+
+.product-stage {
+  background: linear-gradient(160deg, #fdfaf5 0%, var(--stage-sand) 100%);
+  border-radius: 24px;
+  height: 500px;
+}
+
+/* the circle gains a thin gold orbit ring */
+.product-circle {
+  width: 320px;
+  height: 320px;
+  opacity: .9;
+}
+.product-circle::after {
+  content: '';
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--gold-raw) 45%, transparent);
+}
+.product-circle::before {
+  content: '';
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--gold-raw) 25%, transparent);
+  transform: scale(1.12);
+}
+
+.product-img {
+  animation: xp-float 7s ease-in-out infinite;
+  filter: drop-shadow(0 28px 36px rgba(43, 30, 12, .18));
+}
+@keyframes xp-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+.product-name {
+  font-size: 46px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* price + availability row (new) */
+.product-price-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 4px 0 16px;
+}
+.product-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--dark);
+  font-variant-numeric: tabular-nums;
+}
+.product-stock-chip {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.product-stock-chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.product-stock-chip.in    { background: #e7f5ec; color: #1c7c46; }
+.product-stock-chip.out   { background: #fdeaea; color: #b42323; }
+
+.product-assurances { gap: 10px; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border); }
+.product-assurances li { display: flex; align-items: center; gap: 8px; color: var(--ink-soft); }
+
+/* tabs — quiet rail, gold underline */
+.product-tabs { border-top: 1px solid var(--border); }
+.product-tab-head { gap: 28px; }
+.product-tab-head button {
+  padding: 16px 4px 14px;
+  letter-spacing: 1.6px;
+  position: relative;
+}
+.product-tab-head button::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: var(--gold-raw);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .25s ease;
+}
+.product-tab-head button.active { border-bottom-color: transparent; }
+.product-tab-head button.active::after { transform: scaleX(1); }
+
+/* enquiry — the page's single navy moment */
+.product-enquiry {
+  background: var(--navy);
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 680px;
+  position: relative;
+  overflow: hidden;
+}
+.product-enquiry::before {
+  content: '';
+  position: absolute;
+  top: -70px; right: -70px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--gold-raw) 16%, transparent);
+}
+.product-enquiry h3 {
+  color: #fff;
+  font-size: 32px;
+  position: relative;
+}
+.product-enquiry-sub { color: rgba(255,255,255,.65); position: relative; }
+.product-enquiry .enquiry-form { position: relative; }
+.product-enquiry .enquiry-form input,
+.product-enquiry .enquiry-form textarea {
+  border: 1px solid transparent;
+  background: #fff;
+  border-radius: 12px;
+  padding: 13px 16px;
+}
+.product-enquiry .enquiry-form input:focus,
+.product-enquiry .enquiry-form textarea:focus {
+  border-color: var(--gold-raw);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold-raw) 25%, transparent);
+}
+.product-enquiry .enquiry-success {
+  background: rgba(255,255,255,.1);
+  color: #9fe8c0;
+  position: relative;
+}
+.product-enquiry .enquiry-whatsapp-btn {
+  border-color: rgba(255,255,255,.35);
+  color: #fff;
+}
+.product-enquiry .enquiry-whatsapp-btn:hover { background: #25D366; border-color: #25D366; }
+
+@media (max-width: 860px) {
+  .product-stage { height: 400px; }
+  .product-name { font-size: 34px; }
+  .product-enquiry { padding: 32px 20px; }
+  .product-tab-head { gap: 12px; flex-wrap: wrap; }
+}
+
+/* ─────────────────────────────────────────────
+   2 · ABOUT — pillars unified to brand language
+   ───────────────────────────────────────────── */
+
+.about-pillar-icon-brand {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-raw);
+  position: relative;
+  margin-bottom: 6px;
+}
+.about-pillar-icon-brand::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--gold-raw) 35%, transparent);
+}
+.about-pillar-card-new:nth-child(1) .about-pillar-icon-brand { background: var(--stage-mint); }
+.about-pillar-card-new:nth-child(2) .about-pillar-icon-brand { background: var(--stage-blush); }
+.about-pillar-card-new:nth-child(3) .about-pillar-icon-brand { background: var(--stage-sky); }
+.about-pillar-card-new:nth-child(4) .about-pillar-icon-brand { background: var(--stage-sand); }
+
+/* ─────────────────────────────────────────────
+   3 · STORES DIRECTORY
+   ───────────────────────────────────────────── */
+
+.xp-stores-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  margin: 0 -16px 32px;
+  padding: 16px 16px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.xp-stores-search {
+  width: 100%;
+  max-width: 480px;
+  padding: 12px 18px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.xp-stores-search:focus {
+  border-color: var(--gold-raw);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold-raw) 18%, transparent);
+}
+.xp-state-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.xp-state-pill {
+  padding: 7px 16px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: #444;
+  transition: border-color .18s ease, background .18s ease, color .18s ease;
+  min-height: 34px;
+}
+.xp-state-pill:hover { border-color: var(--gold-raw); color: var(--gold-raw); }
+.xp-state-pill.active {
+  background: var(--gold-raw);
+  border-color: var(--gold-raw);
+  color: #fff;
+}
+.xp-state-pill:focus-visible,
+.xp-stores-search:focus-visible {
+  outline: 2px solid var(--gold-raw);
+  outline-offset: 2px;
+}
+.xp-stores-count { font-size: 13px; color: #888; }
+
+.xp-state-section { margin-bottom: 44px; }
+.xp-state-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.xp-state-heading small {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #a0a0a0;
+}
+.xp-state-rule {
+  height: 2px;
+  width: 48px;
+  background: var(--gold-raw);
+  margin-bottom: 18px;
+}
+
+.xp-store-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  background: #fff;
+}
+.xp-store-card:hover {
+  border-color: color-mix(in srgb, var(--gold-raw) 55%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(43,30,12,.07);
+}
+.xp-store-pin {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--stage-sand);
+  color: var(--gold-raw);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.xp-store-name { font-weight: 600; font-size: 15px; line-height: 1.35; }
+.xp-store-loc  { font-size: 13px; color: #8a8a8a; margin-top: 3px; }
+.xp-store-tel  { font-size: 13px; color: var(--gold-raw); text-decoration: none; }
+.xp-store-tel:hover { text-decoration: underline; }
+
+/* ─────────────────────────────────────────────
+   4 · CONTACT
+   ───────────────────────────────────────────── */
+
+.xp-contact-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .xp-contact-grid { grid-template-columns: 1fr; }
+}
+
+.xp-contact-form-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 32px;
+}
+.xp-contact-form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.xp-contact-form-sub { color: #8a8a8a; font-size: 14px; margin-bottom: 24px; }
+
+/* info panel — the page's navy moment */
+.xp-contact-panel {
+  background: var(--navy);
+  border-radius: 20px;
+  padding: 38px 32px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.xp-contact-panel::before {
+  content: '';
+  position: absolute;
+  bottom: -80px; right: -80px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--gold-raw) 15%, transparent);
+}
+.xp-contact-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -56px; right: -56px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--gold-raw) 35%, transparent);
+}
+.xp-contact-panel-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  position: relative;
+}
+.xp-contact-panel-sub {
+  color: rgba(255,255,255,.6);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  position: relative;
+}
+.xp-contact-rows { display: grid; gap: 20px; position: relative; }
+.xp-contact-row { display: flex; gap: 14px; align-items: flex-start; }
+.xp-contact-row-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--gold-raw) 22%, transparent);
+  color: var(--gold-raw);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.xp-contact-row-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--gold-raw);
+  margin-bottom: 3px;
+}
+.xp-contact-row-value,
+.xp-contact-row-value a {
+  font-size: 14px;
+  color: rgba(255,255,255,.88);
+  text-decoration: none;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+.xp-contact-row-value a:hover { color: #fff; text-decoration: underline; }
+
+/* ─────────────────────────────────────────────
+   5 · MEGA MENU — editorial panel
+   ───────────────────────────────────────────── */
+
+.site-nav .mega-menu {
+  border: none;
+  border-top: 2px solid var(--gold-raw);
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 24px 48px rgba(27, 42, 59, .14);
+  animation: xp-mega-in .22s ease-out both;
+}
+@keyframes xp-mega-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.site-nav .mega-inner { padding: 30px 36px 32px; }
+
+.site-nav .mega-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold-raw);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.site-nav .mega-col ul li a,
+.site-nav .mega-range-link {
+  font-size: 13.5px;
+  color: #4a4a4a;
+  transition: color .16s ease, padding-left .16s ease;
+}
+.site-nav .mega-col ul li a:hover,
+.site-nav .mega-range-link:hover {
+  color: var(--gold-raw);
+  padding-left: 8px;
+}
+
+.site-nav .mega-range-sub {
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--gold-raw);
+  border-radius: 12px;
+  box-shadow: 0 16px 36px rgba(27, 42, 59, .14);
+}
+
+.site-nav .mega-feature {
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #fdfaf5 0%, var(--stage-sand) 100%);
+}
+.site-nav .mega-feature img { transition: transform .35s ease; }
+.site-nav .mega-feature:hover img { transform: scale(1.04); }
+.site-nav .mega-feature-label {
+  color: var(--gold-raw);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.site-nav .mega-feature-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  font-weight: 600;
+}
+.site-nav .mega-feature-btn {
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  transition: transform .18s ease, opacity .18s ease;
+}
+.site-nav .mega-feature-btn:hover { transform: translateY(-1px); opacity: .92; }
+
+/* desktop nav links — gold underline slide */
+.site-nav .nav-links > li > a {
+  position: relative;
+}
+.site-nav .nav-links > li > a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  height: 1.5px;
+  width: 0;
+  background: var(--gold-raw);
+  transition: width .22s ease, left .22s ease;
+}
+.site-nav .nav-links > li > a:hover::after,
+.site-nav .nav-links > li > a.active::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ─────────────────────────────────────────────
+   Quality floor
+   ───────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .product-img { animation: none; }
+  .site-nav .mega-menu { animation: none; }
+  .xp-store-card,
+  .site-nav .mega-feature img { transition: none; }
+}

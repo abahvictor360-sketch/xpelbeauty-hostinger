@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { MapPin } from 'lucide-react';
 import { useStores } from '@/hooks/useStores';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import PromoBanner from '@/components/PromoBanner';
@@ -70,85 +71,61 @@ export default function Stores() {
 
       {!loading && !error && total > 0 && (
         <>
-          {/* Search + state filter */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '32px' }}>
+          {/* Sticky search + state filter */}
+          <div className="xp-stores-toolbar">
             <input
               type="text"
+              className="xp-stores-search"
               placeholder="Search stores by name, city or state…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-4 py-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-gold-raw"
-              style={{ maxWidth: '480px' }}
             />
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            <div className="xp-state-pills">
               <button
+                className={`xp-state-pill ${stateFilter === null ? 'active' : ''}`}
                 onClick={() => setStateFilter(null)}
-                style={{
-                  padding: '6px 16px', borderRadius: '99px', fontSize: '13px', fontWeight: 600,
-                  cursor: 'pointer', transition: 'all .15s',
-                  border: stateFilter === null ? '2px solid var(--gold-raw)' : '1px solid #e5e5e5',
-                  background: stateFilter === null ? 'var(--gold-raw)' : '#fff',
-                  color: stateFilter === null ? '#fff' : '#444',
-                }}
               >
                 All ({total})
               </button>
               {allStates.map(([st, n]) => (
                 <button
                   key={st}
+                  className={`xp-state-pill ${stateFilter === st ? 'active' : ''}`}
                   onClick={() => setStateFilter(stateFilter === st ? null : st)}
-                  style={{
-                    padding: '6px 16px', borderRadius: '99px', fontSize: '13px', fontWeight: 600,
-                    cursor: 'pointer', transition: 'all .15s',
-                    border: stateFilter === st ? '2px solid var(--gold-raw)' : '1px solid #e5e5e5',
-                    background: stateFilter === st ? 'var(--gold-raw)' : '#fff',
-                    color: stateFilter === st ? '#fff' : '#444',
-                  }}
                 >
                   {st} ({n})
                 </button>
               ))}
             </div>
-            <p className="text-sm text-gray-500">
-              Showing {shown} of {total} stockists
-            </p>
+            <p className="xp-stores-count">Showing {shown} of {total} stockists</p>
           </div>
 
           {/* State sections */}
           {grouped.map(([st, list]) => (
-            <section key={st} style={{ marginBottom: '40px' }}>
-              <h2
-                className="font-cormorant"
-                style={{
-                  fontSize: '28px', fontWeight: 700, marginBottom: '4px',
-                  display: 'flex', alignItems: 'baseline', gap: '10px',
-                }}
-              >
+            <section key={st} className="xp-state-section">
+              <h2 className="xp-state-heading">
                 {st}
-                <span style={{ fontSize: '13px', fontFamily: 'Inter, sans-serif', fontWeight: 600, color: '#999' }}>
-                  {list.length} store{list.length !== 1 ? 's' : ''}
-                </span>
+                <small>{list.length} store{list.length !== 1 ? 's' : ''}</small>
               </h2>
-              <div style={{ height: '2px', width: '48px', background: 'var(--gold-raw)', marginBottom: '18px' }} />
+              <div className="xp-state-rule" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {list.map((store) => (
-                  <div
-                    key={store.id}
-                    className="border rounded-lg hover:shadow-md transition"
-                    style={{ padding: '14px 18px' }}
-                  >
-                    <h3 style={{ fontWeight: 600, fontSize: '15px', lineHeight: 1.35 }}>{store.name}</h3>
-                    {(store.city || store.address) && (
-                      <p className="text-gray-500" style={{ fontSize: '13px', marginTop: '4px' }}>
-                        {[store.address, store.city].filter(Boolean).join(', ')}
-                      </p>
-                    )}
-                    {store.phone && (
-                      <a href={`tel:${store.phone}`} className="text-gold-raw hover:underline" style={{ fontSize: '13px' }}>
-                        {store.phone}
-                      </a>
-                    )}
+                  <div key={store.id} className="xp-store-card">
+                    <span className="xp-store-pin" aria-hidden="true">
+                      <MapPin size={16} strokeWidth={2} />
+                    </span>
+                    <div>
+                      <h3 className="xp-store-name">{store.name}</h3>
+                      {(store.city || store.address) && (
+                        <p className="xp-store-loc">
+                          {[store.address, store.city].filter(Boolean).join(', ')}
+                        </p>
+                      )}
+                      {store.phone && (
+                        <a href={`tel:${store.phone}`} className="xp-store-tel">{store.phone}</a>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
