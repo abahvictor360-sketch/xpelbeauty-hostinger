@@ -9,6 +9,7 @@ export interface Product {
   image: string;
   description: string;
   size?: string;
+  sku?: string | null;  // barcode / SKU — scanned via the barcode system
   key_benefits?: string;
   how_to_use?: string;
   created_at?: string;

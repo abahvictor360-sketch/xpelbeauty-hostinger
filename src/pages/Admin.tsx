@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Check, X, Info, Star, Moon, Sun, Palette, Home, ShoppingBag, Mail, FileText, MapPin } from 'lucide-react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Check, X, Info, Star, Moon, Sun, Palette, Home, ShoppingBag, Mail, FileText, MapPin, ScanBarcode } from 'lucide-react';
 import { api } from '../lib/api';
 import type { Product, BlogPost, Store } from '../types';
 import { saveSiteContent, loadLocalContent, fileToDataURL, type SiteContent, type AdminUserRecord, type MegaMenuConfig, type CollectionConfig } from '../hooks/useSiteContent';
 import Icon from '../components/Icon';
 import { PRODUCT_IMAGES } from '../imageManifest';
+
+// Pulls in @zxing (~500kB) — code-split so it's only fetched when the admin opens the scanner.
+const BarcodeScanner = lazy(() => import('../components/BarcodeScanner'));
 import '../styles/admin-dashboard.css';
 
 interface Toast {
@@ -255,6 +258,7 @@ export default function Admin() {
 
   // Form states
   const [showGallery, setShowGallery] = useState(false);
+  const [showBarcodeScanner, setShowBarcodeScanner] = useState(false);
   const [productForm, setProductForm] = useState<Partial<Product>>({});
   const [blogForm, setBlogForm] = useState<Partial<BlogPost>>({});
   const [storeForm, setStoreForm] = useState<Partial<Store>>({});
@@ -2055,6 +2059,26 @@ export default function Admin() {
                   <label>Contact Phone</label>
                   <input className="form-input" value={content.contactPhone} onChange={(e) => updateContent({ contactPhone: e.target.value })} />
                 </div>
+
+                <h3 style={{ marginTop: '8px', marginBottom: '0', display: 'flex', alignItems: 'center', gap: '8px' }}><ScanBarcode size={18} /> Barcode Scanner</h3>
+                <div className="form-group" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+                  <div>
+                    <label style={{ marginBottom: '2px' }}>Enable "Scan a barcode" on the website</label>
+                    <p className="help-text" style={{ margin: 0 }}>
+                      Shows a scan icon in the header and a /scan page where visitors can scan any
+                      product's barcode to jump straight to its page. Set each product's barcode from
+                      the product edit form.
+                    </p>
+                  </div>
+                  <button
+                    className={`enq-toggle ${content.barcodeScannerEnabled !== false ? 'on' : 'off'}`}
+                    onClick={() => updateContent({ barcodeScannerEnabled: !(content.barcodeScannerEnabled !== false) })}
+                  >
+                    <span className="enq-toggle-knob" />
+                    <span className="enq-toggle-text">{content.barcodeScannerEnabled !== false ? 'ON' : 'OFF'}</span>
+                  </button>
+                </div>
+
                 <h3 style={{ marginTop: '8px', marginBottom: '0', display: 'flex', alignItems: 'center', gap: '8px' }}><Palette size={18} /> Brand Colours / Theme</h3>
                 <p className="help-text">These colours are applied across the entire website. Click the swatch to open the colour picker.</p>
 
@@ -2164,6 +2188,34 @@ export default function Admin() {
               </div>
 
               <div className="form-group">
+                <label>Barcode / SKU</label>
+                <p className="help-text" style={{ margin: '0 0 6px' }}>
+                  Scanned on the public site's barcode scanner to open this product directly.
+                </p>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <input
+                    type="text"
+                    value={productForm.sku || ''}
+                    onChange={(e) => {
+                      const v = e.target.value.trim();
+                      setProductForm({ ...productForm, sku: v === '' ? null : v });
+                    }}
+                    className="form-input"
+                    style={{ flex: 1 }}
+                    placeholder="e.g. 6156000123456"
+                  />
+                  <button
+                    type="button"
+                    className="btn-secondary btn-sm"
+                    style={{ flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                    onClick={() => setShowBarcodeScanner(true)}
+                  >
+                    <ScanBarcode size={15} /> Scan
+                  </button>
+                </div>
+              </div>
+
+              <div className="form-group">
                 <label>Product Image</label>
                 <input
                   type="file"
@@ -2270,6 +2322,16 @@ export default function Admin() {
             </div>
           </div>
         </div>
+      )}
+
+      {showBarcodeScanner && (
+        <Suspense fallback={<div className="xp-scanner-overlay"><div className="xp-scan-spinner" /></div>}>
+          <BarcodeScanner
+            title="Scan the product's barcode"
+            onDetect={(code) => { setProductForm(prev => ({ ...prev, sku: code })); setShowBarcodeScanner(false); addToast('Barcode captured — remember to save', 'info'); }}
+            onClose={() => setShowBarcodeScanner(false)}
+          />
+        </Suspense>
       )}
 
       {/* Blog Modal */}

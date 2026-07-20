@@ -7,7 +7,7 @@ import SEO from '@/components/SEO';
 import type { Store } from '@/types';
 
 export default function Stores() {
-  const { stores, loading, error } = useStores();
+  const { stores, loading, error, refetch } = useStores();
   const content = useSiteContent();
   const [search, setSearch] = useState('');
   const [stateFilter, setStateFilter] = useState<string | null>(null);
@@ -67,7 +67,13 @@ export default function Stores() {
       <p className="text-gray-600 mb-8">{content.storesIntro}</p>
 
       {loading && <div className="text-center py-12">Loading...</div>}
-      {error && <div className="text-red-500">{error}</div>}
+      {error && (
+        <div className="xp-scan-status xp-scan-status-warn" style={{ maxWidth: '460px', margin: '0 auto 24px' }}>
+          <p><strong>Couldn't load stores.</strong></p>
+          <p className="xp-scan-status-sub">{error}</p>
+          <button type="button" className="xp-scan-retry-btn" onClick={refetch}>Retry</button>
+        </div>
+      )}
 
       {!loading && !error && total > 0 && (
         <>

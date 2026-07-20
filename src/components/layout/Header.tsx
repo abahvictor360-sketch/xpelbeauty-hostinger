@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ScanBarcode } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { api } from '@/lib/api';
 import type { Product } from '@/types';
@@ -202,7 +203,13 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="header-actions" />
+          <div className="header-actions">
+            {content.barcodeScannerEnabled !== false && (
+              <Link to="/scan" className="header-scan-btn" aria-label="Scan a product barcode" title="Scan a barcode">
+                <ScanBarcode size={20} strokeWidth={1.75} />
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 
@@ -342,6 +349,13 @@ export default function Header() {
         <nav className="mobile-nav">
           <ul>
             <li className="mob-search-item"><HeaderSearch onNavigate={close} /></li>
+            {content.barcodeScannerEnabled !== false && (
+              <li>
+                <Link to="/scan" className="mob-scan-link" onClick={close}>
+                  <ScanBarcode size={16} strokeWidth={2} /> Scan a barcode
+                </Link>
+              </li>
+            )}
             <li><Link to="/" className={location.pathname === '/' ? 'active' : ''} onClick={close}>home</Link></li>
 
             {/* Product — expandable accordion */}

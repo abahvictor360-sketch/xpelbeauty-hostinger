@@ -49,6 +49,7 @@ import Stores from './pages/Stores';
 import Admin from './pages/Admin';
 import Collection from './pages/Collection';
 import Privacy from './pages/Privacy';
+import Scan from './pages/Scan';
 import NotFound from './pages/NotFound';
 
 function Layout() {
@@ -81,6 +82,7 @@ function Layout() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/stores" element={<Stores />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/scan" element={<Scan />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

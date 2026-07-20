@@ -3,12 +3,13 @@ require_once __DIR__ . '/config.php';
 xpel_cors();
 header('Content-Type: application/json; charset=utf-8');
 
-$db     = xpel_db();
-$method = $_SERVER['REQUEST_METHOD'];
-$id     = isset($_GET['id'])   ? (int)$_GET['id']   : null;
-$cat    = $_GET['category']   ?? null;
-$admin  = isset($_GET['admin']);
-$bulk   = isset($_GET['bulk']);
+$db      = xpel_db();
+$method  = $_SERVER['REQUEST_METHOD'];
+$id      = isset($_GET['id'])   ? (int)$_GET['id']   : null;
+$cat     = $_GET['category']   ?? null;
+$barcode = $_GET['barcode']    ?? null;
+$admin   = isset($_GET['admin']);
+$bulk    = isset($_GET['bulk']);
 
 if ($method === 'GET') {
     if ($id) {
@@ -16,6 +17,16 @@ if ($method === 'GET') {
         $stmt->execute([$id]);
         $row = $stmt->fetch();
         if (!$row) xpel_json(['error' => 'Not found'], 404);
+        xpel_json($row);
+    }
+
+    if ($barcode !== null) {
+        $barcode = trim($barcode);
+        if ($barcode === '') xpel_json(['error' => 'barcode required'], 400);
+        $stmt = $db->prepare('SELECT * FROM products WHERE sku = ? LIMIT 1');
+        $stmt->execute([$barcode]);
+        $row = $stmt->fetch();
+        if (!$row) xpel_json(['error' => 'No product found for this barcode'], 404);
         xpel_json($row);
     }
 
@@ -33,7 +44,7 @@ if ($method === 'GET') {
 if ($method === 'POST') {
     xpel_require_token();
 
-    $allowed = ['name','brand','category','price','stock','image','description','size','key_benefits','how_to_use'];
+    $allowed = ['name','brand','category','price','stock','sku','image','description','size','key_benefits','how_to_use'];
 
     if ($bulk) {
         $rows = xpel_body();
@@ -71,7 +82,7 @@ if ($method === 'PUT') {
     $id   = (int)($body['id'] ?? 0);
     if (!$id) xpel_json(['error' => 'id required'], 400);
 
-    $allowed = ['name','brand','category','price','stock','image','description','size','key_benefits','how_to_use'];
+    $allowed = ['name','brand','category','price','stock','sku','image','description','size','key_benefits','how_to_use'];
     $fields  = array_intersect_key($body, array_flip($allowed));
     if (empty($fields)) xpel_json(['error' => 'Nothing to update'], 400);
 

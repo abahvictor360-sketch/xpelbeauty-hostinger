@@ -197,6 +197,18 @@
   grid-column: 3;
   justify-self: end;
 }
+.header-scan-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--dark);
+  transition: background .18s ease, color .18s ease;
+}
+.header-scan-btn:hover { background: #f5f0ea; color: var(--gold-raw); }
+.header-scan-btn:focus-visible { outline: 2px solid var(--gold-raw); outline-offset: 2px; }
 
 /* Desktop nav bar */
 .desktop-nav {
@@ -593,6 +605,7 @@
   .mobile-nav li:last-child a { border-bottom: none; }
   .mobile-nav li a:hover,
   .mobile-nav li a.active { color: var(--gold-raw); background: #fdf9f5; }
+  .mob-scan-link { display: flex !important; align-items: center; gap: 10px; color: var(--gold-raw) !important; }
 
   /* ── Mobile product accordion ── */
   .mob-has-sub { list-style: none; border-bottom: 1px solid var(--border); }

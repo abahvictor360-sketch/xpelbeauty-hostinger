@@ -7,14 +7,33 @@ async function apiFetch(path: string, options: RequestInit = {}) {
     ...(options.method && options.method !== 'GET' ? { 'X-Admin-Token': TOKEN } : {}),
   };
 
-  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+  let res: Response;
+  try {
+    res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+  } catch {
+    // fetch() itself threw — network unreachable, CORS block, DNS failure, offline, etc.
+    throw new Error(`Could not reach the server (${API_BASE}${path}). Check your connection and try again.`);
+  }
 
   if (!res.ok) {
-    let msg = `HTTP ${res.status}`;
-    try { msg = (await res.json()).error ?? msg; } catch { /* ignore */ }
+    let msg = `Server error (HTTP ${res.status}) from ${path}`;
+    try {
+      const body = await res.clone().json();
+      if (body?.error) msg = body.error;
+    } catch {
+      try {
+        const text = (await res.text()).trim();
+        if (text) msg = `HTTP ${res.status}: ${text.slice(0, 160)}`;
+      } catch { /* keep default msg */ }
+    }
     throw new Error(msg);
   }
-  return res.json();
+
+  try {
+    return await res.json();
+  } catch {
+    throw new Error(`Received an invalid response from ${path}.`);
+  }
 }
 
 export const api = {
@@ -23,6 +42,7 @@ export const api = {
       apiFetch(category ? `/products.php?category=${encodeURIComponent(category)}` : '/products.php'),
     getAllAdmin:  ()                   => apiFetch('/products.php?admin=1'),
     getById:     (id: number)         => apiFetch(`/products.php?id=${id}`),
+    getByBarcode:(code: string)       => apiFetch(`/products.php?barcode=${encodeURIComponent(code)}`),
     create:      (data: object)       => apiFetch('/products.php',        { method: 'POST', body: JSON.stringify(data) }),
     update:      (id: number, data: object) =>
       apiFetch('/products.php', { method: 'PUT',  body: JSON.stringify({ id, ...data }) }),
