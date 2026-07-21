@@ -13,7 +13,9 @@
  *   define('API_TOKEN', 'some-long-random-secret');
  *   define('ALLOWED_ORIGIN', 'https://yourdomain.com');
  *
- * This file then loads that, falling back to local dev values.
+ * This file then loads that, falling back to local dev values for the DB
+ * connection. API_TOKEN has NO fallback — if it isn't set here, every
+ * write/delete request is rejected rather than silently allowed through.
  */
 
 // Load config — checks public_html root first, then one level above as fallback.
@@ -31,8 +33,12 @@ defined('DB_HOST')       || define('DB_HOST',       'localhost');
 defined('DB_NAME')       || define('DB_NAME',       'xpelbeauty');
 defined('DB_USER')       || define('DB_USER',       'root');
 defined('DB_PASS')       || define('DB_PASS',       '');
-defined('API_TOKEN')     || define('API_TOKEN',     'dev-token-change-me');
 defined('ALLOWED_ORIGIN')|| define('ALLOWED_ORIGIN', '*');
+
+// API_TOKEN has NO fallback default on purpose. It is the only thing gating
+// every write/delete endpoint, so if xpel-config.php fails to load in
+// production, every write request must be rejected (fail closed) — never
+// silently accept a fixed, publicly-known placeholder value instead.
 
 // ── CORS ─────────────────────────────────────────────────────────────────────
 function xpel_cors(): void {
@@ -60,7 +66,10 @@ function xpel_db(): PDO {
 // ── Auth helper ───────────────────────────────────────────────────────────────
 function xpel_require_token(): void {
     $sent = $_SERVER['HTTP_X_ADMIN_TOKEN'] ?? '';
-    if (!hash_equals(API_TOKEN, $sent)) {
+    // Fail closed: if API_TOKEN was never defined (xpel-config.php missing or
+    // failed to load), reject every write instead of falling through to a
+    // known/guessable value. Short-circuits before touching the constant.
+    if (!defined('API_TOKEN') || !is_string(API_TOKEN) || API_TOKEN === '' || !hash_equals(API_TOKEN, $sent)) {
         http_response_code(401);
         echo json_encode(['error' => 'Unauthorized']);
         exit;
