@@ -21,21 +21,26 @@ if ($method === 'POST') {
         xpel_json(['id' => 0], 201);
     }
 
-    // ── Validate ─────────────────────────────────────────────────────────
-    $name    = trim($body['name']    ?? '');
-    $email   = trim($body['email']   ?? '');
-    $subject = trim($body['subject'] ?? '');
-    $message = trim($body['message'] ?? '');
+    // ── Sanitize first: strip tags/control chars before we even look at length ──
+    $strip = static fn(string $s): string => trim(preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', '', strip_tags($s)));
+    $name    = $strip($body['name']    ?? '');
+    $email   = mb_strtolower(trim($body['email'] ?? ''));
+    $subject = $strip($body['subject'] ?? '');
+    $message = $strip($body['message'] ?? '');
 
+    // ── Validate ─────────────────────────────────────────────────────────
     $errors = [];
-    if (strlen($name) < 2 || !preg_match('/[a-zA-Z]/', $name)) {
-        $errors[] = 'name: enter a valid name (at least 2 characters with letters)';
+    if (mb_strlen($name) < 2 || mb_strlen($name) > 100 || !preg_match('/^[\p{L}\s\-\'\.]+$/u', $name)) {
+        $errors[] = 'name: 2-100 characters, letters/spaces/hyphens/apostrophes/dots only';
     }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254) {
         $errors[] = 'email: enter a valid email address';
     }
-    if ($message !== '' && strlen($message) < 10) {
-        $errors[] = 'message: too short — please provide more detail';
+    if (mb_strlen($subject) > 200) {
+        $errors[] = 'subject: must be under 200 characters';
+    }
+    if ($message !== '' && (mb_strlen($message) < 10 || mb_strlen($message) > 2000)) {
+        $errors[] = 'message: 10-2000 characters';
     }
     if (!empty($errors)) {
         xpel_json(['error' => implode('; ', $errors)], 422);

@@ -66,12 +66,16 @@ export default function Product() {
     const name    = enquiryForm.name.trim();
     const email   = enquiryForm.email.trim();
     const message = enquiryForm.message.trim();
-    if (!name || name.length < 2 || !/[a-zA-Z]/.test(name))
+    if (!name || name.length < 2)
       errs.name = 'Please enter your full name (at least 2 characters).';
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))
+    else if (name.length > 100 || !/^[\p{L}\s\-'.]+$/u.test(name))
+      errs.name = 'Name can only contain letters, spaces, hyphens, apostrophes and dots.';
+    if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))
       errs.email = 'Please enter a valid email address.';
     if (!message || message.length < 20)
       errs.message = `Message too short — please provide more detail (${message.length}/20 characters).`;
+    else if (message.length > 2000)
+      errs.message = 'Message must be under 2000 characters.';
     if (Object.keys(errs).length > 0) { setEnquiryErrors(errs); return; }
     setEnquiryErrors({});
     setEnquiryStatus('sending');

@@ -6,21 +6,34 @@ import PromoBanner from '@/components/PromoBanner';
 import SEO from '@/components/SEO';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const NAME_RE  = /^[\p{L}\s\-'.]+$/u;
 
 function validate(d: { name: string; email: string; subject: string; message: string }) {
   const e: Record<string, string> = {};
-  if (!d.name.trim() || d.name.trim().length < 2)
+  const name = d.name.trim(), email = d.email.trim(), subject = d.subject.trim(), message = d.message.trim();
+
+  if (!name || name.length < 2)
     e.name = 'Please enter your full name (at least 2 characters).';
-  else if (!/[a-zA-Z]/.test(d.name))
-    e.name = 'Name must contain letters.';
-  if (!d.email.trim())
+  else if (name.length > 100)
+    e.name = 'Name must be under 100 characters.';
+  else if (!NAME_RE.test(name))
+    e.name = 'Name can only contain letters, spaces, hyphens, apostrophes and dots.';
+
+  if (!email)
     e.email = 'Email address is required.';
-  else if (!EMAIL_RE.test(d.email.trim()))
+  else if (email.length > 254 || !EMAIL_RE.test(email))
     e.email = 'Please enter a valid email address (e.g. you@example.com).';
-  if (!d.subject.trim() || d.subject.trim().length < 3)
+
+  if (!subject || subject.length < 3)
     e.subject = 'Please enter a subject (at least 3 characters).';
-  if (!d.message.trim() || d.message.trim().length < 20)
-    e.message = `Message is too short — please provide more detail (${d.message.trim().length}/20 characters).`;
+  else if (subject.length > 200)
+    e.subject = 'Subject must be under 200 characters.';
+
+  if (!message || message.length < 20)
+    e.message = `Message is too short — please provide more detail (${message.length}/20 characters).`;
+  else if (message.length > 2000)
+    e.message = 'Message must be under 2000 characters.';
+
   return e;
 }
 
