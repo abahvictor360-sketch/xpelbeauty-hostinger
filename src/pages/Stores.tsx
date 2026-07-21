@@ -1,10 +1,76 @@
 import { useMemo, useState } from 'react';
-import { MapPin } from 'lucide-react';
+import { Navigation } from 'lucide-react';
 import { useStores } from '@/hooks/useStores';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import PromoBanner from '@/components/PromoBanner';
 import SEO from '@/components/SEO';
 import type { Store } from '@/types';
+
+// Cycled pastel backgrounds for initials avatars — matches the redesign's stage palette.
+const AVATAR_BG = ['var(--stage-mint)', 'var(--stage-blush)', 'var(--stage-sky)', 'var(--stage-sand)'];
+
+function avatarColor(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) >>> 0;
+  return AVATAR_BG[hash % AVATAR_BG.length];
+}
+
+function directionsUrl(store: Store) {
+  const parts = [store.name, store.address, store.city, store.state, 'Nigeria'].filter(Boolean);
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(parts.join(', '))}`;
+}
+
+function StoreCard({ store }: { store: Store }) {
+  const [logoFailed, setLogoFailed] = useState(false);
+  const showLogo = store.logo && !logoFailed;
+  const initial = store.name.trim().charAt(0).toUpperCase() || '?';
+
+  const openDirections = () => window.open(directionsUrl(store), '_blank', 'noopener,noreferrer');
+
+  return (
+    <div
+      className="xp-store-card"
+      role="button"
+      tabIndex={0}
+      onClick={openDirections}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDirections(); } }}
+      aria-label={`Get directions to ${store.name}`}
+    >
+      {showLogo ? (
+        <img
+          src={store.logo}
+          alt=""
+          className="xp-store-logo-img"
+          onError={() => setLogoFailed(true)}
+        />
+      ) : (
+        <span className="xp-store-logo-initial" style={{ background: avatarColor(store.name) }} aria-hidden="true">
+          {initial}
+        </span>
+      )}
+      <div className="xp-store-body">
+        <h3 className="xp-store-name">{store.name}</h3>
+        {(store.city || store.address) && (
+          <p className="xp-store-loc">
+            {[store.address, store.city].filter(Boolean).join(', ')}
+          </p>
+        )}
+        {store.phone && (
+          <a
+            href={`tel:${store.phone}`}
+            className="xp-store-tel"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {store.phone}
+          </a>
+        )}
+        <span className="xp-store-directions">
+          <Navigation size={12} strokeWidth={2.5} /> Get directions
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function Stores() {
   const { stores, loading, error, refetch } = useStores();
@@ -116,24 +182,7 @@ export default function Stores() {
               <div className="xp-state-rule" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {list.map((store) => (
-                  <div key={store.id} className="xp-store-card">
-                    <span className="xp-store-pin" aria-hidden="true">
-                      <MapPin size={16} strokeWidth={2} />
-                    </span>
-                    <div>
-                      <h3 className="xp-store-name">{store.name}</h3>
-                      {(store.city || store.address) && (
-                        <p className="xp-store-loc">
-                          {[store.address, store.city].filter(Boolean).join(', ')}
-                        </p>
-                      )}
-                      {store.phone && (
-                        <a href={`tel:${store.phone}`} className="xp-store-tel">{store.phone}</a>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                {list.map((store) => <StoreCard key={store.id} store={store} />)}
               </div>
             </section>
           ))}
