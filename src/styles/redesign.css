@@ -707,6 +707,59 @@
 }
 
 /* ─────────────────────────────────────────────
+   6 · HOME — extends the signature motif (pastel
+   stage + gold orbit ring) from the product page
+   into every product grid (Home, Shop, Collection
+   all share these classes)
+   ───────────────────────────────────────────── */
+
+.iva-product-circle::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--gold-raw) 45%, transparent);
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.iva-product-circle::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--gold-raw) 25%, transparent);
+  transform: scale(1.08);
+  opacity: 0;
+  transition: opacity .5s ease .05s;
+}
+.iva-product:hover .iva-product-circle::after,
+.iva-product:hover .iva-product-circle::before {
+  opacity: 1;
+}
+
+/* Category cards — nav-matched label font + a gold thread on hover */
+.cat-card-v2-label,
+.about-cat-tagline {
+  font-family: 'Urbanist', 'Jost', sans-serif;
+}
+.cat-card-v2-name {
+  position: relative;
+  display: inline-block;
+}
+.cat-card-v2-name::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  height: 2px; width: 0;
+  background: var(--gold-raw);
+  transition: width .3s ease;
+}
+.cat-card-v2:hover .cat-card-v2-name::after { width: 100%; }
+
+/* Section eyebrow labels — same UI-label role as nav, same face */
+.section-label { font-family: 'Urbanist', 'Jost', sans-serif; }
+
+/* ─────────────────────────────────────────────
    Quality floor
    ───────────────────────────────────────────── */
 
