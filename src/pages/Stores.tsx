@@ -77,6 +77,29 @@ export default function Stores() {
   const content = useSiteContent();
   const [search, setSearch] = useState('');
   const [stateFilter, setStateFilter] = useState<string | null>(null);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // Store-name suggestions for the search box, ranked name-starts-with first
+  const suggestions = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return [];
+    const starts: Store[] = [];
+    const contains: Store[] = [];
+    const seen = new Set<string>();
+    for (const s of stores ?? []) {
+      const name = s.name.toLowerCase();
+      const key = s.name.toLowerCase();
+      if (seen.has(key) || !name.includes(q)) continue;
+      seen.add(key);
+      (name.startsWith(q) ? starts : contains).push(s);
+    }
+    return [...starts, ...contains].slice(0, 8);
+  }, [stores, search]);
+
+  const pickSuggestion = (name: string) => {
+    setSearch(name);
+    setShowSuggestions(false);
+  };
 
   // Group stores by state, ordered by store count (Lagos first), "Others" last
   const grouped = useMemo(() => {
@@ -145,13 +168,42 @@ export default function Stores() {
         <>
           {/* Sticky search + state filter */}
           <div className="xp-stores-toolbar">
-            <input
-              type="text"
-              className="xp-stores-search"
-              placeholder="Search stores by name, city or state…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <div className="xp-stores-search-wrap">
+              <input
+                type="text"
+                className="xp-stores-search"
+                placeholder="Search stores by name, city or state…"
+                value={search}
+                onChange={(e) => { setSearch(e.target.value); setShowSuggestions(true); }}
+                onFocus={() => setShowSuggestions(true)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
+                role="combobox"
+                aria-expanded={showSuggestions && suggestions.length > 0}
+                aria-autocomplete="list"
+                autoComplete="off"
+              />
+              {showSuggestions && suggestions.length > 0 && (
+                <ul className="xp-stores-suggestions" role="listbox">
+                  {suggestions.map((s) => (
+                    <li key={s.id} role="option" aria-selected={false}>
+                      <button
+                        type="button"
+                        className="xp-stores-suggestion"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => pickSuggestion(s.name)}
+                      >
+                        <span className="xp-stores-suggestion-name">{s.name}</span>
+                        {(s.city || s.state) && (
+                          <span className="xp-stores-suggestion-loc">
+                            {[s.city, s.state].filter(Boolean).join(', ')}
+                          </span>
+                        )}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <div className="xp-state-pills">
               <button
                 className={`xp-state-pill ${stateFilter === null ? 'active' : ''}`}
