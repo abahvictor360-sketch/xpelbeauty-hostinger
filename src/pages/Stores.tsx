@@ -157,15 +157,15 @@ export default function Stores() {
                 className={`xp-state-pill ${stateFilter === null ? 'active' : ''}`}
                 onClick={() => setStateFilter(null)}
               >
-                All ({total})
+                All
               </button>
-              {allStates.map(([st, n]) => (
+              {allStates.map(([st]) => (
                 <button
                   key={st}
                   className={`xp-state-pill ${stateFilter === st ? 'active' : ''}`}
                   onClick={() => setStateFilter(stateFilter === st ? null : st)}
                 >
-                  {st} ({n})
+                  {st}
                 </button>
               ))}
             </div>
