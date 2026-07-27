@@ -21,7 +21,7 @@ function resolveImg(src?: string) {
 // match to a real scanned barcode, so only treat it as a barcode when it's
 // a run of 8-14 digits.
 const GTIN_KEY_BY_LENGTH: Record<number, string> = { 8: 'gtin8', 12: 'gtin12', 13: 'gtin13', 14: 'gtin14' };
-function barcodeInfo(sku?: string) {
+function barcodeInfo(sku?: string | null) {
   const code = (sku ?? '').trim();
   if (!/^\d{8,14}$/.test(code)) return null;
   return { code, gtinKey: GTIN_KEY_BY_LENGTH[code.length] ?? 'gtin' };
