@@ -240,7 +240,7 @@ export default function Header() {
                   <div className="mega-inner">
                     {/* Column 1 — By Category */}
                     <div className="mega-col">
-                      <p className="mega-col-title">Shop by Range</p>
+                      <p className="mega-col-title">Shop by Categories</p>
                       <ul>
                         <li><Link to="/shop" onClick={() => setMegaOpen(false)}>All Products</Link></li>
                         {(content.megaMenu?.categories ?? []).map(c => (
