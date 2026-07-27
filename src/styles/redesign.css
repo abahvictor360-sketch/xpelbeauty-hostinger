@@ -104,6 +104,8 @@
 
 .product-assurances { gap: 10px; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border); }
 .product-assurances li { display: flex; align-items: center; gap: 8px; color: var(--ink-soft); }
+.product-barcode { margin-top: 10px; font-size: 12px; color: #999; }
+.product-barcode span { font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; letter-spacing: .04em; color: #666; }
 
 /* tabs — quiet rail, gold underline */
 .product-tabs { border-top: 1px solid var(--border); }

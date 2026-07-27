@@ -16,6 +16,17 @@ function resolveImg(src?: string) {
   return `/${src}`;
 }
 
+// GS1 barcode number (UPC-A/EAN-8/EAN-13/GTIN-14) — the sku field also
+// carries short internal codes like "VC-SER-30" for products we couldn't
+// match to a real scanned barcode, so only treat it as a barcode when it's
+// a run of 8-14 digits.
+const GTIN_KEY_BY_LENGTH: Record<number, string> = { 8: 'gtin8', 12: 'gtin12', 13: 'gtin13', 14: 'gtin14' };
+function barcodeInfo(sku?: string) {
+  const code = (sku ?? '').trim();
+  if (!/^\d{8,14}$/.test(code)) return null;
+  return { code, gtinKey: GTIN_KEY_BY_LENGTH[code.length] ?? 'gtin' };
+}
+
 const FALLBACK_BENEFITS = [
   'Nature-infused, botanically-derived formula',
   'Gentle enough for everyday use',
@@ -59,6 +70,7 @@ export default function Product() {
   const waEnabled = content.whatsappEnabled !== false;
   const waNumber = formatWaNumber(content.whatsappNumber || content.footerPhone1 || '2348034883603');
   const waText = encodeURIComponent(`Hi, I'd like to enquire about *${product.name}* by ${product.brand}.`);
+  const barcode = barcodeInfo(product.sku);
 
   const handleEnquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,6 +127,8 @@ export default function Product() {
           description: product.description || `${product.name} by ${product.brand}`,
           brand: { '@type': 'Brand', name: product.brand },
           category: product.category,
+          ...(product.sku ? { sku: product.sku } : {}),
+          ...(barcode ? { [barcode.gtinKey]: barcode.code } : {}),
           offers: {
             '@type': 'Offer',
             priceCurrency: 'NGN',
@@ -192,6 +206,8 @@ export default function Product() {
               <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Available at stockists nationwide</li>
               <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Nature-infused, quality-tested formula</li>
             </ul>
+
+            {barcode && <p className="product-barcode">Barcode: <span>{barcode.code}</span></p>}
           </div>
         </div>
 
