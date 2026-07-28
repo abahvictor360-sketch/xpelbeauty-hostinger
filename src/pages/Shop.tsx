@@ -36,7 +36,7 @@ export default function Shop() {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('featured');
   const [currentPage, setCurrentPage] = useState(1);
-  const ITEMS_PER_PAGE = 12;
+  const ITEMS_PER_PAGE = 24;
 
   // Read ?cat= and ?brand= from URL on load / change
   useEffect(() => {
