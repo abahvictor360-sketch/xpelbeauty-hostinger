@@ -23,8 +23,8 @@ export default function Home() {
   const chosenIds = content.bestSellerIds ?? [];
   const withImages = products.filter((p) => p.image && p.image.trim() !== '' && !p.image.includes('placeholder'));
   const realBestSellers = chosenIds.length > 0
-    ? products.filter(p => chosenIds.includes(p.id)).slice(0, 6)
-    : (withImages.length >= 6 ? withImages : products).slice(0, 6);
+    ? products.filter(p => chosenIds.includes(p.id)).slice(0, 12)
+    : (withImages.length >= 12 ? withImages : products).slice(0, 12);
 
   const heroSlides = content.heroSlides ?? [];
 
