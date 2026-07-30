@@ -32,7 +32,7 @@ export default function Home() {
   const categories = [
     { href: '/shop?cat=body-beauty', label: 'Hydration & Radiance', sub: 'Aloe · Watermelon · Vitamin C' },
     { href: '/shop?cat=hair-care', label: 'Nourish & Repair', sub: 'Argan · Black Castor · Avocado' },
-    { href: '/shop?cat=travel-health', label: 'Purify & Protect', sub: 'Tea Tree · Charcoal · Rosemary' },
+    { href: '/shop?cat=body-beauty', label: 'Purify & Protect', sub: 'Tea Tree · Charcoal · Rosemary' },
     { href: '/shop?cat=home', label: 'Fresh & Clean', sub: 'Everyday home essentials' },
     { href: '/shop?cat=gifting', label: 'Gift & Glow', sub: 'Curated sets & treats' },
   ].map((c, i) => ({ ...c, bg: content.catImages[i] }));

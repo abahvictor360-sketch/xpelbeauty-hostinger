@@ -9,12 +9,11 @@ import SEO from '@/components/SEO';
 const CAT_SLUGS: Record<string, string> = {
   'body-beauty': 'Body & Beauty',
   'hair-care': 'Hair Care',
-  'travel-health': 'Travel & Health',
   home: 'Home',
   gifting: 'Gifting',
 };
 
-const CATEGORIES = ['Hair Care', 'Body & Beauty', 'Home', 'Travel & Health', 'Gifting'];
+const CATEGORIES = ['Hair Care', 'Body & Beauty', 'Home', 'Gifting'];
 
 // Soft pastel circles cycled across the grid (IVA Cosmetic style)
 const CIRCLES = ['#d8efe2', '#f7dfe6', '#f6e6cf', '#e3e9f7', '#f3e2f0', '#e8f2d8'];

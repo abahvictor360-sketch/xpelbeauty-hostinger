@@ -58,7 +58,7 @@ function recordFailedAttempt(): number {
 }
 
 // ── Fixed category list (matches Shop.tsx) ──────────────────────────────────
-const FIXED_CATEGORIES = ['Body & Beauty', 'Gifting', 'Hair Care', 'Home', 'Travel & Health'];
+const FIXED_CATEGORIES = ['Body & Beauty', 'Gifting', 'Hair Care', 'Home'];
 
 // ── ComboSelect — dropdown + inline "Add new" ───────────────────────────────
 function ComboSelect({

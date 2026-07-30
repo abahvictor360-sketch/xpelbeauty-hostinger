@@ -526,7 +526,6 @@ export const DEFAULT_CONTENT: SiteContent = {
       { label: 'Hair Care',       slug: 'hair-care'      },
       { label: 'Body & Beauty',   slug: 'body-beauty'    },
       { label: 'Home',            slug: 'home'           },
-      { label: 'Travel & Health', slug: 'travel-health'  },
       { label: 'Gifting',         slug: 'gifting'        },
     ],
     brandGroups: [

@@ -29,9 +29,6 @@ export default function Footer() {
           <Link to="/shop?cat=hair-care" className="footer-link">
             Hair Care
           </Link>
-          <Link to="/shop?cat=travel-health" className="footer-link">
-            Travel & Health
-          </Link>
           <Link to="/shop?cat=home" className="footer-link">
             Home
           </Link>
