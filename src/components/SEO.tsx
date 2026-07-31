@@ -5,7 +5,7 @@ import type { SEOPage } from '@/hooks/useSiteContent';
 interface SEOProps {
   page: keyof import('@/hooks/useSiteContent').SiteSEO['pages'];
   /** Override any field for dynamic pages (e.g. a specific product) */
-  overrides?: Partial<SEOPage & { fullTitle?: string }>;
+  overrides?: Partial<SEOPage & { fullTitle?: string; canonicalPath?: string }>;
   /** Schema.org structured data for this page (Product, Article, …) */
   jsonLd?: object | object[];
 }
@@ -85,7 +85,10 @@ export default function SEO({ page, overrides, jsonLd }: SEOProps) {
     }
 
     // ── Canonical ────────────────────────────────────────────────
-    setLink('canonical', window.location.origin + window.location.pathname);
+    // Filterable listing pages (e.g. /shop?cat=hair-care) pass canonicalPath
+    // explicitly so each meaningfully-different view gets its own canonical
+    // instead of every filter state collapsing onto the bare page URL.
+    setLink('canonical', window.location.origin + (overrides?.canonicalPath ?? window.location.pathname));
 
     // ── Page structured data (Product, Article, …) ───────────────
     let ld = document.getElementById('seo-jsonld') as HTMLScriptElement | null;
@@ -118,7 +121,7 @@ export default function SEO({ page, overrides, jsonLd }: SEOProps) {
       });
       document.head.appendChild(org);
     }
-  }, [title, desc, keywords, ogImage, ogTitle, ogDesc, robots, seo, jsonLdStr, content.contactEmail, content.contactPhone]);
+  }, [title, desc, keywords, ogImage, ogTitle, ogDesc, robots, seo, jsonLdStr, content.contactEmail, content.contactPhone, overrides?.canonicalPath]);
 
   return null;
 }

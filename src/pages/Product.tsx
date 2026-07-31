@@ -114,29 +114,46 @@ export default function Product() {
       <SEO
         page="shop"
         overrides={{
-          fullTitle: `${product.name} | XpelBeauty NG`,
-          description: product.description || `Discover ${product.name} by ${product.brand} — premium nature-infused beauty.`,
+          fullTitle: `${product.name} | Buy Online in Nigeria — XpelBeauty NG`,
+          description: product.description || `Discover ${product.name} by ${product.brand} — premium nature-infused beauty. Delivered to Lagos, Abuja, Port Harcourt and nationwide Nigeria.`,
           ogImage: product.image || '',
-          keywords: `${product.name}, ${product.brand}, buy beauty products nigeria`,
+          keywords: `${product.name}, ${product.brand}, buy ${product.name.toLowerCase()} nigeria, ${product.brand} lagos, buy beauty products online nigeria, ${(product.category || '').toLowerCase()} products nigeria`,
+          canonicalPath: `/product/${product.id}`,
         }}
-        jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'Product',
-          name: product.name,
-          image: (() => { const img = resolveImg(product.image); return img.startsWith('http') ? img : siteOrigin() + img; })(),
-          description: product.description || `${product.name} by ${product.brand}`,
-          brand: { '@type': 'Brand', name: product.brand },
-          category: product.category,
-          ...(product.sku ? { sku: product.sku } : {}),
-          ...(barcode ? { [barcode.gtinKey]: barcode.code } : {}),
-          offers: {
-            '@type': 'Offer',
-            priceCurrency: 'NGN',
-            price: product.price,
-            availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-            url: siteOrigin() + `/product/${product.id}`,
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: product.name,
+            image: (() => { const img = resolveImg(product.image); return img.startsWith('http') ? img : siteOrigin() + img; })(),
+            description: product.description || `${product.name} by ${product.brand}`,
+            brand: { '@type': 'Brand', name: product.brand },
+            category: product.category,
+            ...(product.sku ? { sku: product.sku } : {}),
+            ...(barcode ? { [barcode.gtinKey]: barcode.code } : {}),
+            offers: {
+              '@type': 'Offer',
+              priceCurrency: 'NGN',
+              price: product.price,
+              availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+              url: siteOrigin() + `/product/${product.id}`,
+            },
           },
-        }}
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: siteOrigin() + '/' },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: product.category,
+                item: siteOrigin() + `/shop?cat=${(product.category || '').toLowerCase().replace(/ & | /g, '-')}`,
+              },
+              { '@type': 'ListItem', position: 3, name: product.name, item: siteOrigin() + `/product/${product.id}` },
+            ],
+          },
+        ]}
       />
       <div className="product-wrap">
         {/* Breadcrumb */}

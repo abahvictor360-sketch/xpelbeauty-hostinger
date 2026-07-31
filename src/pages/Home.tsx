@@ -28,6 +28,29 @@ export default function Home() {
 
   const heroSlides = content.heroSlides ?? [];
 
+  const faqs = [
+    {
+      q: 'Is Xpel Beauty NG available in Lagos, Abuja and Port Harcourt?',
+      a: 'Yes. Xpel Beauty Care products ship nationwide across Nigeria, including Lagos, Abuja, Port Harcourt and every major city, with pickup also available at trusted retail stockists.',
+    },
+    {
+      q: 'What kind of products does Xpel Beauty NG sell?',
+      a: 'Xpel Beauty NG sells nature-infused hair care, skin care, oral care and body care products — including shampoos, conditioners, face washes, serums, body lotions, scrubs, toothpaste and mouthwash.',
+    },
+    {
+      q: 'How do I order Xpel Beauty products online in Nigeria?',
+      a: 'Browse the Shop page, add your chosen products, and complete checkout or enquire via WhatsApp — orders are processed and delivered across Nigeria.',
+    },
+    {
+      q: 'Where can I buy Xpel Beauty Care products in a physical store?',
+      a: 'Xpel Beauty Care is stocked at trusted retail stores across Nigeria. Visit the Stores page to find a stockist near you.',
+    },
+    {
+      q: 'Are Xpel Beauty products nature-infused and gentle on skin and hair?',
+      a: 'Yes. Xpel Beauty formulas are built around natural ingredients like argan oil, tea tree, aloe vera, vitamin C and neem oil, designed to be gentle and effective for everyday use.',
+    },
+  ];
+
   // Nature-infused ranges (inspired by the XPEL collections)
   const categories = [
     { href: '/shop?cat=body-beauty', label: 'Hydration & Radiance', sub: 'Aloe · Watermelon · Vitamin C' },
@@ -90,7 +113,18 @@ export default function Home() {
 
   return (
     <div>
-      <SEO page="home" />
+      <SEO
+        page="home"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        }}
+      />
       {/* ══════════════════════════════════════════════════════════
           HERO CAROUSEL — rich text banners
       ═══════════════════════════════════════════════════════════ */}
@@ -370,6 +404,22 @@ export default function Home() {
               <Link to={f.href} className="feature-link">Discover more →</Link>
             </div>
           </div>
+        ))}
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          FAQ — plain, crawlable Q&A for search and AI answer engines
+      ═══════════════════════════════════════════════════════════ */}
+      <section className="home-faq reveal" style={{ maxWidth: '780px', margin: '0 auto', padding: '60px 24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <span className="section-label">questions</span>
+          <h2 className="section-title section-title-anim">frequently asked questions</h2>
+        </div>
+        {faqs.map((f) => (
+          <details key={f.q} style={{ borderBottom: '1px solid var(--border, #e5e5e5)', padding: '18px 0' }}>
+            <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '16px' }}>{f.q}</summary>
+            <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7', marginTop: '12px' }}>{f.a}</p>
+          </details>
         ))}
       </section>
 

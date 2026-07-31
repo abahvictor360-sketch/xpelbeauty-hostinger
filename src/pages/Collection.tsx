@@ -4,6 +4,7 @@ import { api } from '@/lib/api';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import type { Product } from '@/types';
 import SEO from '@/components/SEO';
+import { siteOrigin } from '@/lib/site';
 
 const FALLBACK_IMG = '/images/product-placeholder.svg';
 const CIRCLES = ['#d8efe2', '#f7dfe6', '#f6e6cf', '#e3e9f7', '#f3e2f0', '#e8f2d8'];
@@ -95,10 +96,33 @@ export default function Collection() {
       <SEO
         page="shop"
         overrides={{
-          fullTitle: `${collection.name} | Xpel Beauty NG`,
-          description: collection.description,
-          keywords: `${collection.name.toLowerCase()}, xpel beauty nigeria, ${collection.subtitle.toLowerCase()}`,
+          fullTitle: `${collection.name} in Nigeria | Xpel Beauty NG`,
+          description: `${collection.description} Shop online with delivery to Lagos, Abuja, Port Harcourt and nationwide Nigeria.`,
+          keywords: `${collection.name.toLowerCase()} nigeria, buy ${collection.name.toLowerCase()} online nigeria, ${collection.name.toLowerCase()} lagos, xpel beauty nigeria, ${collection.subtitle.toLowerCase()}`,
+          canonicalPath: `/collection/${collection.slug}`,
         }}
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: siteOrigin() + '/' },
+              { '@type': 'ListItem', position: 2, name: 'Shop', item: siteOrigin() + '/shop' },
+              { '@type': 'ListItem', position: 3, name: collection.name, item: siteOrigin() + `/collection/${collection.slug}` },
+            ],
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: collection.name,
+            itemListElement: filtered.slice(0, 30).map((p, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              url: siteOrigin() + `/product/${p.id}`,
+              name: p.name,
+            })),
+          },
+        ]}
       />
 
       {/* ── Hero ─────────────────────────────────────────────── */}

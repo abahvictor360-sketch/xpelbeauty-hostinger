@@ -4,6 +4,7 @@ import { useProducts } from '@/hooks/useProducts';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import PromoBanner from '@/components/PromoBanner';
 import SEO from '@/components/SEO';
+import { siteOrigin } from '@/lib/site';
 
 // Map URL slug -> category label
 const CAT_SLUGS: Record<string, string> = {
@@ -14,6 +15,30 @@ const CAT_SLUGS: Record<string, string> = {
 };
 
 const CATEGORIES = ['Hair Care', 'Body & Beauty', 'Home', 'Gifting'];
+
+// Location-targeted SEO copy per category (Nigeria + major cities)
+const CATEGORY_SEO: Record<string, { title: string; description: string; keywords: string }> = {
+  'Hair Care': {
+    title: 'Hair Care Products in Nigeria — Shampoo, Conditioner & Treatments',
+    description: 'Shop premium hair care products in Nigeria — shampoos, conditioners, hair oils and treatments for every hair type. Nature-infused formulas delivered to Lagos, Abuja, Port Harcourt and nationwide.',
+    keywords: 'hair care products nigeria, buy shampoo online nigeria, hair conditioner lagos, hair treatment nigeria, best hair care brand nigeria, natural hair products nigeria',
+  },
+  'Body & Beauty': {
+    title: 'Skin Care & Body Care Products in Nigeria',
+    description: 'Shop the best skincare and body care products in Nigeria — face washes, body lotions, scrubs, oral care and more. Trusted by customers in Lagos, Abuja, Port Harcourt and beyond.',
+    keywords: 'best skincare brand lagos, skin care products nigeria, body care products abuja, buy skincare online nigeria, face wash nigeria, body lotion nigeria',
+  },
+  Home: {
+    title: 'Home & Household Beauty Essentials in Nigeria',
+    description: 'Shop household beauty essentials from Xpel Beauty NG, delivered across Lagos, Abuja, Port Harcourt and nationwide Nigeria.',
+    keywords: 'beauty essentials nigeria, household beauty products nigeria, xpel beauty home',
+  },
+  Gifting: {
+    title: 'Beauty Gift Sets in Nigeria',
+    description: 'Shop Xpel Beauty gift sets in Nigeria — the perfect gift for birthdays, holidays and special occasions. Delivered to Lagos, Abuja, Port Harcourt and nationwide.',
+    keywords: 'beauty gift sets nigeria, gift ideas lagos, xpel beauty gifting, beauty gift box nigeria',
+  },
+};
 
 // Soft pastel circles cycled across the grid (IVA Cosmetic style)
 const CIRCLES = ['#d8efe2', '#f7dfe6', '#f6e6cf', '#e3e9f7', '#f3e2f0', '#e8f2d8'];
@@ -91,9 +116,37 @@ export default function Shop() {
     setCurrentPage(1);
   }, [category, brand, search, sort]);
 
+  const catSlug = category ? Object.keys(CAT_SLUGS).find((k) => CAT_SLUGS[k] === category) : null;
+  const catSeo = category ? CATEGORY_SEO[category] : null;
+
   return (
     <div className="shop-page">
-      <SEO page="shop" />
+      <SEO
+        page="shop"
+        overrides={
+          catSeo
+            ? {
+                fullTitle: `${catSeo.title} | Xpel Beauty NG`,
+                description: catSeo.description,
+                keywords: catSeo.keywords,
+                canonicalPath: catSlug ? `/shop?cat=${catSlug}` : '/shop',
+              }
+            : { canonicalPath: '/shop' }
+        }
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: siteOrigin() + '/' },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: category || 'Shop',
+              item: siteOrigin() + (catSlug ? `/shop?cat=${catSlug}` : '/shop'),
+            },
+          ],
+        }}
+      />
       {/* Breadcrumb */}
       <nav className="shop-crumb">
         <Link to="/">Home</Link> <span>›</span> <span className="current">Product</span>

@@ -10,6 +10,7 @@ import Stores from '../pages/Stores';
 import Blog from '../pages/Blog';
 import Privacy from '../pages/Privacy';
 import Product from '../pages/Product';
+import Collection from '../pages/Collection';
 import BlogPost from '../pages/BlogPost';
 import { DEFAULT_CONTENT } from '../hooks/useSiteContent';
 
@@ -66,6 +67,25 @@ async function getProducts(): Promise<Array<{ param: string; head: RouteHead }>>
   }));
 }
 
+async function getCollections(): Promise<Array<{ param: string; head: RouteHead }>> {
+  if (!API) return [];
+  const res = await fetch(`${API}/site_content.php`, {
+    headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(20000),
+  });
+  if (!res.ok) throw new Error(`site_content API ${res.status}`);
+  const body: { data?: { collections?: Array<{ slug: string; name: string; description: string; subtitle: string }> } } = await res.json();
+  const collections = body?.data?.collections ?? [];
+  return collections.map((c) => ({
+    param: c.slug,
+    head: {
+      title: `${c.name} in Nigeria | Xpel Beauty NG`,
+      description: `${c.description} Shop online with delivery to Lagos, Abuja, Port Harcourt and nationwide Nigeria.`,
+      keywords: `${c.name.toLowerCase()} nigeria, buy ${c.name.toLowerCase()} online nigeria, ${c.name.toLowerCase()} lagos, xpel beauty nigeria, ${(c.subtitle || '').toLowerCase()}`,
+    },
+  }));
+}
+
 async function getBlogPosts(): Promise<Array<{ param: string; head: RouteHead }>> {
   if (!API) return [];
   const res = await fetch(`${API}/blog.php`, {
@@ -99,6 +119,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
       description: 'How Xpel Beauty NG collects, uses and protects your personal information.',
     },
   },
-  { path: '/product/:id',  Component: Product,  head: pageHead('shop'), getData: getProducts },
-  { path: '/blog/:slug',   Component: BlogPost, head: pageHead('blog'), getData: getBlogPosts },
+  { path: '/product/:id',      Component: Product,    head: pageHead('shop'), getData: getProducts },
+  { path: '/collection/:slug', Component: Collection, head: pageHead('shop'), getData: getCollections },
+  { path: '/blog/:slug',       Component: BlogPost,   head: pageHead('blog'), getData: getBlogPosts },
 ];
