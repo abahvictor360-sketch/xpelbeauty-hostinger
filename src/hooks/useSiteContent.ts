@@ -571,6 +571,8 @@ export const DEFAULT_CONTENT: SiteContent = {
           { name: 'Conditioner',            href: '/collection/conditioner'  },
           { name: 'Toothpaste',             href: '/collection/toothpaste'   },
           { name: 'Mouthwash',              href: '/collection/mouthwash'    },
+          { name: 'Makeup Essentials',      href: '/collection/makeup-essentials' },
+          { name: 'Men Grooming Products',  href: '/collection/men-grooming' },
         ],
       },
     ],
@@ -689,6 +691,14 @@ export const DEFAULT_CONTENT: SiteContent = {
       description: 'Every mouthwash across our oral care range — freshens breath and helps protect against plaque.',
       heroImage: '/banner/Product-Oral-Care.webp',  overlayColor: 'rgba(0, 80, 140, 0.82)', accentColor: '#0A6EBD',
       filterType: 'name', filterValue: 'mouthwash' },
+    { slug: 'makeup-essentials', name: 'Makeup Essentials', subtitle: 'Prep, Set & Perfect',
+      description: 'Everything you need to prep, set and perfect your makeup — lip butters, setting sprays, makeup removers and glow serums from Hot Rose.',
+      heroImage: '/banner/Product-Face-Care.webp',  overlayColor: 'rgba(180, 45, 90, 0.82)', accentColor: '#B42D5A',
+      filterType: 'brand', filterValue: 'Hot Rose' },
+    { slug: 'men-grooming',     name: 'Men Grooming Products', subtitle: 'Built For The Everyday Grind',
+      description: '48-hour protection built for men — deodorants and grooming essentials from the Nulab Men Protect range.',
+      heroImage: '/banner/Product-Body-Care.webp',  overlayColor: 'rgba(20, 42, 59, 0.85)', accentColor: '#1B2A3B',
+      filterType: 'name', filterValue: 'Men Protect' },
   ] as CollectionConfig[],
 };
 

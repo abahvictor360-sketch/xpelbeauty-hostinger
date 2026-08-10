@@ -564,25 +564,7 @@
 }
 .site-nav .mega-feature-btn:hover { transform: translateY(-1px); opacity: .92; }
 
-/* desktop nav links — gold underline slide */
-.site-nav .nav-links > li > a {
-  position: relative;
-}
-.site-nav .nav-links > li > a::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 2px;
-  height: 1.5px;
-  width: 0;
-  background: var(--gold-raw);
-  transition: width .22s ease, left .22s ease;
-}
-.site-nav .nav-links > li > a:hover::after,
-.site-nav .nav-links > li > a.active::after {
-  width: 100%;
-  left: 0;
-}
+/* desktop nav links — color change only, no underline (explicit user preference) */
 
 /* ─────────────────────────────────────────────
    6 · SCAN PAGE
