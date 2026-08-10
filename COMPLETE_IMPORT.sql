@@ -982,7 +982,7 @@ Ideal as a weekly skincare boost
 Leaves skin feeling calm and refreshed','Cleanse skin and pat dry.
 Unfold the mask and smooth over face, avoiding eyes and lips.
 Leave for 15-20 minutes, then remove and massage in remaining essence.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(362,'Tea Tree Mouthwash','Tea Tree','Body & Beauty',3200.0,45,'TT-MWSH-500','/Img/tea-tree-harvest-family.png','Tea tree mouthwash for lasting freshness and daily plaque protection.',NULL,'Tea tree oil helps freshen breath for longer
+(362,'Tea Tree Mouthwash','Tea Tree','Body & Beauty',3200.0,45,'TT-MWSH-500','/Img/xoc-tea-tree-mouthwash-500ml.png','Tea tree mouthwash for lasting freshness and daily plaque protection.',NULL,'Tea tree oil helps freshen breath for longer
 Supports daily plaque protection
 Alcohol-free formula
 500ml - lasts for weeks of daily use','Use 10-15ml undiluted after brushing.
