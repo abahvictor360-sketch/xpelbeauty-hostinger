@@ -214,7 +214,7 @@ export default function Header() {
               <Link to="/" className={location.pathname === '/' ? 'active' : ''}>home</Link>
             </li>
 
-            {/* Product — with mega-menu */}
+            {/* Product - with mega-menu */}
             <li
               className="has-mega"
               onMouseEnter={openMega}
@@ -238,7 +238,7 @@ export default function Header() {
                   onMouseLeave={closeMega}
                 >
                   <div className="mega-inner">
-                    {/* Column 1 — By Category */}
+                    {/* Column 1 - By Category */}
                     <div className="mega-col">
                       <p className="mega-col-title">Shop by Categories</p>
                       <ul>
@@ -343,7 +343,7 @@ export default function Header() {
             <li className="mob-search-item"><HeaderSearch onNavigate={close} /></li>
             <li><Link to="/" className={location.pathname === '/' ? 'active' : ''} onClick={close}>home</Link></li>
 
-            {/* Product — expandable accordion */}
+            {/* Product - expandable accordion */}
             <li className="mob-has-sub">
               <button
                 className={`mob-sub-toggle ${mobileProdOpen ? 'open' : ''}`}

@@ -19,13 +19,13 @@ const CATEGORIES = ['Hair Care', 'Body & Beauty', 'Home', 'Gifting'];
 // Location-targeted SEO copy per category (Nigeria + major cities)
 const CATEGORY_SEO: Record<string, { title: string; description: string; keywords: string }> = {
   'Hair Care': {
-    title: 'Hair Care Products in Nigeria — Shampoo, Conditioner & Treatments',
-    description: 'Shop premium hair care products in Nigeria — shampoos, conditioners, hair oils and treatments for every hair type. Nature-infused formulas delivered to Lagos, Abuja, Port Harcourt and nationwide.',
+    title: 'Hair Care Products in Nigeria - Shampoo, Conditioner & Treatments',
+    description: 'Shop premium hair care products in Nigeria - shampoos, conditioners, hair oils and treatments for every hair type. Nature-infused formulas delivered to Lagos, Abuja, Port Harcourt and nationwide.',
     keywords: 'hair care products nigeria, buy shampoo online nigeria, hair conditioner lagos, hair treatment nigeria, best hair care brand nigeria, natural hair products nigeria',
   },
   'Body & Beauty': {
     title: 'Skin Care & Body Care Products in Nigeria',
-    description: 'Shop the best skincare and body care products in Nigeria — face washes, body lotions, scrubs, oral care and more. Trusted by customers in Lagos, Abuja, Port Harcourt and beyond.',
+    description: 'Shop the best skincare and body care products in Nigeria - face washes, body lotions, scrubs, oral care and more. Trusted by customers in Lagos, Abuja, Port Harcourt and beyond.',
     keywords: 'best skincare brand lagos, skin care products nigeria, body care products abuja, buy skincare online nigeria, face wash nigeria, body lotion nigeria',
   },
   Home: {
@@ -35,7 +35,7 @@ const CATEGORY_SEO: Record<string, { title: string; description: string; keyword
   },
   Gifting: {
     title: 'Beauty Gift Sets in Nigeria',
-    description: 'Shop Xpel Beauty gift sets in Nigeria — the perfect gift for birthdays, holidays and special occasions. Delivered to Lagos, Abuja, Port Harcourt and nationwide.',
+    description: 'Shop Xpel Beauty gift sets in Nigeria - the perfect gift for birthdays, holidays and special occasions. Delivered to Lagos, Abuja, Port Harcourt and nationwide.',
     keywords: 'beauty gift sets nigeria, gift ideas lagos, xpel beauty gifting, beauty gift box nigeria',
   },
 };
@@ -184,7 +184,7 @@ export default function Shop() {
             ))}
           </div>
 
-          {/* Brand pills — shown when a brand is active or always */}
+          {/* Brand pills - shown when a brand is active or always */}
           {brand && (
             <div className="shop-cats shop-brand-filter">
               <span className="shop-filter-label">Brand:</span>

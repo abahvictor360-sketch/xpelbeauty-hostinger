@@ -85,7 +85,7 @@ export default function Product() {
     if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))
       errs.email = 'Please enter a valid email address.';
     if (!message || message.length < 20)
-      errs.message = `Message too short — please provide more detail (${message.length}/20 characters).`;
+      errs.message = `Message too short - please provide more detail (${message.length}/20 characters).`;
     else if (message.length > 2000)
       errs.message = 'Message must be under 2000 characters.';
     if (Object.keys(errs).length > 0) { setEnquiryErrors(errs); return; }
@@ -114,8 +114,8 @@ export default function Product() {
       <SEO
         page="shop"
         overrides={{
-          fullTitle: `${product.name} | Buy Online in Nigeria — XpelBeauty NG`,
-          description: product.description || `Discover ${product.name} by ${product.brand} — premium nature-infused beauty. Delivered to Lagos, Abuja, Port Harcourt and nationwide Nigeria.`,
+          fullTitle: `${product.name} | Buy Online in Nigeria - XpelBeauty NG`,
+          description: product.description || `Discover ${product.name} by ${product.brand} - premium nature-infused beauty. Delivered to Lagos, Abuja, Port Harcourt and nationwide Nigeria.`,
           ogImage: product.image || '',
           keywords: `${product.name}, ${product.brand}, buy ${product.name.toLowerCase()} nigeria, ${product.brand} lagos, buy beauty products online nigeria, ${(product.category || '').toLowerCase()} products nigeria`,
           canonicalPath: `/product/${product.id}`,
@@ -239,7 +239,7 @@ export default function Product() {
             {tab === 'description' && (
               <p>
                 {product.description ||
-                  `Meet your new everyday essential. This ${product.category?.toLowerCase()} product from ${product.brand} is part of Xpel Beauty Care's nature-infused care collection — created to deliver visible results with ingredients you can trust.`}
+                  `Meet your new everyday essential. This ${product.category?.toLowerCase()} product from ${product.brand} is part of Xpel Beauty Care's nature-infused care collection - created to deliver visible results with ingredients you can trust.`}
               </p>
             )}
             {tab === 'benefits' && (
@@ -268,7 +268,7 @@ export default function Product() {
         {/* Enquiry form */}
         <div className="product-enquiry">
           <h3>Have a question about this product?</h3>
-          <p className="product-enquiry-sub">Send us a message — we usually reply within a few hours.</p>
+          <p className="product-enquiry-sub">Send us a message - we usually reply within a few hours.</p>
 
           {enquiryStatus === 'done' ? (
             <div className="enquiry-success">
@@ -276,7 +276,7 @@ export default function Product() {
             </div>
           ) : (
             <form className="enquiry-form" onSubmit={handleEnquirySubmit} noValidate>
-              {/* Honeypot — invisible to real users, filled by bots */}
+              {/* Honeypot - invisible to real users, filled by bots */}
               <div style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 1, width: 1, overflow: 'hidden', pointerEvents: 'none' }} aria-hidden="true">
                 <label htmlFor="enq_website">Website</label>
                 <input type="text" id="enq_website" name="hp" value={enquiryForm.hp}
@@ -312,7 +312,7 @@ export default function Product() {
               {enquiryErrors.message && <p style={{ color: '#dc2626', fontSize: 12, margin: '-8px 0 4px' }}>{enquiryErrors.message}</p>}
 
               {enquiryStatus === 'error' && (
-                <p style={{ color: '#dc2626', fontSize: 13, margin: '4px 0' }}>Something went wrong — please try again.</p>
+                <p style={{ color: '#dc2626', fontSize: 13, margin: '4px 0' }}>Something went wrong - please try again.</p>
               )}
               <button type="submit" disabled={enquiryStatus === 'sending'}>
                 {enquiryStatus === 'sending' ? 'Sending…' : 'Send Enquiry'}

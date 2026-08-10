@@ -13,7 +13,7 @@ export default function PromoBanner({ banner }: { banner: BannerItem }) {
         <>
           {/* Gradient that blends with the banner's own background colour */}
           <div className="promo-band-fade" aria-hidden="true" />
-          {/* Text sits on top — unaffected by the blend */}
+          {/* Text sits on top - unaffected by the blend */}
           <div className="promo-band-overlay">
             {banner.title && <h3 className="promo-band-title">{banner.title}</h3>}
             {banner.text && <p className="promo-band-text">{banner.text}</p>}

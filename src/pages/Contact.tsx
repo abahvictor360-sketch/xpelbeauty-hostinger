@@ -30,7 +30,7 @@ function validate(d: { name: string; email: string; subject: string; message: st
     e.subject = 'Subject must be under 200 characters.';
 
   if (!message || message.length < 20)
-    e.message = `Message is too short — please provide more detail (${message.length}/20 characters).`;
+    e.message = `Message is too short - please provide more detail (${message.length}/20 characters).`;
   else if (message.length > 2000)
     e.message = 'Message must be under 2000 characters.';
 
@@ -178,7 +178,7 @@ export default function Contact() {
             </div>
 
             {status === 'error' && (
-              <p style={{ color: '#dc2626', fontSize: 13 }}>Something went wrong — please try again.</p>
+              <p style={{ color: '#dc2626', fontSize: 13 }}>Something went wrong - please try again.</p>
             )}
 
             <button
@@ -212,7 +212,7 @@ export default function Contact() {
         )}
         </div>
 
-        {/* Contact Info — navy panel */}
+        {/* Contact Info - navy panel */}
         <aside className="xp-contact-panel">
           <h3 className="xp-contact-panel-title">Get in touch</h3>
           <p className="xp-contact-panel-sub">

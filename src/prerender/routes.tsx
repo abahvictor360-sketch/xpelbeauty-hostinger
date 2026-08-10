@@ -60,7 +60,7 @@ async function getProducts(): Promise<Array<{ param: string; head: RouteHead }>>
     param: String(p.id),
     head: {
       title: `${p.name} | XpelBeauty NG`,
-      description: p.description || `Discover ${p.name} by ${p.brand} — premium nature-infused beauty.`,
+      description: p.description || `Discover ${p.name} by ${p.brand} - premium nature-infused beauty.`,
       keywords: `${p.name}, ${p.brand}, buy beauty products nigeria`,
       ogImage: p.image,
     },

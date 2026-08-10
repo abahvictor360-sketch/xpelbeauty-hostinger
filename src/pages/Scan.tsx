@@ -74,7 +74,7 @@ export default function Scan() {
         <span className="section-label">find a product</span>
         <h1 className="xp-scan-title">Scan a barcode</h1>
         <p className="xp-scan-sub">
-          Point your camera at the barcode on any Xpel Beauty product to jump straight to its page —
+          Point your camera at the barcode on any Xpel Beauty product to jump straight to its page -
           or type the code in by hand.
         </p>
       </div>

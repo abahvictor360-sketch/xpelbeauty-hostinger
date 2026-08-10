@@ -35,11 +35,11 @@ export default function Home() {
     },
     {
       q: 'What kind of products does Xpel Beauty NG sell?',
-      a: 'Xpel Beauty NG sells nature-infused hair care, skin care, oral care and body care products — including shampoos, conditioners, face washes, serums, body lotions, scrubs, toothpaste and mouthwash.',
+      a: 'Xpel Beauty NG sells nature-infused hair care, skin care, oral care and body care products - including shampoos, conditioners, face washes, serums, body lotions, scrubs, toothpaste and mouthwash.',
     },
     {
       q: 'How do I order Xpel Beauty products online in Nigeria?',
-      a: 'Browse the Shop page, add your chosen products, and complete checkout or enquire via WhatsApp — orders are processed and delivered across Nigeria.',
+      a: 'Browse the Shop page, add your chosen products, and complete checkout or enquire via WhatsApp - orders are processed and delivered across Nigeria.',
     },
     {
       q: 'Where can I buy Xpel Beauty Care products in a physical store?',
@@ -126,7 +126,7 @@ export default function Home() {
         }}
       />
       {/* ══════════════════════════════════════════════════════════
-          HERO CAROUSEL — rich text banners
+          HERO CAROUSEL - rich text banners
       ═══════════════════════════════════════════════════════════ */}
       <section className="carousel" aria-label="Featured products" data-xpel-section="hero">
         <div
@@ -146,32 +146,32 @@ export default function Home() {
               {/* Background image */}
               <img src={slide.image} alt={slide.headlineLine1 + ' ' + slide.headlineLine2} loading={idx === 0 ? 'eager' : 'lazy'} />
 
-              {/* Colour-matched gradient overlay — colour is sampled from the banner */}
+              {/* Colour-matched gradient overlay - colour is sampled from the banner */}
               <div className="hs-fade" aria-hidden="true" />
 
               {/* Text overlay */}
               <div className="hs-text">
-                {/* Layer 1 — brand lockup */}
+                {/* Layer 1 - brand lockup */}
                 {slide.brandLockup && (
                   <span className="hs-brand">{slide.brandLockup}</span>
                 )}
 
-                {/* Layer 2 — sub-range label */}
+                {/* Layer 2 - sub-range label */}
                 {slide.subLabel && (
                   <span className="hs-sub">{slide.subLabel}</span>
                 )}
 
-                {/* Layer 3 — display headline */}
+                {/* Layer 3 - display headline */}
                 <h2 className="hs-headline" style={{ color: slide.headlineColor }}>
                   {slide.headlineLine1}<br />{slide.headlineLine2}
                 </h2>
 
-                {/* Layer 4 — descriptor */}
+                {/* Layer 4 - descriptor */}
                 {slide.descriptor && (
                   <p className="hs-descriptor">{slide.descriptor}</p>
                 )}
 
-                {/* Layer 5 — benefit stack */}
+                {/* Layer 5 - benefit stack */}
                 {slide.benefits?.length > 0 && (
                   <ul className="hs-benefits">
                     {slide.benefits.map((b, bi) => (
@@ -182,7 +182,7 @@ export default function Home() {
                   </ul>
                 )}
 
-                {/* Layer 6 — vegan badge */}
+                {/* Layer 6 - vegan badge */}
                 {slide.vegaBadge && (
                   <span
                     className="hs-badge"
@@ -196,7 +196,7 @@ export default function Home() {
                   </span>
                 )}
 
-                {/* Layer 7 — CTA button */}
+                {/* Layer 7 - CTA button */}
                 {slide.ctaLabel && slide.ctaHref && (
                   <Link
                     to={slide.ctaHref}
@@ -291,14 +291,14 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          BEST SELLERS — enhanced cards with hover quick actions
+          BEST SELLERS - enhanced cards with hover quick actions
       ═══════════════════════════════════════════════════════════ */}
       <section style={{ background: 'var(--white)', padding: '80px 40px' }} data-xpel-section="bestSellers">
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div className="fade-up" style={{ textAlign: 'center', marginBottom: '56px' }}>
             <span className="section-label">what's hot</span>
             <h2 className="section-title section-title-anim" style={{ marginBottom: '0' }} data-xpel-key="home-sellers-title">{content.sellersTitle}</h2>
-            <p style={{ color: 'var(--muted)', fontSize: '15px', maxWidth: '520px', margin: '18px auto 0', lineHeight: '1.7' }}>The nature-infused favourites our customers reach for again and again — your routine's new essentials.</p>
+            <p style={{ color: 'var(--muted)', fontSize: '15px', maxWidth: '520px', margin: '18px auto 0', lineHeight: '1.7' }}>The nature-infused favourites our customers reach for again and again - your routine's new essentials.</p>
           </div>
 
           <div className="iva-grid fade-up-stagger">
@@ -408,7 +408,7 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          FAQ — plain, crawlable Q&A for search and AI answer engines
+          FAQ - plain, crawlable Q&A for search and AI answer engines
       ═══════════════════════════════════════════════════════════ */}
       <section className="home-faq reveal" style={{ maxWidth: '780px', margin: '0 auto', padding: '60px 24px' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
@@ -424,7 +424,7 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          CTA BANNER — BCO slide image as background
+          CTA BANNER - BCO slide image as background
       ═══════════════════════════════════════════════════════════ */}
       {(() => {
         const bcoSlide = heroSlides.find(s =>

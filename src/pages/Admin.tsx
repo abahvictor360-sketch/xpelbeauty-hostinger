@@ -107,7 +107,7 @@ function ComboSelect({
       value={value || ''}
       onChange={(e) => { if (e.target.value === ADD_KEY) setAdding(true); else onChange(e.target.value); }}
     >
-      <option value="">— select —</option>
+      <option value="">- select -</option>
       {options.map((o) => <option key={o} value={o}>{o}</option>)}
       <option disabled style={{ color: '#ccc' }}>──────────</option>
       <option value={ADD_KEY}>＋ Add new…</option>
@@ -374,15 +374,15 @@ export default function Admin() {
   const uploadBannerImage = async (e: React.ChangeEvent<HTMLInputElement>, key: BannerKey) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 1.5 * 1024 * 1024) { addToast('Image too large — use one under 1.5 MB', 'error'); return; }
+    if (file.size > 1.5 * 1024 * 1024) { addToast('Image too large - use one under 1.5 MB', 'error'); return; }
     const dataUrl = await fileToDataURL(file);
     updateBanner(key, { image: dataUrl });
-    addToast('Banner image loaded — remember to Save', 'info');
+    addToast('Banner image loaded - remember to Save', 'info');
   };
   const saveContent = async () => {
     const cloud = await saveSiteContent(content);
     addToast(
-      cloud ? 'Saved — live site updated' : 'Saved locally (add site_content table to go live)',
+      cloud ? 'Saved - live site updated' : 'Saved locally (add site_content table to go live)',
       cloud ? 'success' : 'info'
     );
   };
@@ -394,7 +394,7 @@ export default function Admin() {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > 1.5 * 1024 * 1024) {
-      addToast('Image too large — please use one under 1.5 MB', 'error');
+      addToast('Image too large - please use one under 1.5 MB', 'error');
       return;
     }
     const dataUrl = await fileToDataURL(file);
@@ -402,7 +402,7 @@ export default function Admin() {
     else if (typeof field === 'object' && 'arr' in field) updateArrayImage(field.arr, field.i, dataUrl);
     else if (typeof field === 'object' && 'heroSlide' in field) updateHeroSlide(field.heroSlide, { image: dataUrl });
     else updateContent({ [field as keyof SiteContent]: dataUrl } as Partial<SiteContent>);
-    addToast('Image loaded — remember to Save', 'info');
+    addToast('Image loaded - remember to Save', 'info');
   };
 
   // ── Admin Users ──────────────────────────────────────────────────────────────
@@ -443,7 +443,7 @@ export default function Admin() {
           localStorage.setItem('xpel_admin_users', JSON.stringify(mergedUsers));
           setContent((c) => ({ ...c, ...res.data, adminUsers: mergedUsers }));
         }
-      } catch { /* API not reachable — use local state */ }
+      } catch { /* API not reachable - use local state */ }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -461,7 +461,7 @@ export default function Admin() {
         setProducts(p ?? []);
         setBlogPosts(b ?? []);
         setStores(s ?? []);
-      } catch { /* ignore — panels can reload individually */ }
+      } catch { /* ignore - panels can reload individually */ }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authed]);
@@ -503,9 +503,9 @@ export default function Admin() {
 
       setUserForm({ username: '', name: '', email: '', password: '', role: 'Editor' });
       if (synced) {
-        addToast(`User "${newUser.username}" added — they can now log in from any device`, 'success');
+        addToast(`User "${newUser.username}" added - they can now log in from any device`, 'success');
       } else {
-        addToast(`User "${newUser.username}" saved locally — will sync to cloud on next full save`, 'info');
+        addToast(`User "${newUser.username}" saved locally - will sync to cloud on next full save`, 'info');
       }
     } catch (err) {
       addToast('Failed to add user: ' + ((err as Error)?.message || 'unknown error'), 'error');
@@ -523,7 +523,7 @@ export default function Admin() {
   const resetUserPassword = async (id: string) => {
     const newPass = window.prompt('Enter new password for this user (min 6 characters):');
     if (!newPass) return;
-    if (newPass.length < 6) { addToast('Password too short — must be at least 6 characters', 'error'); return; }
+    if (newPass.length < 6) { addToast('Password too short - must be at least 6 characters', 'error'); return; }
     const password_hash = await hashPassword(newPass);
     const next = adminUsers.map(u => u.id === id ? { ...u, password_hash } : u);
     updateContent({ adminUsers: next });
@@ -563,10 +563,10 @@ export default function Admin() {
   const uploadCollectionHero = async (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 1.5 * 1024 * 1024) { addToast('Image too large — use one under 1.5 MB', 'error'); return; }
+    if (file.size > 1.5 * 1024 * 1024) { addToast('Image too large - use one under 1.5 MB', 'error'); return; }
     const dataUrl = await fileToDataURL(file);
     updateCollection(idx, { heroImage: dataUrl });
-    addToast('Hero image loaded — remember to Save Collections', 'info');
+    addToast('Hero image loaded - remember to Save Collections', 'info');
   };
 
   // Check API connection
@@ -1125,7 +1125,7 @@ export default function Admin() {
                                     await api.siteContent.patch({ bestSellerIds: next });
                                     addToast(next.includes(product.id) ? `"${product.name}" featured on homepage` : `"${product.name}" removed from homepage`, 'success');
                                   } catch {
-                                    addToast('Saved locally — sync to cloud failed', 'info');
+                                    addToast('Saved locally - sync to cloud failed', 'info');
                                   }
                                   // Also update localStorage
                                   saveSiteContent({ ...content, bestSellerIds: next });
@@ -1316,7 +1316,7 @@ export default function Admin() {
             </div>
           )}
 
-          {/* Content Manager Panel — edit text on every page */}
+          {/* Content Manager Panel - edit text on every page */}
           {activePanel === 'content' && (
             <div className="panel-content">
               <h2>Content Manager</h2>
@@ -1398,7 +1398,7 @@ export default function Admin() {
                 <div className="form-group"><label>CTA Text</label>
                   <textarea className="form-textarea" rows={2} value={content.aboutCtaText} onChange={(e) => updateContent({ aboutCtaText: e.target.value })} /></div>
 
-                <p className="help-text" style={{marginTop:'12px',fontWeight:600}}>Home — Feature Blocks</p>
+                <p className="help-text" style={{marginTop:'12px',fontWeight:600}}>Home - Feature Blocks</p>
                 {([1,2,3] as const).map((n) => (
                   <div key={n} style={{background:'#f9f9f9',padding:'12px',borderRadius:'8px',marginBottom:'10px'}}>
                     <p style={{fontWeight:600,marginBottom:'8px',fontSize:'0.85rem'}}>Feature Block {n}</p>
@@ -1492,7 +1492,7 @@ export default function Admin() {
             </div>
           )}
 
-          {/* Logo, Banner & Media Panel — with uploads */}
+          {/* Logo, Banner & Media Panel - with uploads */}
           {activePanel === 'media' && (
             <div className="panel-content">
               <h2>Logo, Banner &amp; Media</h2>
@@ -1518,7 +1518,7 @@ export default function Admin() {
                 <div className="form-group"><label>…or paste a Footer Logo URL</label>
                   <input className="form-input" value={(content.footerLogo || '').startsWith('data:') ? '' : (content.footerLogo || '')} onChange={(e) => updateContent({ footerLogo: e.target.value })} placeholder="https://… or images/logo-white.svg" /></div>
                 {content.footerLogo && (
-                  <div><button className="btn-danger btn-sm" onClick={() => updateContent({ footerLogo: '' })}>Reset — use header logo</button></div>
+                  <div><button className="btn-danger btn-sm" onClick={() => updateContent({ footerLogo: '' })}>Reset - use header logo</button></div>
                 )}
 
                 <h3>Promo Banner</h3>
@@ -1544,7 +1544,7 @@ export default function Admin() {
                   <details key={i} style={{ border: '1px solid #e8e8e8', borderRadius: '10px', marginBottom: '12px', overflow: 'hidden' }}>
                     <summary style={{ padding: '14px 18px', cursor: 'pointer', fontWeight: '600', background: '#fafafa', display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <span style={{ background: 'var(--gold-raw)', color: '#fff', borderRadius: '50%', width: '22px', height: '22px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '700', flexShrink: 0 }}>{i + 1}</span>
-                      <span style={{ flex: 1 }}>Slide {i + 1} — {slide.subLabel || 'untitled'} {slide.headlineLine1}</span>
+                      <span style={{ flex: 1 }}>Slide {i + 1} - {slide.subLabel || 'untitled'} {slide.headlineLine1}</span>
                       <button
                         type="button"
                         onClick={(e) => { e.preventDefault(); removeHeroSlide(i); }}
@@ -1591,9 +1591,9 @@ export default function Admin() {
                       <div className="form-group"><label>Sub-range label (bold italic)</label>
                         <input className="form-input" value={slide.subLabel ?? ''} onChange={(e) => updateHeroSlide(i, { subLabel: e.target.value })} placeholder="so fresh" /></div>
                       {/* Layer 3 */}
-                      <div className="form-group"><label>Headline — line 1</label>
+                      <div className="form-group"><label>Headline - line 1</label>
                         <input className="form-input" value={slide.headlineLine1 ?? ''} onChange={(e) => updateHeroSlide(i, { headlineLine1: e.target.value })} placeholder="Watermelon" /></div>
-                      <div className="form-group"><label>Headline — line 2</label>
+                      <div className="form-group"><label>Headline - line 2</label>
                         <input className="form-input" value={slide.headlineLine2 ?? ''} onChange={(e) => updateHeroSlide(i, { headlineLine2: e.target.value })} placeholder="Crush" /></div>
                       <div className="form-group"><label>Headline colour (hex)</label>
                         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
@@ -1681,7 +1681,7 @@ export default function Admin() {
                 <input type="file" accept="image/*" className="file-input" onChange={(e) => handleUpload(e, 'ctaImage')} />
                 <input className="form-input" value={content.ctaImage.startsWith('data:') ? '' : content.ctaImage} onChange={(e) => updateContent({ ctaImage: e.target.value })} placeholder="…or paste image URL" />
 
-                <h3>About Page — Category Card Images</h3>
+                <h3>About Page - Category Card Images</h3>
                 <p className="help-text">The 7 product-category cards on the About page.</p>
                 {(['Facial Care','Body Care','Hair Care','Hand Care','Foot Care','Oral Care','Nail Care'] as const).map((label, i) => (
                   <div key={label} style={{ display: 'grid', gap: '6px', padding: '12px', marginBottom: '10px', border: '1px solid #eef0f4', borderRadius: '10px', background: '#fafbfd' }}>
@@ -1695,7 +1695,7 @@ export default function Admin() {
                   </div>
                 ))}
 
-                <h3>About Page — CTA Section Background</h3>
+                <h3>About Page - CTA Section Background</h3>
                 {content.aboutCtaImage && (
                   <img src={content.aboutCtaImage} alt="" style={{ width: '100%', maxHeight: '120px', objectFit: 'cover', borderRadius: '8px', marginBottom: '8px' }}
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
@@ -1750,7 +1750,7 @@ export default function Admin() {
             return (
               <div className="panel-content">
                 <h2>Mega Menu Editor</h2>
-                <p className="text-gray-600">Edit the navigation mega menu — categories, brand groups, items and the feature panel. Click <strong>Save Mega Menu</strong> when done.</p>
+                <p className="text-gray-600">Edit the navigation mega menu - categories, brand groups, items and the feature panel. Click <strong>Save Mega Menu</strong> when done.</p>
                 <div style={{ textAlign: 'right', marginBottom: '16px' }}>
                   <button className="btn-primary" onClick={saveContent}>Save Mega Menu</button>
                 </div>
@@ -1958,9 +1958,9 @@ export default function Admin() {
                   )}
                   {adminUsers.map((u) => (
                     <tr key={u.id}>
-                      <td><code style={{ fontSize: '13px' }}>{u.username || '—'}</code></td>
+                      <td><code style={{ fontSize: '13px' }}>{u.username || '-'}</code></td>
                       <td>{u.name}</td>
-                      <td>{u.email || '—'}</td>
+                      <td>{u.email || '-'}</td>
                       <td><span className="badge badge-success">{u.role}</span></td>
                       <td style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                         <button className="btn-secondary btn-sm" onClick={() => resetUserPassword(u.id)}>
@@ -2085,8 +2085,8 @@ export default function Admin() {
                 {([
                   { key: 'themeAccent' as const,  label: 'Primary Accent Colour',        hint: 'Used for buttons, links, hover highlights and price text. Default: #ca7c29' },
                   { key: 'themeNavy'   as const,  label: 'Secondary / Dark Colour',      hint: 'Used for dark backgrounds and some headings. Default: #1B2A3B' },
-                  { key: 'themeBarFrom' as const, label: 'Top Bar Gradient — Start/End', hint: 'The outer colour of the announcement bar gradient. Default: #ca7c29' },
-                  { key: 'themeBarMid'  as const, label: 'Top Bar Gradient — Middle',    hint: 'The centre colour of the announcement bar gradient. Default: #6f3716' },
+                  { key: 'themeBarFrom' as const, label: 'Top Bar Gradient - Start/End', hint: 'The outer colour of the announcement bar gradient. Default: #ca7c29' },
+                  { key: 'themeBarMid'  as const, label: 'Top Bar Gradient - Middle',    hint: 'The centre colour of the announcement bar gradient. Default: #6f3716' },
                 ] as const).map(({ key, label, hint }) => (
                   <div key={key} className="form-group" style={{ display: 'grid', gap: '6px' }}>
                     <label>{label}</label>
@@ -2224,10 +2224,10 @@ export default function Admin() {
                   onChange={async (e) => {
                     const file = e.target.files?.[0];
                     if (!file) return;
-                    if (file.size > 1.5 * 1024 * 1024) { addToast('Image too large — use one under 1.5 MB', 'error'); return; }
+                    if (file.size > 1.5 * 1024 * 1024) { addToast('Image too large - use one under 1.5 MB', 'error'); return; }
                     const dataUrl = await fileToDataURL(file);
                     setProductForm({ ...productForm, image: dataUrl });
-                    addToast('Image loaded — remember to Save', 'info');
+                    addToast('Image loaded - remember to Save', 'info');
                   }}
                 />
                 <input
@@ -2283,7 +2283,7 @@ export default function Admin() {
 
               <div className="form-group">
                 <label>Key Benefits</label>
-                <p className="help-text" style={{ margin: '0 0 6px' }}>One benefit per line — shown as bullet points on the product page.</p>
+                <p className="help-text" style={{ margin: '0 0 6px' }}>One benefit per line - shown as bullet points on the product page.</p>
                 <textarea
                   value={productForm.key_benefits || ''}
                   onChange={(e) => setProductForm({ ...productForm, key_benefits: e.target.value })}
@@ -2295,7 +2295,7 @@ export default function Admin() {
 
               <div className="form-group">
                 <label>How to Use</label>
-                <p className="help-text" style={{ margin: '0 0 6px' }}>Step-by-step instructions — one step per line.</p>
+                <p className="help-text" style={{ margin: '0 0 6px' }}>Step-by-step instructions - one step per line.</p>
                 <textarea
                   value={productForm.how_to_use || ''}
                   onChange={(e) => setProductForm({ ...productForm, how_to_use: e.target.value })}
@@ -2328,7 +2328,7 @@ export default function Admin() {
         <Suspense fallback={<div className="xp-scanner-overlay"><div className="xp-scan-spinner" /></div>}>
           <BarcodeScanner
             title="Scan the product's barcode"
-            onDetect={(code) => { setProductForm(prev => ({ ...prev, sku: code })); setShowBarcodeScanner(false); addToast('Barcode captured — remember to save', 'info'); }}
+            onDetect={(code) => { setProductForm(prev => ({ ...prev, sku: code })); setShowBarcodeScanner(false); addToast('Barcode captured - remember to save', 'info'); }}
             onClose={() => setShowBarcodeScanner(false)}
           />
         </Suspense>
@@ -2582,7 +2582,7 @@ export default function Admin() {
                   onChange={async (e) => {
                     const file = e.target.files?.[0];
                     if (!file) return;
-                    if (file.size > 1.5 * 1024 * 1024) { addToast('Logo too large — use one under 1.5 MB', 'error'); return; }
+                    if (file.size > 1.5 * 1024 * 1024) { addToast('Logo too large - use one under 1.5 MB', 'error'); return; }
                     const dataUrl = await fileToDataURL(file);
                     setStoreForm({ ...storeForm, logo: dataUrl });
                   }}
@@ -2689,7 +2689,7 @@ export default function Admin() {
                     <div className="form-group">
                       <label>Robots</label>
                       <select className="form-input" value={p?.robots ?? 'index, follow'} onChange={(e) => updatePage({ robots: e.target.value })} style={{ maxWidth: '260px' }}>
-                        <option value="index, follow">index, follow (default — show in Google)</option>
+                        <option value="index, follow">index, follow (default - show in Google)</option>
                         <option value="noindex, follow">noindex, follow (hide from Google)</option>
                         <option value="index, nofollow">index, nofollow</option>
                         <option value="noindex, nofollow">noindex, nofollow (hide completely)</option>
@@ -2809,7 +2809,7 @@ export default function Admin() {
                       onChange={(e) => updateCollection(idx, { overlayColor: e.target.value })}
                       placeholder="rgba(26, 31, 58, 0.82)"
                     />
-                    <small style={{ color: 'var(--muted)', fontSize: 11 }}>Use rgba() for transparency — e.g. rgba(26,31,58,0.82)</small>
+                    <small style={{ color: 'var(--muted)', fontSize: 11 }}>Use rgba() for transparency - e.g. rgba(26,31,58,0.82)</small>
                   </div>
                   <div className="form-group">
                     <label className="form-label">Accent Color (badge &amp; button)</label>
@@ -2958,7 +2958,7 @@ export default function Admin() {
             {loadingEnquiries ? (
               <div className="loading-state"><div className="spinner"></div><p>Loading enquiries…</p></div>
             ) : filtered.length === 0 ? (
-              <div className="empty-state-large"><p>{enquiries.length === 0 ? 'No enquiries yet — they will appear here once customers submit a form.' : 'No enquiries match this filter.'}</p></div>
+              <div className="empty-state-large"><p>{enquiries.length === 0 ? 'No enquiries yet - they will appear here once customers submit a form.' : 'No enquiries match this filter.'}</p></div>
             ) : (
               <div className="enq-list">
                 {filtered.map(enq => (

@@ -7,8 +7,8 @@ import SEO from '@/components/SEO';
 const CATEGORY_META = [
   { name: 'Facial Care', tagline: 'Glow-first formulations for every skin type', href: '/shop?cat=facial-care', fallback: '/banner/Product-Face-Care.webp' },
   { name: 'Body Care',   tagline: 'Head-to-toe nourishment, every single day',    href: '/shop?cat=body-care',   fallback: '/banner/Product-Body-Care.webp' },
-  { name: 'Hair Care',   tagline: 'Strengthen, restore & shine — naturally',        href: '/shop?cat=hair-care',   fallback: '/banner/Product-Shampoo.webp' },
-  { name: 'Hand Care',   tagline: 'Soft, smooth hands — beautifully maintained',    href: '/shop?cat=hand-care',   fallback: '/banner/Product-Hand-Care.webp' },
+  { name: 'Hair Care',   tagline: 'Strengthen, restore & shine - naturally',        href: '/shop?cat=hair-care',   fallback: '/banner/Product-Shampoo.webp' },
+  { name: 'Hand Care',   tagline: 'Soft, smooth hands - beautifully maintained',    href: '/shop?cat=hand-care',   fallback: '/banner/Product-Hand-Care.webp' },
   { name: 'Foot Care',   tagline: 'Refresh, revive and comfort tired feet',          href: '/shop?cat=foot-care',   fallback: '/banner/Product-Foot-Care.webp' },
   { name: 'Oral Care',   tagline: 'Confidence starts with a radiant smile',          href: '/shop?cat=oral-care',   fallback: '/banner/Product-Oral-Care.webp' },
   { name: 'Nail Care',   tagline: 'Strong, beautiful nails deserve the best',        href: '/shop?cat=nail-care',   fallback: '/banner/Product-Nail-Care.webp' },
@@ -57,11 +57,11 @@ export default function About() {
           <span className="section-label">what we offer</span>
           <h2 className="about-cat-title">Seven pillars of everyday luxury</h2>
           <p className="about-cat-sub">
-            From your morning face wash to your evening hair ritual — Xpel Beauty Care covers every step.
+            From your morning face wash to your evening hair ritual - Xpel Beauty Care covers every step.
           </p>
         </div>
 
-        {/* Top row — 2 large feature cards */}
+        {/* Top row - 2 large feature cards */}
         <div className="about-cat-row about-cat-row-top">
           {categories.slice(0, 2).map((cat) => (
             <Link key={cat.name} to={cat.href} className="about-cat-card about-cat-card-large">
@@ -77,7 +77,7 @@ export default function About() {
           ))}
         </div>
 
-        {/* Bottom row — 5 regular cards */}
+        {/* Bottom row - 5 regular cards */}
         <div className="about-cat-row about-cat-row-bottom">
           {categories.slice(2).map((cat) => (
             <Link key={cat.name} to={cat.href} className="about-cat-card about-cat-card-regular">
@@ -176,14 +176,14 @@ export default function About() {
             <h3>Research &amp; Quality</h3>
             <p>
               Every product is the result of in-depth research, advanced formulations and rigorous
-              quality control — solutions that meet and exceed customer expectations.
+              quality control - solutions that meet and exceed customer expectations.
             </p>
           </div>
           <div className="about-diff-card">
             <h3>Eco-Conscious</h3>
             <p>
               We prioritise environmentally responsible practices through eco-conscious packaging
-              and responsibly sourced ingredients — quality and responsibility together.
+              and responsibly sourced ingredients - quality and responsibility together.
             </p>
           </div>
           <div className="about-diff-card">
