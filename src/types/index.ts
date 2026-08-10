@@ -25,6 +25,7 @@ export interface BlogPost {
   excerpt: string;
   image: string;
   author: string;
+  category?: string;
   created_at: string;
   updated_at: string;
   published: boolean;

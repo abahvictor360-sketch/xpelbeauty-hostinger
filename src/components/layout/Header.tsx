@@ -1,25 +1,23 @@
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSiteContent } from '@/hooks/useSiteContent';
-import { api } from '@/lib/api';
-import type { Product } from '@/types';
+import { useSearchSuggestions } from '@/hooks/useSearchSuggestions';
 import './Header.css';
 
-/* ── Live product search box (desktop header + mobile nav) ── */
+const FALLBACK_SEARCH_IMG = '/images/product-placeholder.svg';
+function resolveSearchImg(src?: string) {
+  if (!src) return FALLBACK_SEARCH_IMG;
+  if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) return src;
+  return `/${src}`;
+}
+
+/* ── Live product + blog search box (desktop header + mobile nav) ── */
 function HeaderSearch({ onNavigate }: { onNavigate?: () => void }) {
   const [q, setQ]       = useState('');
   const [open, setOpen] = useState(false);
-  const [all, setAll]   = useState<Product[] | null>(null);
   const wrapRef         = useRef<HTMLDivElement>(null);
   const navigate        = useNavigate();
-
-  // Fetch the catalogue once, lazily, on first interaction
-  const load = () => {
-    if (all !== null) return;
-    api.products.getAll()
-      .then((data: Product[]) => setAll(data ?? []))
-      .catch(() => setAll([]));
-  };
+  const { results, loading } = useSearchSuggestions(q);
 
   // Close on click outside
   useEffect(() => {
@@ -30,16 +28,6 @@ function HeaderSearch({ onNavigate }: { onNavigate?: () => void }) {
     return () => document.removeEventListener('mousedown', onDoc);
   }, []);
 
-  const results = useMemo(() => {
-    const term = q.trim().toLowerCase();
-    if (!term || !all) return [];
-    return all
-      .filter(p =>
-        p.name.toLowerCase().includes(term) ||
-        (p.brand || '').toLowerCase().includes(term))
-      .slice(0, 6);
-  }, [q, all]);
-
   const goToShop = () => {
     const term = q.trim();
     if (!term) return;
@@ -49,7 +37,12 @@ function HeaderSearch({ onNavigate }: { onNavigate?: () => void }) {
     navigate(`/shop?q=${encodeURIComponent(term)}`);
   };
 
-  const pick = () => { setOpen(false); setQ(''); onNavigate?.(); };
+  const goToSuggestion = (s: import('@/hooks/useSearchSuggestions').Suggestion) => {
+    setOpen(false);
+    setQ('');
+    onNavigate?.();
+    navigate(s.type === 'product' ? `/product/${s.id}` : `/blog/${s.slug}`);
+  };
 
   return (
     <div className="search-wrap" ref={wrapRef}>
@@ -62,39 +55,45 @@ function HeaderSearch({ onNavigate }: { onNavigate?: () => void }) {
         <input
           type="text"
           placeholder="Search..."
-          aria-label="Search products"
+          aria-label="Search products or blog posts"
           value={q}
-          onFocus={() => { load(); if (q.trim()) setOpen(true); }}
-          onChange={(e) => { setQ(e.target.value); setOpen(true); load(); }}
+          onFocus={() => { if (q.trim()) setOpen(true); }}
+          onChange={(e) => { setQ(e.target.value); setOpen(true); }}
           onKeyDown={(e) => {
             if (e.key === 'Enter')  goToShop();
             if (e.key === 'Escape') setOpen(false);
           }}
+          autoComplete="off"
         />
       </div>
 
-      {open && q.trim() !== '' && (
+      {open && q.trim().length >= 2 && (
         <div className="search-dropdown">
-          {all === null && <p className="search-empty">Searching…</p>}
-          {all !== null && results.length === 0 && (
-            <p className="search-empty">No products found for “{q.trim()}”</p>
+          {loading && <p className="search-empty">Searching…</p>}
+          {!loading && results.length === 0 && (
+            <p className="search-empty">No results for "{q.trim()}"</p>
           )}
-          {results.map(p => (
-            <Link key={p.id} to={`/product/${p.id}`} className="search-result" onClick={pick}>
+          {results.map((s) => (
+            <button
+              key={`${s.type}-${s.id}`}
+              type="button"
+              className="search-result"
+              onClick={() => goToSuggestion(s)}
+            >
               <img
-                src={p.image ? (p.image.startsWith('http') || p.image.startsWith('/') ? p.image : `/${p.image}`) : '/images/product-placeholder.svg'}
+                src={resolveSearchImg(s.image)}
                 alt=""
-                onError={(e) => { (e.target as HTMLImageElement).src = '/images/product-placeholder.svg'; }}
+                onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK_SEARCH_IMG; }}
               />
               <span>
-                <span className="search-result-name">{p.name}</span>
-                <span className="search-result-brand">{p.brand}</span>
+                <span className="search-result-name">{s.type === 'product' ? s.name : s.title}</span>
+                <span className="search-result-brand">{s.type === 'product' ? (s.brand || 'Product') : 'Blog post'}</span>
               </span>
-            </Link>
+            </button>
           ))}
           {results.length > 0 && (
             <button className="search-all" onClick={goToShop}>
-              See all results for “{q.trim()}” →
+              See all results for "{q.trim()}" →
             </button>
           )}
         </div>
