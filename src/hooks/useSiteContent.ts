@@ -211,7 +211,7 @@ export const DEFAULT_CONTENT: SiteContent = {
   contactEmail: 'info@xpelbeauty.com',
   contactPhone: '08034883603',
   contactPhones: ['08034883603', '08140764150'],
-  contactAddress: 'Xpel Beauty NG\nNigeria',
+  contactAddress: 'Zeal Plaza, Adjacent First Bank BBA, Beside Anambra Clusters, Trade Fair International Market, Lagos',
   contactHours: 'Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM\nSunday: Closed',
   freeShipping: '25000',
   footerTagline: 'exceptional products. unbeatable value.',
@@ -402,7 +402,7 @@ export const DEFAULT_CONTENT: SiteContent = {
   footerPhone2: '08140764150',
   footerEmail: 'info@xpelbeauty.com',
   footerCompany: 'Xpel Beauty NG',
-  footerAddress: 'Nigeria',
+  footerAddress: 'Zeal Plaza, Adjacent First Bank BBA, Beside Anambra Clusters, Trade Fair International Market, Lagos',
 
   shopTitle: 'shop our range',
   shopSubtitle: 'Browse our full range of health, beauty, home & gifting products.',
