@@ -41,7 +41,7 @@ if ($method === 'GET') {
 if ($method === 'POST') {
     xpel_require_token();
     $body    = xpel_body();
-    $allowed = ['title','slug','content','excerpt','author','featured_image','published'];
+    $allowed = ['title','slug','content','excerpt','author','category','featured_image','published'];
     $body    = array_intersect_key($body, array_flip($allowed));
     if (empty($body['title'])) xpel_json(['error' => 'title is required'], 400);
 
@@ -69,7 +69,7 @@ if ($method === 'PUT') {
     $id      = (int)($body['id'] ?? 0);
     if (!$id) xpel_json(['error' => 'id required'], 400);
 
-    $allowed = ['title','slug','content','excerpt','author','featured_image','published'];
+    $allowed = ['title','slug','content','excerpt','author','category','featured_image','published'];
     $fields  = array_intersect_key($body, array_flip($allowed));
     if (isset($fields['published'])) $fields['published'] = (int)$fields['published'];
     if (empty($fields)) xpel_json(['error' => 'Nothing to update'], 400);
