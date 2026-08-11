@@ -76,6 +76,30 @@
   line-height: 1.9;
 }
 
+.footer-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.footer-contact-row .footer-link {
+  margin-bottom: 2px;
+}
+
+.footer-contact-icon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(202, 124, 41, 0.16);
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
 .footer-divider {
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.1);

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import './Footer.css';
 
@@ -58,25 +59,41 @@ export default function Footer() {
 
         <div>
           <span className="footer-col-heading">contact</span>
-          <p className="footer-address">
-            {content.footerCompany}
-            <br />
-            {content.footerAddress}
-          </p>
-          {content.footerPhone1 && (
-            <a href={`tel:${content.footerPhone1.replace(/\s/g, '')}`} className="footer-link" style={{ marginTop: '12px' }}>
-              {content.footerPhone1}
-            </a>
+
+          <div className="footer-contact-row">
+            <span className="footer-contact-icon" aria-hidden="true"><MapPin size={15} strokeWidth={2} /></span>
+            <p className="footer-address">
+              {content.footerCompany}
+              <br />
+              {content.footerAddress}
+            </p>
+          </div>
+
+          {(content.footerPhone1 || content.footerPhone2) && (
+            <div className="footer-contact-row">
+              <span className="footer-contact-icon" aria-hidden="true"><Phone size={15} strokeWidth={2} /></span>
+              <div>
+                {content.footerPhone1 && (
+                  <a href={`tel:${content.footerPhone1.replace(/\s/g, '')}`} className="footer-link">
+                    {content.footerPhone1}
+                  </a>
+                )}
+                {content.footerPhone2 && (
+                  <a href={`tel:${content.footerPhone2.replace(/\s/g, '')}`} className="footer-link">
+                    {content.footerPhone2}
+                  </a>
+                )}
+              </div>
+            </div>
           )}
-          {content.footerPhone2 && (
-            <a href={`tel:${content.footerPhone2.replace(/\s/g, '')}`} className="footer-link">
-              {content.footerPhone2}
-            </a>
-          )}
+
           {content.footerEmail && (
-            <a href={`mailto:${content.footerEmail}`} className="footer-link">
-              {content.footerEmail}
-            </a>
+            <div className="footer-contact-row">
+              <span className="footer-contact-icon" aria-hidden="true"><Mail size={15} strokeWidth={2} /></span>
+              <a href={`mailto:${content.footerEmail}`} className="footer-link">
+                {content.footerEmail}
+              </a>
+            </div>
           )}
         </div>
       </div>
