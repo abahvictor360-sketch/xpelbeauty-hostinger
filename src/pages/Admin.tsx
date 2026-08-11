@@ -1,5 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { Check, X, Info, Star, Moon, Sun, Palette, Home, ShoppingBag, Mail, FileText, MapPin, ScanBarcode } from 'lucide-react';
+import { Check, X, Info, Star, Moon, Sun, Palette, Home, ShoppingBag, Mail, FileText, MapPin, ScanBarcode, TrendingUp, TrendingDown } from 'lucide-react';
+import AdminBarChart from '../components/AdminBarChart';
 import { api } from '../lib/api';
 import type { Product, BlogPost, Store } from '../types';
 import { saveSiteContent, loadLocalContent, fileToDataURL, type SiteContent, type AdminUserRecord, type MegaMenuConfig, type CollectionConfig } from '../hooks/useSiteContent';
@@ -278,6 +279,28 @@ export default function Admin() {
 
   const allBrands = [...new Set([...products.map(p => p.brand).filter(Boolean), ...customBrands])].sort((a, b) => a.localeCompare(b));
   const allCategories = [...new Set([...FIXED_CATEGORIES, ...products.map(p => p.category).filter(Boolean), ...customCategories])].sort((a, b) => a.localeCompare(b));
+
+  // ── Overview dashboard: real, current-snapshot metrics only (no fabricated trends) ──
+  const categoryChartData = Object.entries(
+    products.reduce<Record<string, number>>((acc, p) => {
+      const cat = p.category || 'Uncategorized';
+      acc[cat] = (acc[cat] || 0) + 1;
+      return acc;
+    }, {})
+  )
+    .map(([label, value]) => ({ label, value }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 8);
+
+  const stockChartData = [
+    { label: 'In Stock', value: products.filter(p => p.stock > 10).length },
+    { label: 'Low Stock', value: products.filter(p => p.stock > 0 && p.stock <= 10).length },
+    { label: 'Out of Stock', value: products.filter(p => p.stock <= 0).length },
+  ];
+
+  const publishedBlogCount = blogPosts.filter(b => b.published).length;
+  const storeStateCount = new Set(stores.map(s => s.state).filter(Boolean)).size;
+  const newEnquiryCount = enquiries.filter(e => e.status === 'new').length;
 
   const addCustomBrand = (brand: string) => {
     const next = [...new Set([...customBrands, brand])];
@@ -999,27 +1022,71 @@ export default function Admin() {
           {/* Overview Panel */}
           {activePanel === 'overview' && (
             <div className="panel-overview">
-              <div className="metrics-grid">
-                <div className="metric-card">
-                  <div className="metric-icon"><Icon name="box" size={22} /></div>
-                  <div className="metric-info">
-                    <h3>Total Products</h3>
-                    <p className="metric-value">{products.length}</p>
+              <div className="stat-row">
+                <div className="stat-card-v2">
+                  <div className="stat-icon-wrap"><Icon name="box" size={20} /></div>
+                  <div>
+                    <div className="stat-card-v2-label">Total Products</div>
+                    <div className="stat-card-v2-value">{products.length}</div>
+                  </div>
+                  <div className="stat-card-v2-footer">
+                    <span className="stat-trend neutral">{allCategories.length} categories</span>
                   </div>
                 </div>
-                <div className="metric-card">
-                  <div className="metric-icon"><Icon name="doc" size={22} /></div>
-                  <div className="metric-info">
-                    <h3>Blog Posts</h3>
-                    <p className="metric-value">{blogPosts.length}</p>
+
+                <div className="stat-card-v2">
+                  <div className="stat-icon-wrap"><Icon name="doc" size={20} /></div>
+                  <div>
+                    <div className="stat-card-v2-label">Blog Posts</div>
+                    <div className="stat-card-v2-value">{blogPosts.length}</div>
+                  </div>
+                  <div className="stat-card-v2-footer">
+                    <span className="stat-trend good"><TrendingUp size={12} />{publishedBlogCount} published</span>
                   </div>
                 </div>
-                <div className="metric-card">
-                  <div className="metric-icon"><Icon name="store" size={22} /></div>
-                  <div className="metric-info">
-                    <h3>Stores</h3>
-                    <p className="metric-value">{stores.length}</p>
+
+                <div className="stat-card-v2">
+                  <div className="stat-icon-wrap"><Icon name="store" size={20} /></div>
+                  <div>
+                    <div className="stat-card-v2-label">Stores</div>
+                    <div className="stat-card-v2-value">{stores.length}</div>
                   </div>
+                  <div className="stat-card-v2-footer">
+                    <span className="stat-trend neutral">{storeStateCount} states covered</span>
+                  </div>
+                </div>
+
+                <div className="stat-card-v2">
+                  <div className="stat-icon-wrap"><Icon name="mail" size={20} /></div>
+                  <div>
+                    <div className="stat-card-v2-label">Enquiries</div>
+                    <div className="stat-card-v2-value">{enquiries.length}</div>
+                  </div>
+                  <div className="stat-card-v2-footer">
+                    {newEnquiryCount > 0 ? (
+                      <span className="stat-trend bad"><TrendingUp size={12} />{newEnquiryCount} new</span>
+                    ) : (
+                      <span className="stat-trend good"><TrendingDown size={12} />all caught up</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="chart-row">
+                <div className="chart-card">
+                  <div className="chart-card-head">
+                    <h2>Products by Category</h2>
+                    <span className="chart-chip">All time</span>
+                  </div>
+                  <AdminBarChart data={categoryChartData} unit="products" />
+                </div>
+
+                <div className="chart-card">
+                  <div className="chart-card-head">
+                    <h2>Stock Status</h2>
+                    <span className="chart-chip">Live</span>
+                  </div>
+                  <AdminBarChart data={stockChartData} color="var(--secondary-color)" unit="products" />
                 </div>
               </div>
 
@@ -2931,7 +2998,7 @@ export default function Admin() {
             {/* ── Summary row ── */}
             <div className="enq-summary">
               {[
-                { label: 'Total', value: enquiries.length, color: 'var(--navy, #1B2A3B)' },
+                { label: 'Total', value: enquiries.length, color: 'var(--text-dark)' },
                 { label: 'New', value: newCount, color: '#dc2626' },
                 { label: 'Read', value: enquiries.filter(e => e.status === 'read').length, color: '#6b7280' },
               ].map(m => (
