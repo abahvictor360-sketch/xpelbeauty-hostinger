@@ -3,7 +3,7 @@ import { Check, X, Info, Star, Moon, Sun, Palette, Home, ShoppingBag, Mail, File
 import AdminBarChart from '../components/AdminBarChart';
 import { api } from '../lib/api';
 import type { Product, BlogPost, Store } from '../types';
-import { saveSiteContent, loadLocalContent, fileToDataURL, type SiteContent, type AdminUserRecord, type MegaMenuConfig, type CollectionConfig } from '../hooks/useSiteContent';
+import { saveSiteContent, loadLocalContent, fileToDataURL, type SiteContent, type AdminUserRecord, type MegaMenuConfig, type CollectionConfig, type Testimonial } from '../hooks/useSiteContent';
 import Icon from '../components/Icon';
 import { PRODUCT_IMAGES } from '../imageManifest';
 
@@ -592,6 +592,30 @@ export default function Admin() {
     addToast('Hero image loaded - remember to Save Collections', 'info');
   };
 
+  // ── Testimonial helpers ────────────────────────────────────────────────────
+  const testimonials: Testimonial[] = content.testimonials ?? [];
+
+  const updateTestimonial = (idx: number, patch: Partial<Testimonial>) => {
+    const next = testimonials.map((t, i) => i === idx ? { ...t, ...patch } : t);
+    updateContent({ testimonials: next });
+  };
+
+  const deleteTestimonial = (idx: number) => {
+    if (!window.confirm('Delete this testimonial? It will disappear from the homepage.')) return;
+    const next = testimonials.filter((_, i) => i !== idx);
+    updateContent({ testimonials: next });
+  };
+
+  const addTestimonial = () => {
+    const newT: Testimonial = {
+      id: `t${Date.now()}`,
+      text: '',
+      author: 'Verified Customer',
+      source: 'WhatsApp',
+    };
+    updateContent({ testimonials: [...testimonials, newT] });
+  };
+
   // Check API connection
   useEffect(() => {
     api.products.getAllAdmin()
@@ -956,6 +980,7 @@ export default function Admin() {
               { id: 'media', label: 'Logo & Media', icon: 'image' },
               { id: 'mega-menu', label: 'Mega Menu', icon: 'home' },
               { id: 'collections', label: 'Collections', icon: 'box' },
+              { id: 'testimonials', label: 'Testimonials', icon: 'quote' },
               { id: 'seo', label: 'SEO', icon: 'search' },
             ] },
             { group: 'Tools', items: [
@@ -1002,6 +1027,7 @@ export default function Admin() {
             {activePanel === 'media' && 'Logo & Media'}
             {activePanel === 'mega-menu' && 'Mega Menu Editor'}
             {activePanel === 'collections' && 'Collections Editor'}
+            {activePanel === 'testimonials' && 'Testimonials'}
             {activePanel === 'users' && 'User Management'}
             {activePanel === 'import-export' && 'Import/Export'}
             {activePanel === 'settings' && 'Settings'}
@@ -2944,6 +2970,76 @@ export default function Admin() {
             </button>
             <button type="button" className="btn-primary" onClick={saveContent}>
               Save All Collections
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Testimonials Panel ────────────────────────────────── */}
+      {activePanel === 'testimonials' && (
+        <div className="panel-section">
+          <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 20 }}>
+            Real customer messages shown in a rotating spotlight on the homepage, just below Best Sellers.
+            Edit the text and click <strong>Save All Testimonials</strong>.
+          </p>
+
+          {testimonials.length === 0 && (
+            <p className="empty-state">No testimonials yet - click "Add New Testimonial" below.</p>
+          )}
+
+          {testimonials.map((t, idx) => (
+            <details key={t.id} className="mega-menu-group" style={{ marginBottom: 10 }}>
+              <summary className="mega-menu-group-summary" style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '10px 0' }}>
+                <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 420 }}>
+                  {t.text ? `"${t.text}"` : '(Empty testimonial)'}
+                </span>
+                <span style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+                  <button
+                    type="button"
+                    className="btn-sm"
+                    style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: 4, padding: '4px 10px', cursor: 'pointer', fontSize: 11 }}
+                    onClick={(e) => { e.preventDefault(); deleteTestimonial(idx); }}
+                  >
+                    Delete
+                  </button>
+                </span>
+              </summary>
+
+              <div style={{ padding: '16px 0 8px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <div className="form-group">
+                  <label className="form-label">Testimonial Text</label>
+                  <textarea
+                    className="form-input"
+                    rows={3}
+                    value={t.text}
+                    onChange={(e) => updateTestimonial(idx, { text: e.target.value })}
+                    placeholder="I love my products."
+                  />
+                  <small style={{ color: 'var(--muted)', fontSize: 11 }}>Keep it in the customer's own words - that's what makes it real.</small>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                  <div className="form-group">
+                    <label className="form-label">Attributed To</label>
+                    <input className="form-input" value={t.author} onChange={(e) => updateTestimonial(idx, { author: e.target.value })} placeholder="Verified Customer" />
+                    <small style={{ color: 'var(--muted)', fontSize: 11 }}>Leave as "Verified Customer" unless you have permission to use a real name.</small>
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Source</label>
+                    <input className="form-input" value={t.source} onChange={(e) => updateTestimonial(idx, { source: e.target.value })} placeholder="WhatsApp" />
+                  </div>
+                </div>
+              </div>
+            </details>
+          ))}
+
+          {/* Actions */}
+          <div style={{ display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap' }}>
+            <button type="button" className="btn-secondary" onClick={addTestimonial}>
+              + Add New Testimonial
+            </button>
+            <button type="button" className="btn-primary" onClick={saveContent}>
+              Save All Testimonials
             </button>
           </div>
         </div>

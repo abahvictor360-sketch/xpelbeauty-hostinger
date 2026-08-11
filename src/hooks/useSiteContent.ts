@@ -117,6 +117,9 @@ export interface SiteContent {
 
   // Dedicated collection pages (/collection/:slug) — all editable in admin
   collections: CollectionConfig[];
+
+  // Customer testimonials shown on the homepage — all editable in admin
+  testimonials: Testimonial[];
 }
 
 // ── Mega-menu config ──────────────────────────────────────────────────────────
@@ -149,6 +152,13 @@ export interface CollectionConfig {
   accentColor: string;  // Hex accent colour for badge + back button
   filterType: 'brand' | 'name' | 'ids'; // How to query products
   filterValue: string;  // brand text / name substring / comma-separated IDs
+}
+
+export interface Testimonial {
+  id: string;
+  text: string;    // the customer's own words — kept verbatim, no rewriting
+  author: string;  // defaults to "Verified Customer" since real names aren't published
+  source: string;  // where it came from — e.g. "WhatsApp"
 }
 
 export interface SEOPage {
@@ -695,6 +705,16 @@ export const DEFAULT_CONTENT: SiteContent = {
       heroImage: '/banner/Product-Body-Care.webp',  overlayColor: 'rgba(20, 42, 59, 0.85)', accentColor: '#1B2A3B',
       filterType: 'name', filterValue: 'Men Protect' },
   ] as CollectionConfig[],
+
+  // Real customer messages, kept verbatim
+  testimonials: [
+    { id: 't1', text: 'I love my products.', author: 'Verified Customer', source: 'WhatsApp' },
+    { id: 't2', text: 'The boils have reduced and no new ones. I am doing the routine as we discussed last time. My serum will finish soon.', author: 'Verified Customer', source: 'WhatsApp' },
+    { id: 't3', text: "I feel good o. My face skin breathes. I can't explain o. And it feels clean.", author: 'Verified Customer', source: 'WhatsApp' },
+    { id: 't4', text: "It's always blending my skin and makes my butt soft.", author: 'Verified Customer', source: 'WhatsApp' },
+    { id: 't5', text: "I'm enjoying it.", author: 'Verified Customer', source: 'WhatsApp' },
+    { id: 't6', text: "Oh! I'm really enjoying the face wash and cleanser. My face is now coming back to normal. I want everything to clear off before sending my face to you.", author: 'Verified Customer', source: 'WhatsApp' },
+  ] as Testimonial[],
 };
 
 const LS_KEY = 'xpel_site_content';

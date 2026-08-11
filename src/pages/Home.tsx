@@ -4,6 +4,7 @@ import { CheckCircle2 } from 'lucide-react';
 import { useProducts } from '@/hooks/useProducts';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import SEO from '@/components/SEO';
+import Testimonials from '@/components/Testimonials';
 
 const CIRCLES = ['#d8efe2', '#f7dfe6', '#f6e6cf', '#e3e9f7', '#f3e2f0', '#e8f2d8'];
 const FALLBACK_IMG = '/images/product-placeholder.svg';
@@ -362,6 +363,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          TESTIMONIALS - real customer messages
+      ═══════════════════════════════════════════════════════════ */}
+      <Testimonials testimonials={content.testimonials} />
 
       {/* ══════════════════════════════════════════════════════════
           IVA-STYLE QUOTE BANNER (in-between section)

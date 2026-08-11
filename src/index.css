@@ -567,6 +567,81 @@ a:focus-visible, button:focus-visible {
 }
 .home-quote-btn:hover { background: #fff; color: var(--gold-raw); }
 
+/* ── Testimonials (real customer messages, WhatsApp-styled) ── */
+.testimonials-section {
+  background: var(--light-bg);
+  padding: 80px 40px;
+  text-align: center;
+}
+.testimonials-inner { max-width: 720px; margin: 0 auto; }
+.testimonial-card {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 44px 40px 32px;
+  box-shadow: 0 12px 32px rgba(20, 20, 20, .07);
+  animation: testimonialIn .5s ease;
+}
+@keyframes testimonialIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.testimonial-quote-mark {
+  color: var(--gold-raw);
+  opacity: .35;
+  margin-bottom: 8px;
+}
+.testimonial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--dark);
+  margin-bottom: 24px;
+}
+.testimonial-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.testimonial-wa-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  flex-shrink: 0;
+}
+.testimonial-author { font-size: 14px; font-weight: 700; color: var(--dark); }
+.testimonial-source { font-size: 13px; color: var(--muted); }
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+.testimonial-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  padding: 0;
+  transition: all .25s ease;
+}
+.testimonial-dot.active { background: var(--gold-raw); width: 22px; border-radius: 4px; }
+
+@media (max-width: 640px) {
+  .testimonials-section { padding: 56px 20px; }
+  .testimonial-card { padding: 32px 22px 26px; }
+}
+
 /* ── BCO Promo Banner ────────────────────────────────────── */
 .bco-promo-banner {
   position: relative;
