@@ -617,6 +617,28 @@ a:focus-visible, button:focus-visible {
   color: #fff;
   flex-shrink: 0;
 }
+.testimonial-avatar-wrap {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.06);
+}
+.testimonial-wa-badge-overlay {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+}
 .testimonial-author { font-size: 14px; font-weight: 700; color: var(--dark); }
 .testimonial-source { font-size: 13px; color: var(--muted); }
 .testimonial-dots {

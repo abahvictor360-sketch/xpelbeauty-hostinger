@@ -156,9 +156,10 @@ export interface CollectionConfig {
 
 export interface Testimonial {
   id: string;
-  text: string;    // the customer's own words — kept verbatim, no rewriting
-  author: string;  // defaults to "Verified Customer" since real names aren't published
-  source: string;  // where it came from — e.g. "WhatsApp"
+  text: string;     // the customer's own words — kept verbatim, no rewriting
+  author: string;   // defaults to "Verified Customer" since real names aren't published
+  source: string;   // where it came from — e.g. "WhatsApp"
+  image?: string;   // optional customer/proof photo — URL or uploaded data URL
 }
 
 export interface SEOPage {

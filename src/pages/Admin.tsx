@@ -616,6 +616,15 @@ export default function Admin() {
     updateContent({ testimonials: [...testimonials, newT] });
   };
 
+  const uploadTestimonialImage = async (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 1.5 * 1024 * 1024) { addToast('Image too large - use one under 1.5 MB', 'error'); return; }
+    const dataUrl = await fileToDataURL(file);
+    updateTestimonial(idx, { image: dataUrl });
+    addToast('Image loaded - remember to Save Testimonials', 'info');
+  };
+
   // Check API connection
   useEffect(() => {
     api.products.getAllAdmin()
@@ -3028,6 +3037,38 @@ export default function Admin() {
                     <label className="form-label">Source</label>
                     <input className="form-input" value={t.source} onChange={(e) => updateTestimonial(idx, { source: e.target.value })} placeholder="WhatsApp" />
                   </div>
+                </div>
+
+                {/* Picture */}
+                <div className="form-group">
+                  <label className="form-label">Picture (optional)</label>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <input
+                      className="form-input"
+                      value={t.image ?? ''}
+                      onChange={(e) => updateTestimonial(idx, { image: e.target.value })}
+                      placeholder="Paste an image URL, or upload one"
+                      style={{ flex: 1 }}
+                    />
+                    <label className="btn-secondary btn-sm" style={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                      Upload
+                      <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => uploadTestimonialImage(e, idx)} />
+                    </label>
+                    {t.image && (
+                      <button type="button" className="btn-secondary btn-sm" onClick={() => updateTestimonial(idx, { image: '' })}>
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                  {t.image && (
+                    <img
+                      src={t.image}
+                      alt="preview"
+                      style={{ marginTop: 8, height: 64, width: 64, objectFit: 'cover', borderRadius: '50%', border: '1px solid var(--border)' }}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                    />
+                  )}
+                  <small style={{ color: 'var(--muted)', fontSize: 11 }}>Shown as a small round photo next to the name - a customer photo or a screenshot both work.</small>
                 </div>
               </div>
             </details>
