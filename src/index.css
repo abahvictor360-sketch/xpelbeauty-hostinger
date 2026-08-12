@@ -598,6 +598,13 @@ a:focus-visible, button:focus-visible {
   line-height: 1.5;
   color: var(--dark);
   margin-bottom: 24px;
+  white-space: pre-line;
+}
+.testimonial-stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--gold-raw);
+  margin-bottom: 12px;
 }
 .testimonial-footer {
   display: flex;

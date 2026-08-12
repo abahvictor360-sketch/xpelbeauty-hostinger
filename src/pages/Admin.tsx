@@ -3027,15 +3027,26 @@ export default function Admin() {
                   <small style={{ color: 'var(--muted)', fontSize: 11 }}>Keep it in the customer's own words - that's what makes it real.</small>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
                   <div className="form-group">
                     <label className="form-label">Attributed To</label>
                     <input className="form-input" value={t.author} onChange={(e) => updateTestimonial(idx, { author: e.target.value })} placeholder="Verified Customer" />
-                    <small style={{ color: 'var(--muted)', fontSize: 11 }}>Leave as "Verified Customer" unless you have permission to use a real name.</small>
+                    <small style={{ color: 'var(--muted)', fontSize: 11 }}>Use "Verified Customer" unless the name is already public (e.g. a Google review).</small>
                   </div>
                   <div className="form-group">
                     <label className="form-label">Source</label>
-                    <input className="form-input" value={t.source} onChange={(e) => updateTestimonial(idx, { source: e.target.value })} placeholder="WhatsApp" />
+                    <input className="form-input" value={t.source} onChange={(e) => updateTestimonial(idx, { source: e.target.value })} placeholder="WhatsApp or Google Reviews" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Star Rating (optional)</label>
+                    <select
+                      className="form-input"
+                      value={t.rating ?? ''}
+                      onChange={(e) => updateTestimonial(idx, { rating: e.target.value ? Number(e.target.value) : undefined })}
+                    >
+                      <option value="">No rating shown</option>
+                      {[1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n} star{n === 1 ? '' : 's'}</option>)}
+                    </select>
                   </div>
                 </div>
 

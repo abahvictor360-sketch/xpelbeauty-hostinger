@@ -156,10 +156,11 @@ export interface CollectionConfig {
 
 export interface Testimonial {
   id: string;
-  text: string;     // the customer's own words — kept verbatim, no rewriting
-  author: string;   // defaults to "Verified Customer" since real names aren't published
-  source: string;   // where it came from — e.g. "WhatsApp"
-  image?: string;   // optional customer/proof photo — URL or uploaded data URL
+  text: string;      // the customer's own words — kept verbatim, no rewriting
+  author: string;    // defaults to "Verified Customer" since real names aren't published
+  source: string;    // where it came from — e.g. "WhatsApp", "Google Reviews"
+  image?: string;    // optional customer/proof photo — URL or uploaded data URL
+  rating?: number;   // optional star rating (1-5) — shown when the source publishes one, e.g. Google Reviews
 }
 
 export interface SEOPage {
@@ -715,6 +716,11 @@ export const DEFAULT_CONTENT: SiteContent = {
     { id: 't4', text: "It's always blending my skin and makes my butt soft.", author: 'Verified Customer', source: 'WhatsApp' },
     { id: 't5', text: "I'm enjoying it.", author: 'Verified Customer', source: 'WhatsApp' },
     { id: 't6', text: "Oh! I'm really enjoying the face wash and cleanser. My face is now coming back to normal. I want everything to clear off before sending my face to you.", author: 'Verified Customer', source: 'WhatsApp' },
+    { id: 't7', text: "I've been using Xpel Beauty products for some time now and the quality remains consistent.", author: 'Abah Victor', source: 'Google Reviews', rating: 5 },
+    { id: 't8', text: "Using Xpel beauty products has been a game changer for me in my beauty journey.\nThe fact that they have different categories of products to cater to different needs; whether its skincare, body care, hair care, nail and even foot care makes me love the brand so so much.\nThey are very intentional about their customers and providing quality products that actually deliver results.\nLove love itt✨🫶", author: 'Laura Akpan (Laurex)', source: 'Google Reviews', rating: 5 },
+    { id: 't9', text: "Xpel Beauty NG is a sure and reliable hub for great quality products at reasonable prices. I've purchased several times and I'm always satisfied. Also I have recommended them to my friends, family & colleague and they can't stop thanking me for it.", author: 'Genesis Archibong', source: 'Google Reviews', rating: 5 },
+    { id: 't10', text: 'The Argan Oil range really helped improve the overall appearance of my hair.', author: 'O S', source: 'Google Reviews', rating: 5 },
+    { id: 't11', text: "Great quality products at reasonable prices. I've purchased several times and I'm always satisfied.", author: 'James Peter', source: 'Google Reviews', rating: 5 },
   ] as Testimonial[],
 };
 
