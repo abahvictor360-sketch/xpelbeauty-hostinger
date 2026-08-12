@@ -721,6 +721,8 @@ export const DEFAULT_CONTENT: SiteContent = {
     { id: 't9', text: "Xpel Beauty NG is a sure and reliable hub for great quality products at reasonable prices. I've purchased several times and I'm always satisfied. Also I have recommended them to my friends, family & colleague and they can't stop thanking me for it.", author: 'Genesis Archibong', source: 'Google Reviews', rating: 5 },
     { id: 't10', text: 'The Argan Oil range really helped improve the overall appearance of my hair.', author: 'O S', source: 'Google Reviews', rating: 5 },
     { id: 't11', text: "Great quality products at reasonable prices. I've purchased several times and I'm always satisfied.", author: 'James Peter', source: 'Google Reviews', rating: 5 },
+    { id: 't12', text: "Today I went to make braids and my hair was not itching me because the last time I washed it I applied the conditioners. I love the fact that it's non greasy. I also apply them on my straight wigs for shine. And it dries up before evening, so I won't have to wash the weavon.", author: 'Dee', source: 'WhatsApp' },
+    { id: 't13', text: "I have used the face wash consistently. It's very good and not drying. It's also leaves a finishing glow. It also reduces my red painful inflammations.", author: 'Apunawu', source: 'WhatsApp' },
   ] as Testimonial[],
 };
 
