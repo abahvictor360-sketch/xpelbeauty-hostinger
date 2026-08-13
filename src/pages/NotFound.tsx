@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import SEO from '@/components/SEO';
 
 export default function NotFound() {
   return (
@@ -13,6 +14,14 @@ export default function NotFound() {
         padding: '80px 24px',
       }}
     >
+      <SEO
+        page="home"
+        overrides={{
+          fullTitle: 'Page Not Found | Xpel Beauty NG',
+          description: "Sorry, the page you're looking for doesn't exist or has been moved. Browse Xpel Beauty NG's full range of hair, skin and body care products instead.",
+          robots: 'noindex, follow',
+        }}
+      />
       <span className="section-label">error 404</span>
       <h1
         className="section-title"

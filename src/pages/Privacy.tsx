@@ -1,6 +1,16 @@
+import SEO from '@/components/SEO';
+
 export default function Privacy() {
   return (
     <div style={{ maxWidth: '860px', margin: '0 auto', padding: '64px 24px 80px' }}>
+      <SEO
+        page="home"
+        overrides={{
+          fullTitle: 'Privacy Policy | Xpel Beauty NG',
+          description: 'How Xpel Beauty NG collects, uses and protects your personal information.',
+          canonicalPath: '/privacy',
+        }}
+      />
       <span className="section-label">legal</span>
       <h1 className="section-title section-title-anim" style={{ marginBottom: '24px' }}>
         privacy policy
