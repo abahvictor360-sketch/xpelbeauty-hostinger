@@ -65,7 +65,14 @@ export default function Footer() {
             <p className="footer-address">
               {content.footerCompany}
               <br />
-              {content.footerAddress}
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.footerAddress)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-address-link"
+              >
+                {content.footerAddress}
+              </a>
             </p>
           </div>
 

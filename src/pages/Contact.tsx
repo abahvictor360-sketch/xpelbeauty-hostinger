@@ -260,7 +260,15 @@ export default function Contact() {
               <span className="xp-contact-row-icon" aria-hidden="true"><MapPin size={17} strokeWidth={2} /></span>
               <div>
                 <p className="xp-contact-row-label">Address</p>
-                <p className="xp-contact-row-value">{content.contactAddress}</p>
+                <p className="xp-contact-row-value">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.contactAddress)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {content.contactAddress}
+                  </a>
+                </p>
               </div>
             </div>
 
