@@ -216,6 +216,13 @@ export interface HeroSlide {
   ctaColor: string;      // button text colour — chosen to contrast with ctaBg
 }
 
+/**
+ * Google Maps link for the store address, used by the footer and contact page.
+ * A pinned short link rather than a `?query=` search built from the address —
+ * the address text alone does not geocode to the right spot.
+ */
+export const STORE_MAP_URL = 'https://maps.app.goo.gl/kJrFt9Ai12aGVUFf9';
+
 export const DEFAULT_CONTENT: SiteContent = {
   announcement: 'exceptional products. unbeatable value.',
   logo: '/images/logo-xpel-beauty-ng.png',

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import { useSiteContent } from '@/hooks/useSiteContent';
+import { useSiteContent, STORE_MAP_URL } from '@/hooks/useSiteContent';
 import './Footer.css';
 
 export default function Footer() {
@@ -66,7 +66,7 @@ export default function Footer() {
               {content.footerCompany}
               <br />
               <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.footerAddress)}`}
+                href={STORE_MAP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-address-link"

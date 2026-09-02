@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Phone, Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
-import { useSiteContent } from '@/hooks/useSiteContent';
+import { useSiteContent, STORE_MAP_URL } from '@/hooks/useSiteContent';
 import { api } from '@/lib/api';
 import PromoBanner from '@/components/PromoBanner';
 import SEO from '@/components/SEO';
@@ -262,7 +262,7 @@ export default function Contact() {
                 <p className="xp-contact-row-label">Address</p>
                 <p className="xp-contact-row-value">
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.contactAddress)}`}
+                    href={STORE_MAP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
