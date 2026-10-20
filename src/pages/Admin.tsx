@@ -3,7 +3,7 @@ import { Check, X, Info, Star, Moon, Sun, Palette, Home, ShoppingBag, Mail, File
 import AdminBarChart from '../components/AdminBarChart';
 import { api } from '../lib/api';
 import type { Product, BlogPost, Store } from '../types';
-import { saveSiteContent, loadLocalContent, fileToDataURL, type SiteContent, type AdminUserRecord, type MegaMenuConfig, type CollectionConfig, type Testimonial } from '../hooks/useSiteContent';
+import { saveSiteContent, loadLocalContent, loadCloudContent, fileToDataURL, type SiteContent, type AdminUserRecord, type MegaMenuConfig, type CollectionConfig, type Testimonial } from '../hooks/useSiteContent';
 import Icon from '../components/Icon';
 import CatalogueManager from '../components/admin/CatalogueManager';
 import { PRODUCT_IMAGES } from '../imageManifest';
@@ -119,6 +119,7 @@ function ComboSelect({
 
 export default function Admin() {
   const [activePanel, setActivePanel] = useState('overview');
+  const [navOpen, setNavOpen] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [supabaseStatus, setSupabaseStatus] = useState<SupabaseStatus>({ connected: false, message: 'Checking...' });
 
@@ -315,9 +316,8 @@ export default function Admin() {
   };
 
   // ── Unified site content (single source of truth, cloud + local) ──
-  const [content, setContent] = useState<SiteContent>(() => {
-    const c = loadLocalContent();
-    // Merge dedicated xpel_admin_users store into content on init
+  // Merge the dedicated xpel_admin_users store into a content object
+  const withLocalUsers = (c: SiteContent): SiteContent => {
     try {
       const localUsers: AdminUserRecord[] = JSON.parse(localStorage.getItem('xpel_admin_users') || '[]');
       if (localUsers.length > 0) {
@@ -326,8 +326,44 @@ export default function Admin() {
       }
     } catch { /* ignore */ }
     return c;
-  });
+  };
+  const [content, setContentState] = useState<SiteContent>(() => withLocalUsers(loadLocalContent()));
+  // Every editor change goes through setContent, which marks the content unsaved.
+  const [contentDirty, setContentDirty] = useState(false);
+  const [contentReady, setContentReady] = useState(false);
+  const [savingContent, setSavingContent] = useState(false);
+  const setContent: typeof setContentState = (value) => {
+    setContentState(value);
+    setContentDirty(true);
+  };
   const updateContent = (patch: Partial<SiteContent>) => setContent((c) => ({ ...c, ...patch }));
+
+  // The browser's copy can be stale, or just defaults in a new browser, so the
+  // editor loads the live content first and saving waits until it has.
+  useEffect(() => {
+    if (!authed) return;
+    let active = true;
+    loadCloudContent().then((cloud) => {
+      if (!active) return;
+      if (cloud) {
+        setContentState(withLocalUsers(cloud));
+        setContentDirty(false);
+      } else {
+        addToast('Could not load the live site content. You are editing the copy saved in this browser.', 'error');
+      }
+      setContentReady(true);
+    });
+    return () => { active = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authed]);
+
+  // Warn before leaving with unsaved edits
+  useEffect(() => {
+    if (!contentDirty) return;
+    const warn = (e: BeforeUnloadEvent) => { e.preventDefault(); e.returnValue = ''; };
+    window.addEventListener('beforeunload', warn);
+    return () => window.removeEventListener('beforeunload', warn);
+  }, [contentDirty]);
   const updateSlide = (i: number, val: string) => {
     setContent((c) => {
       const slides = [...(c.slides ?? [])];
@@ -404,12 +440,32 @@ export default function Admin() {
     addToast('Banner image loaded - remember to Save', 'info');
   };
   const saveContent = async () => {
+    if (!contentReady) {
+      addToast('Still loading the live content. Try again in a moment.', 'info');
+      return;
+    }
+    if (savingContent) return;
+    setSavingContent(true);
     const cloud = await saveSiteContent(content);
+    setSavingContent(false);
+    if (cloud) setContentDirty(false);
     addToast(
-      cloud ? 'Saved - live site updated' : 'Saved locally (add site_content table to go live)',
-      cloud ? 'success' : 'info'
+      cloud ? 'Saved. The live site is updated.' : 'Saved in this browser only. The live site could not be reached, so try again.',
+      cloud ? 'success' : 'error'
     );
   };
+
+  // Ctrl/Cmd+S saves site content
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        if (contentDirty) saveContent();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
   // Upload a file -> data URL -> assign to a content field (or a slide index)
   const handleUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -931,6 +987,8 @@ export default function Admin() {
           <input
             type="text"
             placeholder="Username or email"
+            aria-label="Username or email"
+            spellCheck={false}
             value={loginUser}
             onChange={(e) => setLoginUser(e.target.value.slice(0, 128))}
             autoComplete="username email"
@@ -939,6 +997,7 @@ export default function Admin() {
           <input
             type="password"
             placeholder="Password"
+            aria-label="Password"
             autoComplete="current-password"
             value={loginPass}
             onChange={(e) => setLoginPass(e.target.value.slice(0, 128))}
@@ -970,13 +1029,14 @@ export default function Admin() {
         }
       `}</style>
       {/* Sidebar Navigation */}
-      <aside className="admin-sidebar">
+      <aside id="admin-sidebar" className={`admin-sidebar ${navOpen ? 'open' : ''}`}
+        onKeyDown={(e) => { if (e.key === 'Escape') setNavOpen(false); }}>
         <div className="sidebar-header">
           <h2 className="sidebar-title">Xpel Admin</h2>
           <p className="sidebar-subtitle">Dashboard</p>
         </div>
 
-        <nav className="sidebar-nav">
+        <nav className="sidebar-nav" aria-label="Admin sections">
           {[
             { group: '', items: [{ id: 'overview', label: 'Overview', icon: 'dashboard' }] },
             { group: 'Management', items: [
@@ -1005,8 +1065,9 @@ export default function Admin() {
               {section.items.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => { setActivePanel(item.id); (item as { load?: () => void }).load?.(); }}
+                  onClick={() => { setActivePanel(item.id); setNavOpen(false); (item as { load?: () => void }).load?.(); }}
                   className={`nav-item ${activePanel === item.id ? 'active' : ''}`}
+                  aria-current={activePanel === item.id ? 'page' : undefined}
                 >
                   <span className="nav-icon"><Icon name={item.icon} size={18} /></span>
                   <span className="nav-label">{item.label}</span>
@@ -1024,11 +1085,16 @@ export default function Admin() {
           <button className="sidebar-logout" onClick={handleLogout}>Sign Out</button>
         </div>
       </aside>
+      {navOpen && <div className="admin-nav-overlay" onClick={() => setNavOpen(false)} aria-hidden="true" />}
 
       {/* Main Content */}
       <main className="admin-main">
         {/* Header */}
         <header className="admin-header">
+          <button type="button" className="admin-nav-toggle" onClick={() => setNavOpen((o) => !o)}
+            aria-label={navOpen ? 'Close menu' : 'Open menu'} aria-expanded={navOpen} aria-controls="admin-sidebar">
+            <span aria-hidden="true">{navOpen ? '✕' : '☰'}</span>
+          </button>
           <h1 className="page-title">
             {activePanel === 'overview' && 'Dashboard Overview'}
             {activePanel === 'products' && 'Product Manager'}
@@ -1047,7 +1113,17 @@ export default function Admin() {
             {activePanel === 'enquiries' && 'Enquiries'}
           </h1>
           <div className="header-actions">
-            <button className="btn-secondary" onClick={toggleTheme} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+            {contentDirty && (
+              <>
+                <span className="unsaved-pill" role="status">Unsaved changes</span>
+                <button className="btn-primary btn-sm header-save" onClick={saveContent} disabled={savingContent || !contentReady}
+                  title="Save site content (Ctrl+S)">
+                  {savingContent ? 'Saving…' : 'Save Changes'}
+                </button>
+              </>
+            )}
+            <button className="btn-secondary" onClick={toggleTheme} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
               {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
             </button>
             <button className="btn-secondary" onClick={handleLogout}>Logout</button>
@@ -1224,7 +1300,7 @@ export default function Admin() {
                                   const next = ids.includes(product.id)
                                     ? ids.filter(id => id !== product.id)
                                     : [...ids, product.id];
-                                  updateContent({ bestSellerIds: next });
+                                  setContentState((c) => ({ ...c, bestSellerIds: next }));
                                   // Targeted patch — avoids sending large base64 images
                                   try {
                                     await api.siteContent.patch({ bestSellerIds: next });
@@ -1232,8 +1308,6 @@ export default function Admin() {
                                   } catch {
                                     addToast('Saved locally - sync to cloud failed', 'info');
                                   }
-                                  // Also update localStorage
-                                  saveSiteContent({ ...content, bestSellerIds: next });
                                 }}
                               >
                                 <Star size={18} fill={content.bestSellerIds?.includes(product.id) ? '#ca7c29' : 'none'} />
@@ -3244,7 +3318,7 @@ export default function Admin() {
       })()}
 
       {/* Toast Notifications */}
-      <div className="toast-container">
+      <div className="toast-container" role="status" aria-live="polite">
         {toasts.map(toast => (
           <div key={toast.id} className={`toast toast-${toast.type}`}>
             <span className="toast-icon">

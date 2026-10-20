@@ -839,3 +839,15 @@ export function loadLocalContent(): SiteContent {
   } catch { /* ignore */ }
   return DEFAULT_CONTENT;
 }
+
+/** Fetch the live content (row id=1) merged with defaults, or null if it can't be read. */
+export async function loadCloudContent(): Promise<SiteContent | null> {
+  try {
+    const res = await api.siteContent.get();
+    if (!res?.data) return null;
+    localStorage.setItem(LS_HERO_VER_KEY, String(HERO_SLIDES_VERSION));
+    return mergeContent(res.data);
+  } catch {
+    return null;
+  }
+}
