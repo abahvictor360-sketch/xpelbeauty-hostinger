@@ -1140,7 +1140,22 @@ Rinse thoroughly.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00'),
 (396,'Dalton House Orchard Burst Fine Handwash (500ml)','Dalton House','Home',0.0,40,'DH-ORCH-500','/Img/dalton-house-orchard-burst-handwash-500ml.jpg','Dalton House England orchard burst fine handwash. 500ml pump bottle.','500ml','Orchard burst fragrance
 Fine handwash
 500ml pump bottle','Pump onto wet hands and lather.
-Rinse thoroughly.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00');
+Rinse thoroughly.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00'),
+(397,'Tea Tree & Peppermint Deep Moisturising Hand Pack','Tea Tree','Body & Beauty',0.0,40,'TT-HPACK-1','/Img/tea-tree-peppermint-hand-pack.jpg','Tea tree and peppermint deep moisturising hand pack - deeply penetrates and moisturises to help repair dry hands.',NULL,'Tea tree and peppermint
+Deep moisturising
+Helps repair dry hands','Slip hands into the gloves.
+Leave for the time shown on the pack.
+Massage any remaining product into the skin.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00'),
+(398,'XHC Tea Tree Moisturising Shampoo (400ml)','Xpel Hair Care','Hair Care',0.0,40,'XHC-TT-SHMP-400','/Img/xhc-tea-tree-moisturising-shampoo-400ml.jpg','XHC tea tree moisturising shampoo for frequent use - cleanses and refreshes hair and scalp. 400ml.','400ml','With tea tree oil
+Moisturising formula
+For frequent use','Massage into wet hair and scalp.
+Rinse thoroughly.
+Follow with Tea Tree Moisturising Conditioner.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00'),
+(399,'XBC Tea Tree Facial Scrub (250ml)','Tea Tree','Body & Beauty',0.0,40,'XBC-TT-FSCR-250','/Img/xbc-tea-tree-facial-scrub-250ml.jpg','XBC tea tree facial scrub in a 250ml tube - gently exfoliates for visibly brighter, cleaner-looking skin.','250ml','With tea tree oil
+Gently exfoliates
+250ml tube','Apply to damp skin using circular motions.
+Avoid the eye area.
+Rinse thoroughly. Use 2-3 times a week.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00');
 
 -- ── Blog posts data (5 rows) ───────────────────────────────────────────────
 INSERT INTO `blog_posts` (`id`,`title`,`slug`,`content`,`excerpt`,`featured_image`,`author`,`category`,`published`,`created_at`,`updated_at`) VALUES
