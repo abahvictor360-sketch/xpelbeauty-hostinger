@@ -7,6 +7,9 @@ import { useSiteContent } from '@/hooks/useSiteContent';
 import { siteOrigin } from '@/lib/site';
 import SEO from '@/components/SEO';
 
+// Prices are hidden on the storefront for now; flip to true to show them again.
+const SHOW_PRICES = false;
+
 const FALLBACK_IMG = '/images/product-placeholder.svg';
 const CIRCLE = '#f6e6cf';
 
@@ -131,13 +134,13 @@ export default function Product() {
             category: product.category,
             ...(product.sku ? { sku: product.sku } : {}),
             ...(barcode ? { [barcode.gtinKey]: barcode.code } : {}),
-            offers: {
+            ...(SHOW_PRICES ? { offers: {
               '@type': 'Offer',
               priceCurrency: 'NGN',
               price: product.price,
               availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
               url: siteOrigin() + `/product/${product.id}`,
-            },
+            } } : {}),
           },
           {
             '@context': 'https://schema.org',
@@ -184,7 +187,7 @@ export default function Product() {
             <div className="product-rating">★★★★★ <span>(verified favourite)</span></div>
 
             <div className="product-price-row">
-              {product.price > 0 && (
+              {SHOW_PRICES && product.price > 0 && (
                 <span className="product-price">₦{Number(product.price).toLocaleString('en-NG')}</span>
               )}
               <span className={`product-stock-chip ${product.stock > 0 ? 'in' : 'out'}`}>
