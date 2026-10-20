@@ -16,7 +16,7 @@ export const CATALOGUE_CATEGORIES: CatalogueCategory[] = [
   { name: 'Foot Care',            slug: 'foot-care',       tint: '#e8f2d8', blurb: 'Foot packs, odour control and shoe refreshers.' },
   { name: 'Make Up Essentials',   slug: 'make-up',         tint: '#f3e2f0', blurb: 'Lip butters, setting sprays and makeup removers.' },
   { name: 'Men Grooming',         slug: 'men-grooming',    tint: '#e1e6ea', blurb: 'Deodorants and everyday grooming made for men.' },
-  { name: 'Home Essentials',      slug: 'home-essentials', tint: '#efe9dc', blurb: 'Hand washes and everyday hygiene for the whole household.' },
+  { name: 'Home Essentials',      slug: 'home-essentials', tint: '#efe9dc', blurb: 'Hand washes, disinfectants, cleaning, laundry and pet care for the whole household.' },
 ];
 
 // Legacy / alternate category labels that map straight to a catalogue category
