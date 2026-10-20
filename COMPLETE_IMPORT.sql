@@ -160,7 +160,7 @@ Gently exfoliates while cleansing
 Leaves skin feeling clear and refreshed','Wet face with warm water.
 Massage into skin using circular motions to work up a light foam.
 Rinse thoroughly. Use morning and evening.',1,'2026-06-10T08:08:03.107039','2026-06-10T08:08:03.107039'),
-(222,'Tea Tree & Peppermint Deep Moisturising Foot Pack','Tea Tree','Body & Beauty',2500.0,60,'5060120163530','/Img/40050_HERO-removebg-preview.png','Revive tired, rough feet with this intensive Tea Tree & Peppermint Deep Moisturising Foot Pack. Slip-on socks are saturated in a concentrated blend of anti-bacterial tea tree oil and cooling peppermint that deeply hydrates cracked heels, softens calluses and leaves feet feeling smooth and refreshed. A luxurious at-home pedicure treatment - simply wear for 20 minutes and rinse. 30ml per pair.',NULL,'Tea tree and peppermint help revive tired feet
+(222,'Tea Tree & Peppermint Deep Moisturising Foot Pack','Tea Tree','Body & Beauty',2500.0,60,'5060120163530','/Img/tea-tree-peppermint-foot-pack.png','Revive tired, rough feet with this intensive Tea Tree & Peppermint Deep Moisturising Foot Pack. Slip-on socks are saturated in a concentrated blend of anti-bacterial tea tree oil and cooling peppermint that deeply hydrates cracked heels, softens calluses and leaves feet feeling smooth and refreshed. A luxurious at-home pedicure treatment - simply wear for 20 minutes and rinse. 30ml per pair.',NULL,'Tea tree and peppermint help revive tired feet
 Deeply moisturises rough, dry skin
 Leaves feet feeling soft and refreshed
 One 30ml treatment per use','Apply a generous layer to clean, dry feet.
@@ -868,7 +868,7 @@ Can be used as a soap substitute
 Suitable for the whole family','Apply generously to clean, dry skin.
 Massage in until fully absorbed.
 Use daily, or as often as needed for dry skin.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(341,'XBC Bamboo Cotton Buds (300 buds)','Xpel Body Care','Body & Beauty',1800.0,70,'XBC-BUD-300','/Img/xbc-bamboo-cotton-buds-300.png','Biodegradable bamboo-stem cotton buds - 100% pure cotton tips, kind and gentle. 300 buds.',NULL,'Biodegradable bamboo stem - better for the planet
+(341,'XBC Bamboo Cotton Buds (300 buds)','Xpel Body Care','Body & Beauty',1800.0,70,'XBC-BUD-300','/Img/xbc-bamboo-cotton-buds-300.jpg','Biodegradable bamboo-stem cotton buds - 100% pure cotton tips, kind and gentle. 300 buds.',NULL,'Biodegradable bamboo stem - better for the planet
 100% pure cotton tips
 300 buds - long-lasting supply
 Kind and gentle on skin','Use one bud at a time for ear, nail or make-up care.
@@ -1134,6 +1134,10 @@ Fine handwash
 500ml pump bottle','Pump onto wet hands and lather.
 Rinse thoroughly.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00'),
 (395,'Dalton House Sea Breeze Fine Handwash (500ml)','Dalton House','Home',0.0,40,'DH-SEAB-500','/Img/dalton-house-sea-breeze-handwash-500ml.jpg','Dalton House England sea breeze fine handwash. 500ml pump bottle.','500ml','Sea breeze fragrance
+Fine handwash
+500ml pump bottle','Pump onto wet hands and lather.
+Rinse thoroughly.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00'),
+(396,'Dalton House Orchard Burst Fine Handwash (500ml)','Dalton House','Home',0.0,40,'DH-ORCH-500','/Img/dalton-house-orchard-burst-handwash-500ml.jpg','Dalton House England orchard burst fine handwash. 500ml pump bottle.','500ml','Orchard burst fragrance
 Fine handwash
 500ml pump bottle','Pump onto wet hands and lather.
 Rinse thoroughly.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00');
