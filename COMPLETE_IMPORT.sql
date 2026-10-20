@@ -1030,12 +1030,6 @@ Helps control dandruff and cleanse the scalp
 Leaves hair smelling naturally fruity','Wet hair thoroughly.
 Massage into scalp and hair, working into a lather.
 Rinse thoroughly. Follow with conditioner.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(370,'XHC Ginger Conditioner (400ml)','Xpel Hair Care','Hair Care',3800.0,40,'FF-GINCD-400','/Img/xhc-ginger-conditioner-400ml.png','Fruit Fusion ginger conditioner - nourishes scalp and strengthens hair. 400ml.',NULL,'Ginger extract smooths and softens hair
-Nourishes scalp and strengthens hair
-400ml - suitable for frequent use
-Complements the matching Fruit Fusion shampoo','After shampooing, apply through mid-lengths and ends of damp hair.
-Leave for 2-3 minutes.
-Rinse thoroughly. Use with every wash.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
 (371,'XHC Coconut Hydrating Shampoo (400ml)','Xpel Hair Care','Hair Care',3800.0,40,'FF-COCSH-400','/Img/xhc-coconut-hydrating-shampoo-400ml.png','Fruit Fusion coconut hydrating shampoo - cleanses and deeply hydrates hair. 400ml.',NULL,'Coconut extract cleanses and nourishes hair
 Deeply hydrates hair as it cleanses
 400ml - suitable for frequent use
@@ -1083,13 +1077,7 @@ Lightweight, fast-absorbing yogurt texture
 Leaves skin soft and nourished
 400ml - lasts for weeks of daily use','Apply generously to clean, dry skin all over the body.
 Massage in until fully absorbed.
-Use daily, ideally after showering.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(379,'XBC Banana Face and Body Scrub (250ml)','Xpel Body Care','Body & Beauty',3800.0,40,'XBC-BANSCR-250','/Img/xbc-banana-face-body-scrub-250ml.png','Exfoliating face and body scrub with banana - gently buffs away dull, dry skin. 250ml.',NULL,'Banana extract gently buffs away dull, dry skin
-Suitable for face and body
-250ml - lasts through regular use
-Leaves skin feeling smooth and refreshed','Apply to damp skin using circular motions.
-Focus on face and body, avoiding the eye area.
-Rinse thoroughly. Use 2-3 times a week.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049');
+Use daily, ideally after showering.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049');
 
 -- ── Blog posts data (5 rows) ───────────────────────────────────────────────
 INSERT INTO `blog_posts` (`id`,`title`,`slug`,`content`,`excerpt`,`featured_image`,`author`,`category`,`published`,`created_at`,`updated_at`) VALUES
