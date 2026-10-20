@@ -24,6 +24,9 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <span className="footer-col-heading">our products</span>
+          <Link to="/catalogue" className="footer-link">
+            Full Catalogue
+          </Link>
           <Link to="/shop?cat=body-beauty" className="footer-link">
             Body & Beauty
           </Link>

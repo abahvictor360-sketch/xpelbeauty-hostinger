@@ -48,6 +48,7 @@ import Contact from './pages/Contact';
 import Stores from './pages/Stores';
 import Admin from './pages/Admin';
 import Collection from './pages/Collection';
+import Catalogue from './pages/Catalogue';
 import Privacy from './pages/Privacy';
 import Scan from './pages/Scan';
 import NotFound from './pages/NotFound';
@@ -74,6 +75,7 @@ function Layout() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/catalogue" element={<Catalogue />} />
           <Route path="/collection/:slug" element={<Collection />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/blog" element={<Blog />} />

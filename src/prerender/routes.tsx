@@ -11,6 +11,7 @@ import Blog from '../pages/Blog';
 import Privacy from '../pages/Privacy';
 import Product from '../pages/Product';
 import Collection from '../pages/Collection';
+import Catalogue from '../pages/Catalogue';
 import BlogPost from '../pages/BlogPost';
 import { DEFAULT_CONTENT } from '../hooks/useSiteContent';
 
@@ -107,6 +108,14 @@ async function getBlogPosts(): Promise<Array<{ param: string; head: RouteHead }>
 export const prerenderRoutes: PrerenderRoute[] = [
   { path: '/',        Component: Home,    head: pageHead('home') },
   { path: '/shop',    Component: Shop,    head: pageHead('shop') },
+  {
+    path: '/catalogue',
+    Component: Catalogue,
+    head: {
+      title: `Product Catalogue${seo.titleSeparator}${seo.siteTitle}`,
+      description: 'Browse the full Xpel Beauty NG product catalogue - hair care, body care, oral care, nail care, foot care, make up essentials, men grooming and home essentials. Delivered across Nigeria.',
+    },
+  },
   { path: '/about',   Component: About,   head: pageHead('about') },
   { path: '/contact', Component: Contact, head: pageHead('contact') },
   { path: '/stores',  Component: Stores,  head: pageHead('stores') },
