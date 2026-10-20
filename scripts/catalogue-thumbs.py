@@ -27,6 +27,12 @@ ANON_KEY = ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZi
             'LCJpYXQiOjE3OTI0ODEzMjQsImV4cCI6MjEwODA1NzMyNH0.vB-wskf0k6EUfze89jAlEzBMRJiYqGNqNy7MoFq9gt4')
 MAX_SIDE = 380
 
+# Images where automatic cut-out fails (pack too close to its background):
+# build the thumbnail from a clean, already-transparent picture instead.
+THUMB_SOURCE = {
+    'tea-tree-peppermint-hand-pack': '40050_HERO-removebg-preview.png',
+}
+
 
 def products():
     req = urllib.request.Request(f'{SUPABASE_URL}/rest/v1/products?select=id,name,image&order=id',
@@ -44,6 +50,23 @@ def has_transparent_edges(im):
     edge = [a.getpixel((x, y)) for x in range(0, w, max(1, w // 40)) for y in (0, h - 1)]
     edge += [a.getpixel((x, y)) for y in range(0, h, max(1, h // 40)) for x in (0, w - 1)]
     return sum(1 for v in edge if v < 20) > len(edge) * 0.6
+
+
+def clean_mask(alpha):
+    """Tidy rembg's mask: fill holes fully enclosed by the product (white
+    labels it mistook for background) and drop small stray fragments such as
+    reflections, keeping every piece at least 12% the size of the largest."""
+    import numpy as np
+    from scipy import ndimage
+    m = np.array(alpha) > 24
+    m = ndimage.binary_fill_holes(m)
+    labels, n = ndimage.label(m)
+    if n > 1:
+        sizes = ndimage.sum(m, labels, range(1, n + 1))
+        keep = [i + 1 for i, s in enumerate(sizes) if s >= sizes.max() * 0.12]
+        m = np.isin(labels, keep)
+    soft = np.where(m, np.maximum(np.array(alpha), 255 * ndimage.binary_erosion(m, iterations=2)), 0)
+    return Image.fromarray(soft.astype('uint8'), 'L')
 
 
 def main():
@@ -70,7 +93,7 @@ def main():
         base = os.path.splitext(name)[0]
         if only and base not in only and name not in only:
             continue
-        src = os.path.join(IMG_DIR, name)
+        src = os.path.join(IMG_DIR, THUMB_SOURCE.get(base, name))
         dst = os.path.join(OUT_DIR, base + '.webp')
         if not os.path.exists(src):
             print('missing', name)
@@ -82,7 +105,10 @@ def main():
         im = im.convert('RGBA')
         im.thumbnail((1400, 1400))          # work size: fast, still sharp at 500px
         if not has_transparent_edges(im):
-            im = remove(im, session=session, post_process_mask=True)
+            cut = remove(im, session=session, post_process_mask=True)
+            im.putalpha(clean_mask(cut.getchannel('A')))   # original pixels, cleaned mask
+        else:
+            im.putalpha(clean_mask(im.getchannel('A')))    # existing cut-outs: drop stray bits too
         bbox = im.getchannel('A').point(lambda v: 255 if v > 24 else 0).getbbox()
         if bbox:
             im = im.crop(bbox)
