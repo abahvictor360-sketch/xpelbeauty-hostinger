@@ -964,7 +964,7 @@ Leaves skin feeling purified and renewed
 Suitable for regular use','Apply to damp skin in the shower or bath.
 Massage in circular motions over body, avoiding broken skin.
 Rinse thoroughly. Use 2-3 times a week.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(360,'Tea Tree Body Butter','Tea Tree','Body & Beauty',4500.0,40,'TT-BUTR-1','/Img/tea-tree-body-butter.png','Rich body butter with natural tea tree oil - deeply moisturises and nourishes skin.',NULL,'Tea tree oil helps deeply moisturise and nourish skin
+(360,'Tea Tree Body Butter','Tea Tree','Body & Beauty',4500.0,40,'TT-BUTR-1','/Img/tea-tree-body-butter-250ml.jpg','Rich body butter with natural tea tree oil - deeply moisturises and nourishes skin.',NULL,'Tea tree oil helps deeply moisturise and nourish skin
 Rich, indulgent butter texture
 Leaves skin soft without feeling greasy
 Ideal for daily use, especially on dry patches','Scoop a small amount and warm between palms.
@@ -988,7 +988,7 @@ Comes complete with a free bamboo toothbrush
 Eco-conscious packaging','Brush teeth for two minutes, morning and night.
 Use the free bamboo toothbrush provided for best results.
 Spit and avoid rinsing immediately for maximum benefit.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(364,'Tea Tree Facial Scrub','Tea Tree','Body & Beauty',3500.0,40,'TT-FSCR-1','/Img/tea-tree-facial-scrub.png','Exfoliating facial scrub with natural tea tree oil - reveals brighter, refreshed skin.',NULL,'Natural tea tree oil helps reveal brighter skin
+(364,'Tea Tree Facial Scrub','Tea Tree','Body & Beauty',3500.0,40,'TT-FSCR-1','/Img/tea-tree-facial-scrub-jar.jpg','Exfoliating facial scrub with natural tea tree oil - reveals brighter, refreshed skin.',NULL,'Natural tea tree oil helps reveal brighter skin
 Gently exfoliates away dullness
 Leaves skin feeling refreshed and renewed
 Suitable for regular use','Apply to damp skin using gentle circular motions.
@@ -1144,7 +1144,13 @@ Massage any remaining product into the skin.',1,'2026-10-20T00:00:00','2026-10-2
 Moisturising formula
 For frequent use','Massage into wet hair and scalp.
 Rinse thoroughly.
-Follow with Tea Tree Moisturising Conditioner.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00');
+Follow with Tea Tree Moisturising Conditioner.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00'),
+(379,'XBC Banana Face and Body Scrub (250ml)','Xpel Body Care','Body & Beauty',3800.0,40,'XBC-BANSCR-250','/Img/xbc-banana-face-body-scrub-250ml-tube.jpg','Exfoliating face and body scrub with banana - gently buffs away dull, dry skin. 250ml.','250ml','Banana extract gently buffs away dull, dry skin
+Suitable for face and body
+250ml - lasts through regular use
+Leaves skin feeling smooth and refreshed','Apply to damp skin using circular motions.
+Focus on face and body, avoiding the eye area.
+Rinse thoroughly. Use 2-3 times a week.',1,'2026-07-28T08:06:44','2026-10-20T00:00:00');
 
 -- ── Blog posts data (5 rows) ───────────────────────────────────────────────
 INSERT INTO `blog_posts` (`id`,`title`,`slug`,`content`,`excerpt`,`featured_image`,`author`,`category`,`published`,`created_at`,`updated_at`) VALUES
