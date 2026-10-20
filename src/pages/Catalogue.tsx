@@ -4,7 +4,7 @@ import { useProducts } from '@/hooks/useProducts';
 import SEO from '@/components/SEO';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { siteOrigin } from '@/lib/site';
-import { CATALOGUE_CATEGORIES, bandColor, groupByCatalogue, shortLine } from '@/lib/catalogue';
+import { DEFAULT_CATALOGUE_TITLE, bandColor, catalogueCategories, groupByCatalogue, shortLine } from '@/lib/catalogue';
 
 const FALLBACK_IMG = '/images/product-placeholder.svg';
 
@@ -74,7 +74,10 @@ export default function Catalogue() {
     );
   }, [products, search]);
 
-  const groups = useMemo(() => groupByCatalogue(filtered), [filtered]);
+  const settings = content.catalogue;
+  const categories = useMemo(() => catalogueCategories(settings), [settings]);
+  const groups = useMemo(() => groupByCatalogue(filtered, settings), [filtered, settings]);
+  const shownCount = useMemo(() => Object.values(groupByCatalogue(products, settings)).reduce((n, l) => n + l.length, 0), [products, settings]);
 
   const jumpTo = (slug: string) => {
     document.getElementById(`cat-${slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -113,10 +116,10 @@ export default function Catalogue() {
           onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-xpel-beauty-ng.svg'; }}
         />
         <p className="catalogue-hero-kicker">Xpel Beauty NG</p>
-        <h1 className="catalogue-hero-title">Product Catalogue</h1>
+        <h1 className="catalogue-hero-title">{settings?.title || DEFAULT_CATALOGUE_TITLE}</h1>
         <p className="catalogue-hero-text">
-          Every product in our range, sorted into {CATALOGUE_CATEGORIES.length} categories.
-          {!loading && !error && ` ${products.length} products in total.`}
+          {settings?.intro || `Every product in our range, sorted into ${categories.length} categories.`}
+          {!loading && !error && ` ${shownCount} products in total.`}
         </p>
         <button type="button" className="catalogue-print" onClick={printCatalogue} disabled={loading || preparing}>
           {preparing ? 'Preparing images…' : 'Print / save as PDF'}
@@ -127,10 +130,10 @@ export default function Catalogue() {
       <div className="catalogue-bar">
         <div className="catalogue-bar-inner">
           <div className="catalogue-jump">
-            {CATALOGUE_CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <button key={c.slug} type="button" className="catalogue-jump-pill" onClick={() => jumpTo(c.slug)}>
                 {c.name}
-                {!loading && <span className="catalogue-jump-count">{groups[c.name].length}</span>}
+                {!loading && <span className="catalogue-jump-count">{groups[c.slug]?.length ?? 0}</span>}
               </button>
             ))}
           </div>
@@ -149,8 +152,8 @@ export default function Catalogue() {
         {loading && <div className="shop-state">Loading catalogue…</div>}
         {error && <div className="shop-state shop-error">{error}</div>}
 
-        {!loading && !error && CATALOGUE_CATEGORIES.map((c, i) => {
-          const items = groups[c.name];
+        {!loading && !error && categories.map((c, i) => {
+          const items = groups[c.slug] ?? [];
           if (search.trim() && items.length === 0) return null;
           return (
             <section key={c.slug} id={`cat-${c.slug}`} className="catalogue-section">
@@ -177,7 +180,7 @@ export default function Catalogue() {
                       key={p.id}
                       to={`/product/${p.id}`}
                       className="catalogue-card"
-                      style={{ ['--band' as string]: bandColor(p) }}
+                      style={{ ['--band' as string]: bandColor(p, settings) }}
                     >
                       <span className="catalogue-card-band" aria-hidden="true" />
                       <div className="catalogue-card-img">

@@ -2,6 +2,7 @@ import type { Product } from '@/types';
 
 export interface CatalogueCategory {
   name: string;
+  /** Stable key. Product assignments point at this, so renaming a category is safe. */
   slug: string;
   blurb: string;
   tint: string;
@@ -9,7 +10,18 @@ export interface CatalogueCategory {
   accent: string;
 }
 
-// The eight catalogue categories, in display order
+/** Admin-editable catalogue settings, stored in site_content.data.catalogue */
+export interface CatalogueSettings {
+  title?: string;
+  intro?: string;
+  categories?: CatalogueCategory[];
+  /** product id -> category slug, overriding the automatic sorting */
+  assignments?: Record<string, string>;
+  /** product ids left out of the catalogue (still on the shop) */
+  hidden?: number[];
+}
+
+// The default catalogue categories, in display order
 export const CATALOGUE_CATEGORIES: CatalogueCategory[] = [
   { name: 'Hair Care',            slug: 'hair-care',       accent: '#b5651d', tint: '#f6e6cf', blurb: 'Shampoos, conditioners, oils, masks and heat protection for every hair type.' },
   { name: 'Body Care',            slug: 'body-care',       accent: '#2e8b57', tint: '#d8efe2', blurb: 'Face washes, serums, creams, scrubs, shower gels and deodorants.' },
@@ -21,47 +33,66 @@ export const CATALOGUE_CATEGORIES: CatalogueCategory[] = [
   { name: 'Home Essentials',      slug: 'home-essentials', accent: '#6b5b3e', tint: '#efe9dc', blurb: 'Hand washes, disinfectants, cleaning, laundry and pet care for the whole household.' },
 ];
 
-// Legacy / alternate category labels that map straight to a catalogue category
+export const DEFAULT_CATALOGUE_TITLE = 'Product Catalogue';
+
+/** Categories to use: the admin's list when it has one, otherwise the defaults. */
+export function catalogueCategories(settings?: CatalogueSettings): CatalogueCategory[] {
+  return settings?.categories?.length ? settings.categories : CATALOGUE_CATEGORIES;
+}
+
+// Product category values (as typed in the product form) that map straight to a catalogue slug
 const CATEGORY_ALIASES: Record<string, string> = {
-  'hair care': 'Hair Care',
-  'body care': 'Body Care',
-  'oral care': 'Oral Care',
-  'nail care': 'Nail Care',
-  'foot care': 'Foot Care',
-  'make up essentials': 'Make Up Essentials',
-  'makeup essentials': 'Make Up Essentials',
-  'make up': 'Make Up Essentials',
-  'makeup': 'Make Up Essentials',
-  'men grooming': 'Men Grooming',
-  "men's grooming": 'Men Grooming',
-  'home essentials': 'Home Essentials',
-  'home': 'Home Essentials',
+  'hair care': 'hair-care',
+  'body care': 'body-care',
+  'oral care': 'oral-care',
+  'nail care': 'nail-care',
+  'foot care': 'foot-care',
+  'make up essentials': 'make-up',
+  'makeup essentials': 'make-up',
+  'make up': 'make-up',
+  'makeup': 'make-up',
+  'men grooming': 'men-grooming',
+  "men's grooming": 'men-grooming',
+  'home essentials': 'home-essentials',
+  'home': 'home-essentials',
 };
 
-/** Works out which catalogue category a product belongs to.
- *  An exact category set in the admin always wins; otherwise the product's
- *  brand and name decide (the DB currently only stores Hair Care / Body & Beauty). */
-export function catalogueCategory(p: Pick<Product, 'name' | 'brand' | 'category'>): string {
+/** The automatic sorting, from the product's category, brand and name. Returns a slug. */
+export function autoCatalogueSlug(p: Pick<Product, 'name' | 'brand' | 'category'>): string {
   const cat = (p.category || '').trim().toLowerCase();
   if (CATEGORY_ALIASES[cat]) return CATEGORY_ALIASES[cat];
 
   const name = p.name || '';
   const brand = (p.brand || '').toLowerCase();
 
-  if (/\bmen\b/i.test(name)) return 'Men Grooming';
-  if (brand === 'xpel nail care' || /\bnail/i.test(name)) return 'Nail Care';
-  if (brand === 'xpel foot care' || /\bfoot\b|\bshoe\b/i.test(name)) return 'Foot Care';
-  if (brand === 'xpel oral care' || brand === 'truesmile' || /tooth|mouthwash|sensio/i.test(name)) return 'Oral Care';
-  if (/lip butter|setting spray|make ?up|mascara|lipstick|foundation|concealer/i.test(name)) return 'Make Up Essentials';
-  if (/hand ?wash/i.test(name)) return 'Home Essentials';
-  return 'Body Care';
+  if (/\bmen\b/i.test(name)) return 'men-grooming';
+  if (brand === 'xpel nail care' || /\bnail/i.test(name)) return 'nail-care';
+  if (brand === 'xpel foot care' || /\bfoot\b|\bshoe\b/i.test(name)) return 'foot-care';
+  if (brand === 'xpel oral care' || brand === 'truesmile' || /tooth|mouthwash|sensio/i.test(name)) return 'oral-care';
+  if (/lip butter|setting spray|make ?up|mascara|lipstick|foundation|concealer/i.test(name)) return 'make-up';
+  if (/hand ?wash/i.test(name)) return 'home-essentials';
+  return 'body-care';
 }
 
-/** Groups products into the catalogue categories (every category present, even if empty). */
-export function groupByCatalogue(products: Product[]): Record<string, Product[]> {
+/** Where a product sits in the catalogue: admin override first, then the automatic sorting. */
+export function catalogueSlug(p: Pick<Product, 'id' | 'name' | 'brand' | 'category'>, settings?: CatalogueSettings): string {
+  const cats = catalogueCategories(settings);
+  const chosen = settings?.assignments?.[String(p.id)];
+  if (chosen && cats.some((c) => c.slug === chosen)) return chosen;
+  const auto = autoCatalogueSlug(p);
+  if (cats.some((c) => c.slug === auto)) return auto;
+  return (cats.find((c) => c.slug === 'body-care') ?? cats[cats.length - 1]).slug;
+}
+
+/** Groups products by category slug (every category present, even if empty). Hidden products are left out. */
+export function groupByCatalogue(products: Product[], settings?: CatalogueSettings): Record<string, Product[]> {
   const groups: Record<string, Product[]> = {};
-  for (const c of CATALOGUE_CATEGORIES) groups[c.name] = [];
-  for (const p of products) groups[catalogueCategory(p)].push(p);
+  const hidden = new Set(settings?.hidden ?? []);
+  for (const c of catalogueCategories(settings)) groups[c.slug] = [];
+  for (const p of products) {
+    if (hidden.has(p.id)) continue;
+    groups[catalogueSlug(p, settings)].push(p);
+  }
   for (const list of Object.values(groups)) {
     list.sort((a, b) => (a.brand || '').localeCompare(b.brand || '') || a.name.localeCompare(b.name));
   }
@@ -86,10 +117,11 @@ const BAND_RULES: Array<[RegExp, string]> = [
   [/fresh start/i, '#c77d00'], [/cotton buds/i, '#8b6b45'], [/botanical/i, '#4f8a2b'],
 ];
 
-export function bandColor(p: Pick<Product, 'name' | 'brand' | 'category'>): string {
+export function bandColor(p: Pick<Product, 'id' | 'name' | 'brand' | 'category'>, settings?: CatalogueSettings): string {
   const text = `${p.name} ${p.brand || ''}`;
   for (const [re, colour] of BAND_RULES) if (re.test(text)) return colour;
-  const cat = CATALOGUE_CATEGORIES.find((c) => c.name === catalogueCategory(p));
+  const slug = catalogueSlug(p, settings);
+  const cat = catalogueCategories(settings).find((c) => c.slug === slug);
   return cat ? cat.accent : '#6b5b3e';
 }
 

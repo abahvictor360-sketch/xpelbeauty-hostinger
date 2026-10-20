@@ -118,6 +118,9 @@ export interface SiteContent {
   // Dedicated collection pages (/collection/:slug) — all editable in admin
   collections: CollectionConfig[];
 
+  // Catalogue page (/catalogue): categories, product placement, hidden items — editable in admin
+  catalogue?: import('@/lib/catalogue').CatalogueSettings;
+
   // Customer testimonials shown on the homepage — all editable in admin
   testimonials: Testimonial[];
 }
