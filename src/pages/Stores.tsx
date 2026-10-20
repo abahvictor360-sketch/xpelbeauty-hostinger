@@ -155,7 +155,7 @@ export default function Stores() {
       <h1 className="text-5xl font-cormorant mb-3">{content.storesTitle}</h1>
       <p className="text-gray-600 mb-8">{content.storesIntro}</p>
 
-      {loading && <div className="text-center py-12">Loading...</div>}
+      {loading && <div className="text-center py-12">Loading…</div>}
       {error && (
         <div className="xp-scan-status xp-scan-status-warn" style={{ maxWidth: '460px', margin: '0 auto 24px' }}>
           <p><strong>Couldn't load stores.</strong></p>

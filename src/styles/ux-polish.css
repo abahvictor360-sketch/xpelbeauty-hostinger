@@ -1,0 +1,99 @@
+/* ============================================================
+   UX polish layer (loaded last). Accessibility, motion and
+   browsing-density fixes from the Web Interface Guidelines audit.
+   ============================================================ */
+
+/* ── Keyboard focus: one visible ring everywhere ────────────── */
+:is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--gold-raw, #ca7c29);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+:is(input, select, textarea):focus-visible:not([data-no-ring]) { outline-offset: 1px; }
+main:focus { outline: none; }
+
+/* Skip link: hidden until a keyboard user tabs to it */
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 10000;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--dark, #1b2a3b);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform .2s ease;
+}
+.skip-link:focus-visible { transform: none; }
+
+/* ── Interaction basics ─────────────────────────────────────── */
+a, button {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: .2s;
+  transition-timing-function: ease-in-out;
+}
+a, button, [role='button'], label, summary, input, select, textarea { touch-action: manipulation; }
+html { -webkit-tap-highlight-color: rgba(202, 124, 41, 0.15); }
+h1, h2, h3, .section-title { text-wrap: balance; }
+p { text-wrap: pretty; }
+[id] { scroll-margin-top: 140px; }
+
+/* ── Product grids: more products per screen ────────────────── */
+.iva-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (min-width: 1200px) {
+  .shop-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+  .shop-grid .iva-product-stage { height: 280px; }
+  .shop-grid .iva-product-img { max-height: 260px; }
+  .shop-grid .iva-product-name { font-size: 22px; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .iva-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .iva-product-stage { height: 240px; }
+  .iva-product-img { max-height: 220px; }
+  .iva-product-name { font-size: 20px; }
+}
+/* Phones: two per row instead of one 600px-tall card */
+@media (max-width: 768px) {
+  .iva-grid,
+  .shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 14px 12px; row-gap: 28px; }
+  .iva-product { padding: 6px; min-width: 0; }
+  .iva-product-stage { height: 170px; margin-bottom: 12px; }
+  .iva-product-img { max-height: 160px; max-width: 88%; }
+  .iva-product-circle { width: 140px; height: 140px; }
+  .iva-product-cat { font-size: 9px; letter-spacing: 1.4px; }
+  .iva-product-name { font-size: 16px; line-height: 1.25; overflow-wrap: anywhere; }
+}
+/* Product names never blow out a card */
+.iva-product-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Product page: calls to action fit on one line ──────────── */
+.product-buy { flex-wrap: wrap; }
+.product-buy > a, .product-buy > button {
+  white-space: nowrap;
+  flex: 1 1 160px;
+  justify-content: center;
+}
+
+/* ── Reduced motion: no floats, reveals or slide transitions ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-up, .fade-up-stagger > *, .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .iva-product:hover .iva-product-img { animation: none; transform: none; }
+}

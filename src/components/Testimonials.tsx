@@ -47,7 +47,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (testimonials.length <= 1 || paused) return;
+    if (testimonials.length <= 1 || paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % testimonials.length);
     }, 5000);

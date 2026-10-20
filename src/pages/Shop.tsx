@@ -241,6 +241,10 @@ export default function Shop() {
                       src={resolveImg(product.image)}
                       alt={product.name}
                       className="iva-product-img"
+                      width={300}
+                      height={320}
+                      loading={idx < 4 ? "eager" : "lazy"}
+                      decoding="async"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = FALLBACK_IMG;
                       }}

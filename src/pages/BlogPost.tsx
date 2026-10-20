@@ -7,7 +7,7 @@ export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const { post, loading, error } = useBlogPost(slug || '');
 
-  if (loading) return <div className="text-center py-12">Loading...</div>;
+  if (loading) return <div className="text-center py-12">Loading…</div>;
   if (error) return <div className="text-red-500 text-center py-12">{error}</div>;
   if (!post) return <div className="text-center py-12">Blog post not found</div>;
 

@@ -17,6 +17,7 @@ function resolveImg(src?: string) {
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [heroPaused, setHeroPaused] = useState(false);
   const { products } = useProducts();
   const content = useSiteContent();
 
@@ -87,12 +88,12 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (heroSlides.length === 0) return;
+    if (heroSlides.length === 0 || heroPaused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
     }, 6000);
     return () => clearInterval(timer);
-  }, [heroSlides.length]);
+  }, [heroSlides.length, heroPaused]);
 
   // IVA-style scroll reveal — animate sections into view as they scroll up
   useEffect(() => {
@@ -129,7 +130,9 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════
           HERO CAROUSEL - rich text banners
       ═══════════════════════════════════════════════════════════ */}
-      <section className="carousel" aria-label="Featured products" data-xpel-section="hero">
+      <section className="carousel" aria-label="Featured products" aria-roledescription="carousel" data-xpel-section="hero"
+        onMouseEnter={() => setHeroPaused(true)} onMouseLeave={() => setHeroPaused(false)}
+        onFocus={() => setHeroPaused(true)} onBlur={() => setHeroPaused(false)}>
         <div
           className="carousel-track"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -311,13 +314,16 @@ export default function Home() {
                       <img
                         src={resolveImg(product.image)}
                         alt={product.name}
+                        width={300}
+                        height={320}
+                        loading="lazy"
+                        decoding="async"
                         className="iva-product-img"
                         onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK_IMG; }}
                       />
                     </div>
                     <span className="iva-product-cat">{product.category}</span>
                     <h3 className="iva-product-name">{product.name}</h3>
-                    <div className="iva-product-rating">★★★★★</div>
                   </Link>
                 ))
               : demoBestSellers.map((product) => (
@@ -327,7 +333,6 @@ export default function Home() {
                       <img src={product.img} alt={product.name} className="iva-product-img" />
                     </div>
                     <h3 className="iva-product-name">{product.name}</h3>
-                    <div className="iva-product-rating">{product.rating}</div>
                   </div>
                 ))}
           </div>

@@ -70,8 +70,9 @@ function Layout() {
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
       <ThemeStyle />
+      <a href="#main" className="skip-link">Skip to content</a>
       <Header />
-      <main className="flex-grow">
+      <main id="main" tabIndex={-1} className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
