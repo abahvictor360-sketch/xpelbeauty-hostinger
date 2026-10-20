@@ -4,7 +4,6 @@ import type { SiteContent } from '../../hooks/useSiteContent';
 import {
   CATALOGUE_CATEGORIES,
   DEFAULT_CATALOGUE_TITLE,
-  autoCatalogueSlug,
   catalogueCategories,
   catalogueSlug,
   type CatalogueCategory,
@@ -240,7 +239,6 @@ export default function CatalogueManager({ content, updateContent, onSave, produ
               <tbody>
                 {visible.map((p) => {
                   const manual = assignments[String(p.id)] ?? '';
-                  const auto = autoCatalogueSlug(p);
                   const isHidden = hidden.has(p.id);
                   return (
                     <tr key={p.id} className={isHidden ? 'is-hidden' : ''}>
