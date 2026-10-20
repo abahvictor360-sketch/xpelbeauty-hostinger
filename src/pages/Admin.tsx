@@ -5,6 +5,7 @@ import { api } from '../lib/api';
 import type { Product, BlogPost, Store } from '../types';
 import { saveSiteContent, loadLocalContent, fileToDataURL, type SiteContent, type AdminUserRecord, type MegaMenuConfig, type CollectionConfig, type Testimonial } from '../hooks/useSiteContent';
 import Icon from '../components/Icon';
+import CatalogueManager from '../components/admin/CatalogueManager';
 import { PRODUCT_IMAGES } from '../imageManifest';
 
 // Pulls in @zxing (~500kB) — code-split so it's only fetched when the admin opens the scanner.
@@ -989,6 +990,7 @@ export default function Admin() {
               { id: 'media', label: 'Logo & Media', icon: 'image' },
               { id: 'mega-menu', label: 'Mega Menu', icon: 'home' },
               { id: 'collections', label: 'Collections', icon: 'box' },
+              { id: 'catalogue', label: 'Catalogue', icon: 'doc', load: loadProducts },
               { id: 'testimonials', label: 'Testimonials', icon: 'quote' },
               { id: 'seo', label: 'SEO', icon: 'search' },
             ] },
@@ -1036,6 +1038,7 @@ export default function Admin() {
             {activePanel === 'media' && 'Logo & Media'}
             {activePanel === 'mega-menu' && 'Mega Menu Editor'}
             {activePanel === 'collections' && 'Collections Editor'}
+            {activePanel === 'catalogue' && 'Catalogue Editor'}
             {activePanel === 'testimonials' && 'Testimonials'}
             {activePanel === 'users' && 'User Management'}
             {activePanel === 'import-export' && 'Import/Export'}
@@ -2810,7 +2813,12 @@ export default function Admin() {
       )}
 
       {/* ── Collections Editor Panel ──────────────────────────── */}
-      {activePanel === 'collections' && (
+      {activePanel === 'catalogue' && (
+            <CatalogueManager content={content} updateContent={updateContent} onSave={saveContent}
+              products={products} productsLoading={loadingProducts} />
+          )}
+
+          {activePanel === 'collections' && (
         <div className="panel-section">
           <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 20 }}>
             Each collection is a dedicated page at <strong>/collection/[slug]</strong> linked from the mega menu.
