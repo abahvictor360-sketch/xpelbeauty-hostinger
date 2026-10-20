@@ -31,10 +31,10 @@ function barcodeInfo(sku?: string | null) {
 }
 
 const FALLBACK_BENEFITS = [
-  'Nature-infused, botanically-derived formula',
-  'Gentle enough for everyday use',
-  'Dermatologically considerate ingredients',
-  'Cruelty-free and thoughtfully made',
+  'Made for everyday use',
+  'Clear how-to-use steps below',
+  'Authentic Xpel Beauty Care product',
+  'Sold at 600+ stores across Nigeria',
 ];
 
 const FALLBACK_HOW_TO_USE = [
@@ -184,7 +184,6 @@ export default function Product() {
           <div className="product-details">
             <span className="product-brand">{product.brand}</span>
             <h1 className="product-name">{product.name}</h1>
-            <div className="product-rating">★★★★★ <span>(verified favourite)</span></div>
 
             <div className="product-price-row">
               {SHOW_PRICES && product.price > 0 && (
@@ -223,8 +222,8 @@ export default function Product() {
 
             <ul className="product-assurances">
               <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Authentic Xpel Beauty Care product</li>
-              <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Available at stockists nationwide</li>
-              <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Nature-infused, quality-tested formula</li>
+              <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Sold at 600+ stores across Nigeria</li>
+              <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Questions? Ask us on WhatsApp before you buy</li>
             </ul>
 
             {barcode && <p className="product-barcode">Barcode: <span>{barcode.code}</span></p>}

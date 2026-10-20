@@ -32,23 +32,23 @@ export default function Home() {
   const faqs = [
     {
       q: 'Is Xpel Beauty NG available in Lagos, Abuja and Port Harcourt?',
-      a: 'Yes. Xpel Beauty Care products ship nationwide across Nigeria, including Lagos, Abuja, Port Harcourt and every major city, with pickup also available at trusted retail stockists.',
+      a: 'Yes. Xpel Beauty Care is sold at more than 600 stores in 22 states, including Lagos, Abuja and Port Harcourt. Use the Stores page to find one near you, or send us an enquiry to order.',
     },
     {
       q: 'What kind of products does Xpel Beauty NG sell?',
-      a: 'Xpel Beauty NG sells nature-infused hair care, skin care, oral care and body care products - including shampoos, conditioners, face washes, serums, body lotions, scrubs, toothpaste and mouthwash.',
+      a: 'Hair care, skin and body care, oral care, nail and foot care, makeup essentials, men\'s grooming and home essentials. That covers shampoos, conditioners, face washes, serums, body creams, scrubs, toothpaste, mouthwash, hand wash and more.',
     },
     {
-      q: 'How do I order Xpel Beauty products online in Nigeria?',
-      a: 'Browse the Shop page, add your chosen products, and complete checkout or enquire via WhatsApp - orders are processed and delivered across Nigeria.',
+      q: 'How do I order Xpel Beauty products in Nigeria?',
+      a: 'Find the product on the Shop or Catalogue page and tap Enquire Now or WhatsApp. Tell us what you want and where you are, and we will help you order. You can also buy at any of our stockists.',
     },
     {
       q: 'Where can I buy Xpel Beauty Care products in a physical store?',
-      a: 'Xpel Beauty Care is stocked at trusted retail stores across Nigeria. Visit the Stores page to find a stockist near you.',
+      a: 'At more than 600 supermarkets, pharmacies and beauty stores across Nigeria. The Stores page lists them by state and city.',
     },
     {
-      q: 'Are Xpel Beauty products nature-infused and gentle on skin and hair?',
-      a: 'Yes. Xpel Beauty formulas are built around natural ingredients like argan oil, tea tree, aloe vera, vitamin C and neem oil, designed to be gentle and effective for everyday use.',
+      q: 'What ingredients do Xpel Beauty products use?',
+      a: 'Each range is built around one key ingredient, such as argan oil, tea tree, aloe vera, vitamin C, neem oil or coconut. Every product page lists what it does and how to use it, and many ranges carry a vegan mark.',
     },
   ];
 
@@ -381,7 +381,7 @@ export default function Home() {
         } : undefined}
       >
         <div className="home-quote-inner">
-          <span className="home-quote-kicker">100% safe &amp; pure</span>
+          <span className="home-quote-kicker">our promise</span>
           <h2 className="home-quote-text">“{content.quoteText}”</h2>
           <Link to="/about" className="home-quote-btn">Our Story</Link>
         </div>

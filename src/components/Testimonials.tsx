@@ -66,7 +66,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="testimonials-inner">
-        <span className="section-label">real results</span>
+        <span className="section-label">customer reviews</span>
         <h2 className="section-title section-title-anim" style={{ marginBottom: '0' }}>what our customers are saying</h2>
         <p style={{ color: 'var(--muted)', fontSize: '15px', maxWidth: '520px', margin: '16px auto 40px', lineHeight: '1.7' }}>
           Real messages from real customers, shared with their permission.

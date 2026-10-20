@@ -173,24 +173,24 @@ export default function About() {
         </div>
         <div className="about-diff">
           <div className="about-diff-card">
-            <h3>Research &amp; Quality</h3>
+            <h3>Clear labels</h3>
             <p>
-              Every product is the result of in-depth research, advanced formulations and rigorous
-              quality control - solutions that meet and exceed customer expectations.
+              Every pack says what the product is for and how to use it, so you know exactly
+              what you are buying before you pay.
             </p>
           </div>
           <div className="about-diff-card">
-            <h3>Eco-Conscious</h3>
+            <h3>Options that fit your values</h3>
             <p>
-              We prioritise environmentally responsible practices through eco-conscious packaging
-              and responsibly sourced ingredients - quality and responsibility together.
+              Many of our ranges carry a vegan mark, and our bamboo cotton buds have
+              biodegradable stems. Check each pack for the details.
             </p>
           </div>
           <div className="about-diff-card">
             <h3>Proudly for Nigeria</h3>
             <p>
-              As the exclusive distributor of Xpel Beauty Care products across Nigeria, we partner with retail
-              stores nationwide to keep authentic products accessible and affordable.
+              As the exclusive distributor of Xpel Beauty Care in Nigeria, we supply more than 600
+              stores in 22 states, so authentic products stay close to home and fairly priced.
             </p>
           </div>
         </div>
