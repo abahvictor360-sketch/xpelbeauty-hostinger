@@ -4,7 +4,7 @@ import { useProducts } from '@/hooks/useProducts';
 import SEO from '@/components/SEO';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { siteOrigin } from '@/lib/site';
-import { CATALOGUE_CATEGORIES, groupByCatalogue } from '@/lib/catalogue';
+import { CATALOGUE_CATEGORIES, bandColor, groupByCatalogue, shortLine } from '@/lib/catalogue';
 
 const FALLBACK_IMG = '/images/product-placeholder.svg';
 
@@ -12,6 +12,19 @@ function resolveImg(src?: string) {
   if (!src) return FALLBACK_IMG;
   if (src.startsWith('http') || src.startsWith('/') || src.startsWith('data:')) return src;
   return `/${src}`;
+}
+
+/** Small background-free WebP made by scripts/catalogue-thumbs.py ('' when not applicable) */
+function thumbImg(src?: string) {
+  if (!src || !src.startsWith('/Img/') || src.startsWith('/Img/thumbs/')) return '';
+  const name = src.slice('/Img/'.length).replace(/\.[a-z0-9]+$/i, '');
+  return `/Img/thumbs/${name}.webp`;
+}
+
+/** "Make Up Essentials" -> ["Make Up", "Essentials"]: light lead words, bold last word */
+function splitTitle(name: string): [string, string] {
+  const words = name.split(' ');
+  return words.length > 1 ? [words.slice(0, -1).join(' '), words[words.length - 1]] : ['', name];
 }
 
 /** Product images are lazy-loaded, so ones never scrolled to are blank when the
@@ -141,10 +154,13 @@ export default function Catalogue() {
           if (search.trim() && items.length === 0) return null;
           return (
             <section key={c.slug} id={`cat-${c.slug}`} className="catalogue-section">
-              <div className="catalogue-section-head" style={{ background: c.tint }}>
+              <div className="catalogue-section-head" style={{ ['--accent' as string]: c.accent }}>
                 <span className="catalogue-section-num">{String(i + 1).padStart(2, '0')}</span>
-                <div>
-                  <h2 className="catalogue-section-title">{c.name}</h2>
+                <div className="catalogue-section-titles">
+                  <h2 className="catalogue-section-title">
+                    {splitTitle(c.name)[0] && <span className="light">{splitTitle(c.name)[0]} </span>}
+                    <span className="bold">{splitTitle(c.name)[1]}</span>
+                  </h2>
                   <p className="catalogue-section-blurb">{c.blurb}</p>
                 </div>
                 <span className="catalogue-section-count">
@@ -157,18 +173,33 @@ export default function Catalogue() {
               ) : (
                 <div className="catalogue-grid">
                   {items.map((p) => (
-                    <Link key={p.id} to={`/product/${p.id}`} className="catalogue-card">
-                      <div className="catalogue-card-img" style={{ background: c.tint }}>
+                    <Link
+                      key={p.id}
+                      to={`/product/${p.id}`}
+                      className="catalogue-card"
+                      style={{ ['--band' as string]: bandColor(p) }}
+                    >
+                      <span className="catalogue-card-band" aria-hidden="true" />
+                      <div className="catalogue-card-img">
                         <img
-                          src={resolveImg(p.image)}
+                          src={thumbImg(p.image) || resolveImg(p.image)}
                           alt={p.name}
                           loading="lazy"
-                          onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK_IMG; }}
+                          onError={(e) => {
+                            // thumbnail missing -> full image -> placeholder
+                            const img = e.target as HTMLImageElement;
+                            const full = resolveImg(p.image);
+                            if (img.dataset.fallback !== 'full') { img.dataset.fallback = 'full'; img.src = full; }
+                            else if (!img.src.endsWith(FALLBACK_IMG)) img.src = FALLBACK_IMG;
+                          }}
                         />
                       </div>
-                      <span className="catalogue-card-brand">{p.brand}</span>
-                      <h3 className="catalogue-card-name">{p.name}</h3>
-                      {p.size && <span className="catalogue-card-size">{p.size}</span>}
+                      <div className="catalogue-card-text">
+                        <span className="catalogue-card-brand">{p.brand}</span>
+                        <h3 className="catalogue-card-name">{p.name}</h3>
+                        {shortLine(p.description) && <p className="catalogue-card-desc">{shortLine(p.description)}</p>}
+                        {p.size && <span className="catalogue-card-size">{p.size}</span>}
+                      </div>
                     </Link>
                   ))}
                 </div>
