@@ -2431,6 +2431,13 @@ a:focus-visible, button:focus-visible {
   .catalogue-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
 }
 
+.catalogue-print-logo { display: none; }
+.catalogue-print-footer {
+  display: none; text-align: center; font-size: 11px; color: #555;
+  border-top: 1px solid var(--border); padding: 14px 0 0; margin-top: 8px;
+}
+.catalogue-print-footer strong { display: block; color: var(--dark); font-size: 13px; margin-bottom: 2px; }
+
 /* Print: a clean paper catalogue without site chrome */
 @media print {
   body { padding-top: 0 !important; background: #fff; }
@@ -2442,4 +2449,8 @@ a:focus-visible, button:focus-visible {
   .catalogue-card { break-inside: avoid; }
   .catalogue-card-img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .catalogue-card-img img { filter: none; }
+  .catalogue-print-logo { display: block !important; height: 90px; width: auto; margin: 0 auto 12px; }
+  .catalogue-hero-text { margin-bottom: 0; }
+  .catalogue-print-footer { display: block !important; }
+  .catalogue-card-img img { opacity: 1 !important; }
 }

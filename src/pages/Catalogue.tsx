@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useProducts } from '@/hooks/useProducts';
 import SEO from '@/components/SEO';
+import { useSiteContent } from '@/hooks/useSiteContent';
 import { siteOrigin } from '@/lib/site';
 import { CATALOGUE_CATEGORIES, groupByCatalogue } from '@/lib/catalogue';
 
@@ -13,9 +14,44 @@ function resolveImg(src?: string) {
   return `/${src}`;
 }
 
+/** Product images are lazy-loaded, so ones never scrolled to are blank when the
+ *  browser prints. Force every image to load (with a time cap) before printing. */
+function loadAllImages(timeoutMs = 20000): Promise<void> {
+  const imgs = Array.from(document.querySelectorAll<HTMLImageElement>('.catalogue-page img'));
+  imgs.forEach((img) => { img.loading = 'eager'; });
+  const pending = imgs.filter((img) => !img.complete).map(
+    (img) => new Promise<void>((resolve) => {
+      img.addEventListener('load', () => resolve(), { once: true });
+      img.addEventListener('error', () => resolve(), { once: true });
+    })
+  );
+  return Promise.race([
+    Promise.all(pending).then(() => undefined),
+    new Promise<void>((resolve) => setTimeout(resolve, timeoutMs)),
+  ]);
+}
+
 export default function Catalogue() {
   const { products, loading, error } = useProducts();
+  const content = useSiteContent();
   const [search, setSearch] = useState('');
+  const [preparing, setPreparing] = useState(false);
+
+  // Ctrl+P / browser menu printing: at least start loading every image
+  useEffect(() => {
+    const onBeforePrint = () => { void loadAllImages(); };
+    window.addEventListener('beforeprint', onBeforePrint);
+    return () => window.removeEventListener('beforeprint', onBeforePrint);
+  }, []);
+
+  const printCatalogue = async () => {
+    setPreparing(true);
+    setSearch('');                                    // the PDF always lists the full range
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    await loadAllImages();
+    setPreparing(false);
+    window.print();
+  };
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -57,14 +93,20 @@ export default function Catalogue() {
 
       {/* Hero */}
       <section className="catalogue-hero">
+        <img
+          className="catalogue-print-logo"
+          src={content.logo || '/images/logo-xpel-beauty-ng.svg'}
+          alt="Xpel Beauty NG"
+          onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-xpel-beauty-ng.svg'; }}
+        />
         <p className="catalogue-hero-kicker">Xpel Beauty NG</p>
         <h1 className="catalogue-hero-title">Product Catalogue</h1>
         <p className="catalogue-hero-text">
           Every product in our range, sorted into {CATALOGUE_CATEGORIES.length} categories.
           {!loading && !error && ` ${products.length} products in total.`}
         </p>
-        <button type="button" className="catalogue-print" onClick={() => window.print()}>
-          Print / save as PDF
+        <button type="button" className="catalogue-print" onClick={printCatalogue} disabled={loading || preparing}>
+          {preparing ? 'Preparing images…' : 'Print / save as PDF'}
         </button>
       </section>
 
@@ -139,6 +181,12 @@ export default function Catalogue() {
           <div className="shop-state">No products match "{search}".</div>
         )}
       </div>
+
+      {/* Shown only in the printed / PDF catalogue */}
+      <footer className="catalogue-print-footer">
+        <strong>Xpel Beauty NG</strong>
+        {[content.footerPhone1 || content.contactPhone, content.contactEmail, content.contactAddress].filter(Boolean).join('  ·  ')}
+      </footer>
     </div>
   );
 }
