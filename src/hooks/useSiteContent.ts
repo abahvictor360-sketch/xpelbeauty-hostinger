@@ -526,7 +526,7 @@ export const DEFAULT_CONTENT: SiteContent = {
 
   // WhatsApp enquiry settings
   whatsappEnabled: true,
-  whatsappNumber: '2348034883603',
+  whatsappNumber: '2347060521947',
   barcodeScannerEnabled: true,
 
   // Best sellers - admin can select which products to feature (auto-filled with popular products if empty)

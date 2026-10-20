@@ -71,7 +71,7 @@ export default function Product() {
   }
 
   const waEnabled = content.whatsappEnabled !== false;
-  const waNumber = formatWaNumber(content.whatsappNumber || content.footerPhone1 || '2348034883603');
+  const waNumber = formatWaNumber(content.whatsappNumber || content.footerPhone1 || '2347060521947');
   const waText = encodeURIComponent(`Hi, I'd like to enquire about *${product.name}* by ${product.brand}.`);
   const barcode = barcodeInfo(product.sku);
 

@@ -3113,7 +3113,7 @@ export default function Admin() {
           e.type === enquiryFilter
         );
         const newCount = enquiries.filter(e => e.status === 'new').length;
-        const waNum = content.whatsappNumber || '2348034883603';
+        const waNum = content.whatsappNumber || '2347060521947';
         return (
           <div className="panel-section enq-panel">
 

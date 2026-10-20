@@ -66,6 +66,8 @@ export function buildHeadHtml(head: RouteHead, path: string): string {
     `<meta name="twitter:description" content="${esc(head.description)}" />`,
     ogImage ? `<meta name="twitter:image" content="${esc(ogImage)}" />` : '',
     origin ? `<link rel="canonical" href="${origin}${path}" />` : '',
+    // id matches the client SEO component, which then updates this node instead of adding a second one
+    head.jsonLd ? `<script id="seo-jsonld" type="application/ld+json">${JSON.stringify(head.jsonLd).replace(/</g, '\\u003c')}</script>` : '',
   ];
   return lines.filter(Boolean).join('\n    ');
 }

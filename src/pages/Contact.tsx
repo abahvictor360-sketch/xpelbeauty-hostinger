@@ -42,7 +42,7 @@ const BLANK = { name: '', email: '', subject: '', message: '', hp: '' };
 export default function Contact() {
   const content  = useSiteContent();
   const waEnabled = content.whatsappEnabled !== false;
-  const WA_NUMBER = content.whatsappNumber || '2348034883603';
+  const WA_NUMBER = content.whatsappNumber || '2347060521947';
 
   const [formData, setFormData] = useState(BLANK);
   const [errors,   setErrors]   = useState<Record<string, string>>({});

@@ -20,6 +20,8 @@ export interface RouteHead {
   description: string;
   keywords?: string;
   ogImage?: string;
+  /** Structured data baked into the page (reused by the client SEO component). */
+  jsonLd?: Record<string, unknown>[];
 }
 
 export interface PrerenderRoute {
@@ -49,6 +51,40 @@ function pageHead(page: keyof typeof seo.pages): RouteHead {
 // When unset, dynamic routes are skipped and served by the SPA fallback instead.
 const API = (import.meta.env.VITE_PRERENDER_API as string | undefined) ?? '';
 
+// GS1 barcodes (8/12/13/14 digits) go into structured data as gtinNN, which is
+// what Google matches when someone scans or searches the number on a pack.
+const GTIN_KEY: Record<number, string> = { 8: 'gtin8', 12: 'gtin12', 13: 'gtin13', 14: 'gtin14' };
+const SITE = ((import.meta.env.VITE_SITE_URL as string | undefined) ?? 'https://xpelbeauty.vercel.app').replace(/\/$/, '');
+const absUrl = (u?: string) => (!u ? undefined : u.startsWith('http') ? u : SITE + (u.startsWith('/') ? u : `/${u}`));
+
+function productJsonLd(p: { id: number; name: string; brand: string; description?: string; image?: string; category?: string; sku?: string | null }) {
+  const code = (p.sku ?? '').trim();
+  const gtin = /^\d+$/.test(code) && GTIN_KEY[code.length] ? { [GTIN_KEY[code.length]]: code } : {};
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: p.name,
+      url: `${SITE}/product/${p.id}`,
+      ...(p.image ? { image: absUrl(p.image) } : {}),
+      description: p.description || `${p.name} by ${p.brand}`,
+      brand: { '@type': 'Brand', name: p.brand },
+      ...(p.category ? { category: p.category } : {}),
+      ...(code ? { sku: code } : {}),
+      ...gtin,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+        { '@type': 'ListItem', position: 2, name: 'Shop', item: `${SITE}/shop` },
+        { '@type': 'ListItem', position: 3, name: p.name, item: `${SITE}/product/${p.id}` },
+      ],
+    },
+  ];
+}
+
 async function getProducts(): Promise<Array<{ param: string; head: RouteHead }>> {
   if (!API) return [];
   const res = await fetch(`${API}/products.php`, {
@@ -56,14 +92,15 @@ async function getProducts(): Promise<Array<{ param: string; head: RouteHead }>>
     signal: AbortSignal.timeout(20000),
   });
   if (!res.ok) throw new Error(`products API ${res.status}`);
-  const items: Array<{ id: number; name: string; brand: string; description?: string; image?: string }> = await res.json();
+  const items: Array<{ id: number; name: string; brand: string; description?: string; image?: string; category?: string; sku?: string | null }> = await res.json();
   return items.map((p) => ({
     param: String(p.id),
     head: {
       title: `${p.name} | XpelBeauty NG`,
       description: p.description || `Discover ${p.name} by ${p.brand} - premium nature-infused beauty.`,
-      keywords: `${p.name}, ${p.brand}, buy beauty products nigeria`,
+      keywords: `${p.name}, ${p.brand}, buy beauty products nigeria${p.sku ? `, ${p.sku}` : ''}`,
       ogImage: p.image,
+      jsonLd: productJsonLd(p),
     },
   }));
 }
