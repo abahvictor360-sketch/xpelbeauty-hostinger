@@ -832,37 +832,37 @@ Mess-free, no-spill application
 150ml - plenty for regular use','Dip the nail into the pot and hold for a few seconds.
 Twist gently and lift the nail out - no cotton pad needed.
 Wipe away any residue with a tissue.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(335,'XBC Aqueous Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-AQCR-500','/Img/xbc-aqueous-cream-500ml.png','Aqueous cream - a gentle daily moisturiser and soap substitute for dry, sensitive skin. 500ml.',NULL,'Aqueous formula helps relieve and soften dry skin
+(335,'XBC Aqueous Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-AQCR-500','/Img/xbc-aqueous-cream-500ml.jpg','Aqueous cream - a gentle daily moisturiser and soap substitute for dry, sensitive skin. 500ml.',NULL,'Aqueous formula helps relieve and soften dry skin
 500ml - long-lasting daily moisturiser
 Can be used as a soap substitute, fragrance and lanolin free
 Suitable for the whole family','Apply generously to clean, dry skin.
 Massage in until fully absorbed.
 Use daily, or as often as needed for dry skin.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(336,'XBC Aqueous Cream SLS Free 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-AQSF-500','/Img/xbc-aqueous-cream-sls-free-500ml.png','SLS-free aqueous cream - gentle moisturiser and soap substitute for sensitive skin. 500ml.',NULL,'SLS-free aqueous formula helps relieve and soften dry skin
+(336,'XBC Aqueous Cream SLS Free 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-AQSF-500','/Img/xbc-aqueous-cream-sls-free-500ml.jpg','SLS-free aqueous cream - gentle moisturiser and soap substitute for sensitive skin. 500ml.',NULL,'SLS-free aqueous formula helps relieve and soften dry skin
 500ml - long-lasting daily moisturiser
 Can be used as a soap substitute, fragrance and lanolin free
 Suitable for the whole family','Apply generously to clean, dry skin.
 Massage in until fully absorbed.
 Use daily, or as often as needed for dry skin.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(337,'XBC Aloe Vera Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-ALCR-500','/Img/xbc-aloe-vera-cream-500ml.png','Aloe vera cream - soothing daily moisturiser for soft, hydrated skin. 500ml.',NULL,'Aloe vera helps relieve and soften dry skin
+(337,'XBC Aloe Vera Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-ALCR-500','/Img/xbc-aloe-vera-cream-500ml.jpg','Aloe vera cream - soothing daily moisturiser for soft, hydrated skin. 500ml.',NULL,'Aloe vera helps relieve and soften dry skin
 500ml - long-lasting daily moisturiser
 Can be used as a soap substitute
 Suitable for the whole family','Apply generously to clean, dry skin.
 Massage in until fully absorbed.
 Use daily, or as often as needed for dry skin.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(338,'XBC Olive Oil Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-OLCR-500','/Img/xbc-olive-oil-cream-500ml.png','Olive oil cream - deeply moisturises and hydrates skin. 500ml.',NULL,'Olive oil helps relieve and soften dry skin
+(338,'XBC Olive Oil Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-OLCR-500','/Img/xbc-olive-oil-cream-500ml.jpg','Olive oil cream - deeply moisturises and hydrates skin. 500ml.',NULL,'Olive oil helps relieve and soften dry skin
 500ml - long-lasting daily moisturiser
 Can be used as a soap substitute
 Suitable for the whole family','Apply generously to clean, dry skin.
 Massage in until fully absorbed.
 Use daily, or as often as needed for dry skin.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(339,'XBC Cocoa Butter Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-COCR-500','/Img/xbc-cocoa-butter-cream-500ml.png','Cocoa butter cream - nourishes and softens dry skin. 500ml.',NULL,'Cocoa butter helps relieve and soften dry skin
+(339,'XBC Cocoa Butter Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-COCR-500','/Img/xbc-cocoa-butter-cream-500ml.jpg','Cocoa butter cream - nourishes and softens dry skin. 500ml.',NULL,'Cocoa butter helps relieve and soften dry skin
 500ml - long-lasting daily moisturiser
 Can be used as a soap substitute
 Suitable for the whole family','Apply generously to clean, dry skin.
 Massage in until fully absorbed.
 Use daily, or as often as needed for dry skin.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(340,'XBC Vitamin E Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-VECR-500','/Img/xbc-vitamin-e-cream-500ml.png','Vitamin E cream - deeply moisturises and soothes skin. 500ml.',NULL,'Vitamin E helps relieve and soften dry skin
+(340,'XBC Vitamin E Cream 500ml','Xpel Body Care','Body & Beauty',3800.0,50,'XBC-VECR-500','/Img/xbc-vitamin-e-cream-500ml.jpg','Vitamin E cream - deeply moisturises and soothes skin. 500ml.',NULL,'Vitamin E helps relieve and soften dry skin
 500ml - long-lasting daily moisturiser
 Can be used as a soap substitute
 Suitable for the whole family','Apply generously to clean, dry skin.
@@ -958,12 +958,6 @@ Fruity, uplifting daily cleanse
 Leaves skin feeling clean and refreshed','Wet face with warm water.
 Massage a small amount over face in circular motions.
 Rinse thoroughly and pat dry. Use morning and evening.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
-(358,'So Fresh Watermelon Crush Plant-Based Sheet Mask','Xpel Body Care','Body & Beauty',2000.0,55,'SFW-MASK-1','/Img/so-fresh-watermelon-crush-sheet-mask.png','Plant-based sheet mask infused with watermelon crush - refreshing, hydrating treatment.',NULL,'Watermelon crush extract hydrates and refreshes
-Plant-based sheet mask material
-Ideal as a weekly skincare treat
-Leaves skin feeling soft and revived','Cleanse skin and pat dry.
-Unfold the mask and smooth over face, avoiding eyes and lips.
-Leave for 15-20 minutes, then remove and massage in remaining essence.',1,'2026-07-28T08:06:44.298049','2026-07-28T08:06:44.298049'),
 (359,'Tea Tree Body Scrub','Tea Tree','Body & Beauty',4000.0,40,'TT-SCRB-1','/Img/tea-tree-body-scrub.png','Exfoliating body scrub with natural tea tree oil - smooths and refreshes skin.',NULL,'Natural tea tree oil helps exfoliate and refresh skin
 Smooths rough, uneven texture
 Leaves skin feeling purified and renewed
@@ -1150,12 +1144,7 @@ Massage any remaining product into the skin.',1,'2026-10-20T00:00:00','2026-10-2
 Moisturising formula
 For frequent use','Massage into wet hair and scalp.
 Rinse thoroughly.
-Follow with Tea Tree Moisturising Conditioner.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00'),
-(399,'XBC Tea Tree Facial Scrub (250ml)','Tea Tree','Body & Beauty',0.0,40,'XBC-TT-FSCR-250','/Img/xbc-tea-tree-facial-scrub-250ml.jpg','XBC tea tree facial scrub in a 250ml tube - gently exfoliates for visibly brighter, cleaner-looking skin.','250ml','With tea tree oil
-Gently exfoliates
-250ml tube','Apply to damp skin using circular motions.
-Avoid the eye area.
-Rinse thoroughly. Use 2-3 times a week.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00');
+Follow with Tea Tree Moisturising Conditioner.',1,'2026-10-20T00:00:00','2026-10-20T00:00:00');
 
 -- ── Blog posts data (5 rows) ───────────────────────────────────────────────
 INSERT INTO `blog_posts` (`id`,`title`,`slug`,`content`,`excerpt`,`featured_image`,`author`,`category`,`published`,`created_at`,`updated_at`) VALUES
