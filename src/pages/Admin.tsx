@@ -982,6 +982,8 @@ export default function Admin() {
     return (
       <div className="admin-login">
         <form className="admin-login-card" onSubmit={handleLogin}>
+          <img src={content.logo || '/images/logo-xpel-beauty-ng.png'} alt="Xpel Beauty NG" className="admin-login-logo"
+            onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-xpel-beauty-ng.svg'; }} />
           <h1>Xpel Admin</h1>
           <p>Sign in to manage your store</p>
           <input
@@ -1032,6 +1034,8 @@ export default function Admin() {
       <aside id="admin-sidebar" className={`admin-sidebar ${navOpen ? 'open' : ''}`}
         onKeyDown={(e) => { if (e.key === 'Escape') setNavOpen(false); }}>
         <div className="sidebar-header">
+          <img src={content.logo || '/images/logo-xpel-beauty-ng.png'} alt="Xpel Beauty NG" className="sidebar-logo"
+            onError={(e) => { (e.target as HTMLImageElement).src = '/images/logo-xpel-beauty-ng.svg'; }} />
           <h2 className="sidebar-title">Xpel Admin</h2>
           <p className="sidebar-subtitle">Dashboard</p>
         </div>

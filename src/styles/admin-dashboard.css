@@ -2078,3 +2078,7 @@
 @media (prefers-reduced-motion: reduce) {
   .admin-container .admin-sidebar { transition: none; }
 }
+
+/* Brand logo on the sign-in card and sidebar */
+.admin-login-logo { display: block; height: 56px; width: auto; max-width: 180px; object-fit: contain; margin: 0 auto 14px; }
+.sidebar-logo { display: block; height: 40px; width: auto; max-width: 150px; object-fit: contain; margin-bottom: 10px; }
