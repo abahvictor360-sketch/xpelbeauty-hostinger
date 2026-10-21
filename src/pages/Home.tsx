@@ -21,11 +21,11 @@ export default function Home() {
   const { products } = useProducts();
   const content = useSiteContent();
 
-  // Best sellers: use admin-chosen IDs when set, else fall back to products with images
+  // Best sellers: admin-chosen IDs in the order chosen, else fall back to products with images
   const chosenIds = content.bestSellerIds ?? [];
   const withImages = products.filter((p) => p.image && p.image.trim() !== '' && !p.image.includes('placeholder'));
   const realBestSellers = chosenIds.length > 0
-    ? products.filter(p => chosenIds.includes(p.id)).slice(0, 12)
+    ? chosenIds.map((id) => products.find((p) => p.id === id)).filter((p): p is (typeof products)[number] => !!p).slice(0, 12)
     : (withImages.length >= 12 ? withImages : products).slice(0, 12);
 
   const heroSlides = content.heroSlides ?? [];
