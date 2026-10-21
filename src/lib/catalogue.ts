@@ -115,6 +115,7 @@ const BAND_RULES: Array<[RegExp, string]> = [
   [/foot|shoe/i, '#1e64b4'], [/medipure|hair & scalp/i, '#2a74b8'], [/dr magic/i, '#d4560f'],
   [/mediguard|medex|hygie|handwash/i, '#2f8f5f'], [/mucky pup/i, '#2a9d8f'], [/intimelle/i, '#4f8f7f'],
   [/fresh start/i, '#c77d00'], [/cotton buds/i, '#8b6b45'], [/botanical/i, '#4f8a2b'],
+  [/osiris|recovery oil/i, '#d2561f'],
 ];
 
 export function bandColor(p: Pick<Product, 'id' | 'name' | 'brand' | 'category'>, settings?: CatalogueSettings): string {

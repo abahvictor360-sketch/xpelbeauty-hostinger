@@ -1,0 +1,3 @@
+-- Xpel Beauty NG (2026-10-21): Osiris Avisé Recovery Oil. Hostinger / MySQL. Run once, after the other 2026-10-21 script.
+INSERT IGNORE INTO `products` (`id`,`name`,`brand`,`category`,`price`,`stock`,`sku`,`image`,`size`,`description`,`key_benefits`,`how_to_use`,`active`) VALUES
+(429, 'Osiris Avisé Recovery Oil', 'Osiris Avisé', 'Body & Beauty', 0, 50, NULL, '/Img/osiris-avise-recovery-oil.jpg', NULL, 'A recovery skin oil that helps the appearance of scars and stretch marks. It also improves skin tone and re-hydrates dry skin.', 'Helps the appearance of scars and stretch marks\nImproves skin tone\nRe-hydrating\nSkin oil for daily use', 'Massage a few drops into clean skin.\nFocus on scars, stretch marks or dry areas.\nUse daily.', 1);
