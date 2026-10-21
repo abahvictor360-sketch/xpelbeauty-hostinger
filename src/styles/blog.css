@@ -2,20 +2,17 @@
    Blog listing: soft sage editorial layout
    ============================================================ */
 .journal-page {
-  --journal-bg: #dcdbbf;
   --journal-panel: #eef1e7;
   --journal-line: #d5dacb;
   --journal-ink: #1f2a1e;
   --journal-muted: #6f7869;
   --journal-pill: #e1e7d8;
-  background: var(--journal-bg);
-  padding: 56px 24px 80px;
+  background: var(--journal-panel);
   min-height: 100vh;
 }
 .journal-panel {
   max-width: 1280px;
   margin: 0 auto;
-  background: var(--journal-panel);
   padding: 72px 64px 80px;
 }
 .journal-head { margin-bottom: 36px; }
@@ -52,6 +49,7 @@
   border: 0;
   background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231f2a1e' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 4px center;
   padding: 6px 26px 6px 4px;
+  min-width: 9.5em; /* room for the longest option before the web font loads */
   font: inherit;
   color: var(--journal-ink);
   cursor: pointer;
@@ -127,7 +125,6 @@
   .journal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .journal-page { padding: 0; }
   .journal-panel { padding: 40px 16px 56px; }
   .journal-pills { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px; padding: 0 16px 4px; scrollbar-width: none; }
   .journal-pills::-webkit-scrollbar { display: none; }
