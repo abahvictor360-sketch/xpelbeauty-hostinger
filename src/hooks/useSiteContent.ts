@@ -530,7 +530,7 @@ export const DEFAULT_CONTENT: SiteContent = {
   barcodeScannerEnabled: true,
 
   // Best sellers - admin can select which products to feature (auto-filled with popular products if empty)
-  bestSellerIds: [225, 398, 364, 228, 360, 229, 253, 216, 239], // homepage best sellers, in display order
+  bestSellerIds: [225, 398, 364, 242, 265, 253, 250, 213, 216], // homepage best sellers, in display order
 
   // Admin users stored in site_content (no separate DB table required)
   adminUsers: [],
