@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useBlogPosts } from '@/hooks/useBlog';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import SEO from '@/components/SEO';
+import '@/styles/blog.css';
 
 const FALLBACK_IMG = '/images/product-placeholder.svg';
 
@@ -11,67 +13,114 @@ function resolveImg(src?: string) {
   return `/${src}`;
 }
 
+const SORTS = {
+  newest: 'Newest first',
+  oldest: 'Oldest first',
+  title: 'Title A to Z',
+} as const;
+type SortKey = keyof typeof SORTS;
+
+const dateFmt = new Intl.DateTimeFormat('en-NG', { year: 'numeric', month: 'long', day: 'numeric' });
+
 export default function Blog() {
   const { posts, loading, error } = useBlogPosts();
   const content = useSiteContent();
+  // Filter and sort live in the URL so a filtered view can be shared or bookmarked
+  const [params, setParams] = useSearchParams();
+  const active = params.get('cat') ?? '';
+  const sort = (params.get('sort') as SortKey) in SORTS ? (params.get('sort') as SortKey) : 'newest';
+
+  const setParam = (key: string, value: string) => {
+    const next = new URLSearchParams(params);
+    if (value) next.set(key, value); else next.delete(key);
+    setParams(next, { replace: true });
+  };
+
+  const categories = useMemo(
+    () => [...new Set((posts ?? []).map((p) => p.category).filter((c): c is string => !!c))].sort(),
+    [posts],
+  );
+
+  const visible = useMemo(() => {
+    const list = (posts ?? []).filter((p) => !active || p.category === active);
+    return [...list].sort((a, b) => {
+      if (sort === 'title') return a.title.localeCompare(b.title);
+      const d = new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+      return sort === 'oldest' ? d : -d;
+    });
+  }, [posts, active, sort]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="journal-page">
       <SEO page="blog" />
 
-      <div className="max-w-6xl mx-auto px-6 py-20">
-        {/* ── Header ─────────────────────────────────────────── */}
-        <div className="text-center max-w-xl mx-auto mb-14">
-          <span className="inline-block px-4 py-1.5 mb-5 rounded-full bg-gold-raw text-white text-xs font-jost font-semibold uppercase tracking-wide">
-            Blog
-          </span>
-          <h1 className="font-cormorant text-4xl md:text-5xl text-navy mb-4">
-            {content.blogTitle || 'Latest News'}
-          </h1>
-          <p className="text-gray-500 text-[15px] leading-relaxed font-jost">
-            {content.blogIntro || 'Hair care tips, skincare routines and beauty guides from the Xpel Beauty NG team.'}
-          </p>
-        </div>
+      <div className="journal-panel">
+        <header className="journal-head">
+          <h1 className="journal-title">{content.blogTitle || 'Popular articles'}</h1>
+          {content.blogIntro && <p className="journal-intro">{content.blogIntro}</p>}
+        </header>
 
-        {loading && <div className="text-center py-16 text-gray-500">Loading…</div>}
-        {error && <div className="text-center py-16 text-red-500">{error}</div>}
-        {!loading && posts?.length === 0 && (
-          <div className="text-center py-16 text-gray-500">No blog posts found.</div>
-        )}
-
-        {/* ── Card grid ──────────────────────────────────────── */}
-        {!loading && posts && posts.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post) => (
-              <Link
-                key={post.id}
-                to={`/blog/${post.slug}`}
-                className="group block rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden"
-              >
-                <div className="relative p-2">
-                  <img
-                    src={resolveImg(post.image)}
-                    alt={post.title}
-                    className="w-full h-44 object-cover rounded-xl"
-                    onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK_IMG; }}
-                  />
-                  {post.category && (
-                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-gold-raw text-white text-[11px] font-jost font-semibold uppercase tracking-wide shadow-sm">
-                      {post.category}
-                    </span>
-                  )}
-                </div>
-                <div className="px-5 pb-6 pt-2">
-                  <h2 className="font-jost font-semibold text-[17px] text-navy leading-snug mb-2 line-clamp-2 group-hover:text-gold-raw transition-colors">
-                    {post.title}
-                  </h2>
-                  <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">
-                    {post.excerpt}
-                  </p>
-                </div>
-              </Link>
+        <div className="journal-toolbar">
+          <div className="journal-pills" role="group" aria-label="Filter by category">
+            <button type="button" className={`journal-pill ${!active ? 'is-active' : ''}`} aria-pressed={!active}
+              onClick={() => setParam('cat', '')}>
+              All categories
+            </button>
+            {categories.map((c) => (
+              <button key={c} type="button" className={`journal-pill ${active === c ? 'is-active' : ''}`} aria-pressed={active === c}
+                onClick={() => setParam('cat', c)}>
+                {c}
+              </button>
             ))}
           </div>
+          <label className="journal-sort">
+            <span>Sort by</span>
+            <select value={sort} onChange={(e) => setParam('sort', e.target.value === 'newest' ? '' : e.target.value)}>
+              {Object.entries(SORTS).map(([k, label]) => <option key={k} value={k}>{label}</option>)}
+            </select>
+          </label>
+        </div>
+
+        {loading && <p className="journal-state">Loading…</p>}
+        {error && <p className="journal-state journal-state-error">{error}</p>}
+
+        {!loading && !error && (
+          <>
+            <p className="journal-count">Showing {visible.length} of {posts?.length ?? 0}</p>
+            {visible.length === 0 ? (
+              <p className="journal-state">No articles in this category yet.</p>
+            ) : (
+              <div className="journal-grid">
+                {visible.map((post) => (
+                  <article key={post.id} className="journal-card">
+                    <Link to={`/blog/${post.slug}`} className="journal-card-media" tabIndex={-1} aria-hidden="true">
+                      <img
+                        src={resolveImg(post.image)}
+                        alt=""
+                        width={600}
+                        height={600}
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK_IMG; }}
+                      />
+                    </Link>
+                    <p className="journal-card-meta">
+                      {post.created_at && <time dateTime={post.created_at}>{dateFmt.format(new Date(post.created_at))}</time>}
+                      {post.created_at && post.author && <span aria-hidden="true"> • </span>}
+                      {post.author}
+                    </p>
+                    <h2 className="journal-card-title">
+                      <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                    </h2>
+                    {post.excerpt && <p className="journal-card-excerpt">{post.excerpt}</p>}
+                    <Link to={`/blog/${post.slug}`} className="journal-card-more" aria-label={`Read more: ${post.title}`}>
+                      Read more <span aria-hidden="true">→</span>
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

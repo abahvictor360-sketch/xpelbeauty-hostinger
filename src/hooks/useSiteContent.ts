@@ -428,7 +428,7 @@ export const DEFAULT_CONTENT: SiteContent = {
   storesTitle: 'find us in store',
   storesIntro: 'Find Xpel Beauty Care at more than 600 stores across Nigeria.',
 
-  blogTitle: 'beauty journal',
+  blogTitle: 'Popular articles',
   blogIntro: 'Tips, guides and stories from the world of Xpel Beauty Care.',
 
   banners: {
