@@ -2949,3 +2949,31 @@ INSERT IGNORE INTO `products` (`id`,`name`,`brand`,`category`,`price`,`stock`,`s
 -- Xpel Beauty NG (2026-10-21): Osiris Avisé Recovery Oil. Hostinger / MySQL. Run once, after the other 2026-10-21 script.
 INSERT IGNORE INTO `products` (`id`,`name`,`brand`,`category`,`price`,`stock`,`sku`,`image`,`size`,`description`,`key_benefits`,`how_to_use`,`active`) VALUES
 (429, 'Osiris Avisé Recovery Oil', 'Osiris Avisé', 'Body & Beauty', 0, 50, NULL, '/Img/osiris-avise-recovery-oil.jpg', NULL, 'A recovery skin oil that helps the appearance of scars and stretch marks. It also improves skin tone and re-hydrates dry skin.', 'Helps the appearance of scars and stretch marks\nImproves skin tone\nRe-hydrating\nSkin oil for daily use', 'Massage a few drops into clean skin.\nFocus on scars, stretch marks or dry areas.\nUse daily.', 1);
+
+-- 2026-10-21 background cutouts (same as sql/2026-10-21-background-cutouts.sql)
+-- Xpel Beauty NG (2026-10-21): product photos cut out of their studio backgrounds. Hostinger / MySQL. Safe to run more than once.
+UPDATE `products` SET `image` = '/Img/tea-tree-peppermint-foot-pack-cutout.png' WHERE `id` = 222;
+UPDATE `products` SET `image` = '/Img/aloe-vera-body-wash-250ml-cutout.png' WHERE `id` = 324;
+UPDATE `products` SET `image` = '/Img/xbc-bamboo-cotton-buds-300-cutout.png' WHERE `id` = 341;
+UPDATE `products` SET `image` = '/Img/xbc-banana-face-body-scrub-250ml-tube-cutout.png' WHERE `id` = 379;
+UPDATE `products` SET `image` = '/Img/aloe-vera-shampoo-250ml-cutout.png' WHERE `id` = 382;
+UPDATE `products` SET `image` = '/Img/xbc-aloe-vera-face-body-scrub-cutout.png' WHERE `id` = 383;
+UPDATE `products` SET `image` = '/Img/medex-aloe-vera-antibacterial-handwash-650ml-cutout.png' WHERE `id` = 384;
+UPDATE `products` SET `image` = '/Img/mucky-pup-flea-repellent-shampoo-cutout.png' WHERE `id` = 386;
+UPDATE `products` SET `image` = '/Img/dr-magic-double-action-foamer-cutout.png' WHERE `id` = 387;
+UPDATE `products` SET `image` = '/Img/dr-magic-oven-grill-cleaner-cutout.png' WHERE `id` = 388;
+UPDATE `products` SET `image` = '/Img/dr-magic-snatch-a-dye-20-sheets-cutout.png' WHERE `id` = 389;
+UPDATE `products` SET `image` = '/Img/medipure-hair-scalp-treatment-cutout.png' WHERE `id` = 390;
+UPDATE `products` SET `image` = '/Img/medipure-hair-scalp-conditioner-cutout.png' WHERE `id` = 391;
+UPDATE `products` SET `image` = '/Img/medipure-hair-scalp-hair-mask-cutout.png' WHERE `id` = 392;
+UPDATE `products` SET `image` = '/Img/xhc-tea-tree-moisturising-shampoo-400ml-cutout.png' WHERE `id` = 398;
+UPDATE `products` SET `image` = '/Img/argan-oil-shower-cream-cutout.png' WHERE `id` = 414;
+UPDATE `products` SET `image` = '/Img/xbc-papaya-pore-refining-face-toner-200ml-cutout.png' WHERE `id` = 417;
+UPDATE `products` SET `image` = '/Img/xhc-rosemary-mint-leave-in-conditioner-cutout.png' WHERE `id` = 418;
+UPDATE `products` SET `image` = '/Img/xbc-hemp-face-mask-cutout.png' WHERE `id` = 419;
+UPDATE `products` SET `image` = '/Img/xbc-hemp-hand-lotion-cutout.png' WHERE `id` = 420;
+UPDATE `products` SET `image` = '/Img/xbc-banana-body-yogurt-cutout.png' WHERE `id` = 421;
+UPDATE `products` SET `image` = '/Img/medipure-hair-scalp-2in1-shampoo-conditioner-cutout.png' WHERE `id` = 422;
+UPDATE `products` SET `image` = '/Img/xhc-tea-tree-leave-in-conditioner-cutout.png' WHERE `id` = 423;
+UPDATE `products` SET `image` = '/Img/xbc-cleansing-charcoal-handwash-cutout.png' WHERE `id` = 426;
+UPDATE `products` SET `image` = '/Img/xbc-cleansing-charcoal-face-body-scrub-cutout.png' WHERE `id` = 428;
