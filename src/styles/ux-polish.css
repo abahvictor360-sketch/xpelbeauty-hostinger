@@ -82,6 +82,17 @@ p { text-wrap: pretty; }
   flex: 1 1 160px;
   justify-content: center;
 }
+/* Phones: main action full width, the other two side by side, normal height */
+@media (max-width: 768px) {
+  .product-buy { flex-direction: row; gap: 10px; }
+  .product-buy > a, .product-buy > button {
+    flex: 1 1 calc(50% - 5px);
+    min-height: 46px;
+    padding: 12px 14px;
+    font-size: 12px;
+  }
+  .product-buy > :first-child { flex-basis: 100%; }
+}
 
 /* ── Reduced motion: no floats, reveals or slide transitions ── */
 @media (prefers-reduced-motion: reduce) {
