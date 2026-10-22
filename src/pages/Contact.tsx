@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Phone, Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
+import { formatNgPhone } from '@/lib/phone';
 import { api } from '@/lib/api';
 import PromoBanner from '@/components/PromoBanner';
 import SEO from '@/components/SEO';
@@ -249,7 +250,7 @@ export default function Contact() {
                   <p className="xp-contact-row-label">WhatsApp</p>
                   <p className="xp-contact-row-value">
                     <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer">
-                      Chat with us on WhatsApp
+                      {formatNgPhone(WA_NUMBER)}
                     </a>
                   </p>
                 </div>

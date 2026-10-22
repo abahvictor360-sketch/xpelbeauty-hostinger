@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
+import { formatNgPhone } from '@/lib/phone';
 import './Footer.css';
 
 export default function Footer() {
@@ -94,6 +95,16 @@ export default function Footer() {
                   </a>
                 )}
               </div>
+            </div>
+          )}
+
+          {content.whatsappEnabled !== false && content.whatsappNumber && (
+            <div className="footer-contact-row">
+              <span className="footer-contact-icon" aria-hidden="true"><MessageCircle size={15} strokeWidth={2} /></span>
+              <a href={`https://wa.me/${content.whatsappNumber.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer"
+                className="footer-link" aria-label={`WhatsApp ${formatNgPhone(content.whatsappNumber)}`}>
+                WhatsApp: {formatNgPhone(content.whatsappNumber)}
+              </a>
             </div>
           )}
 
