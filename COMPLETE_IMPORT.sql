@@ -2977,3 +2977,11 @@ UPDATE `products` SET `image` = '/Img/medipure-hair-scalp-2in1-shampoo-condition
 UPDATE `products` SET `image` = '/Img/xhc-tea-tree-leave-in-conditioner-cutout.png' WHERE `id` = 423;
 UPDATE `products` SET `image` = '/Img/xbc-cleansing-charcoal-handwash-cutout.png' WHERE `id` = 426;
 UPDATE `products` SET `image` = '/Img/xbc-cleansing-charcoal-face-body-scrub-cutout.png' WHERE `id` = 428;
+
+-- 2026-10-22 image fixes and duplicate (same as sql/2026-10-22-image-fixes-and-duplicate.sql)
+-- Xpel Beauty NG (2026-10-22). Hostinger / MySQL. Safe to run more than once.
+-- Cut-outs that had lost a white cap or lid, re-made with the cap/lid kept.
+UPDATE `products` SET `image` = '/Img/xhc-tea-tree-leave-in-conditioner-v2.png' WHERE `id` = 423;
+UPDATE `products` SET `image` = '/Img/medipure-hair-scalp-hair-mask-v2.png' WHERE `id` = 392;
+-- XBC Aqueous Cream SLS Free was the same product as XBC Aqueous Cream (#335).
+DELETE FROM `products` WHERE `id` = 336;
