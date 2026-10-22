@@ -243,6 +243,75 @@ export const DEFAULT_CONTENT: SiteContent = {
   slides: [],
   heroSlides: [
     {
+      // Rebrand: Tea Tree face wash + facial scrub in the new XBC pack
+      image: '/banner/rebrand-tea-tree.webp',
+      overlayColor: 'rgba(16, 62, 28, 0.86)',
+      brandLockup: 'xbc®  |  xpel beauty care',
+      subLabel: 'tea tree · new look',
+      headlineLine1: 'Same Tea Tree.',
+      headlineLine2: 'New Pack.',
+      headlineColor: '#EAF7D6',
+      descriptor: 'Face wash & facial scrub, newly packed',
+      benefits: [
+        'Same tea tree formula as before',
+        'Old and new packs are the same product',
+        'Look for the new pack in stores',
+      ],
+      vegaBadge: '',
+      vegaBadgeBg: 'rgba(255,255,255,.18)',
+      vegaBadgeColor: '#fff',
+      ctaLabel: 'shop the face wash',
+      ctaHref: '/product/225',
+      ctaBg: '#1B6B2E',
+      ctaColor: '#FFFFFF',
+    },
+    {
+      // Rebrand: Cocoa Butter body cream in the new white and brown jar
+      image: '/banner/rebrand-cocoa-butter.webp',
+      overlayColor: 'rgba(72, 40, 20, 0.86)',
+      brandLockup: 'xbc®  |  xpel body care',
+      subLabel: 'cocoa butter · new look',
+      headlineLine1: 'Same Cream.',
+      headlineLine2: 'New Jar.',
+      headlineColor: '#F6E7D6',
+      descriptor: 'Cocoa butter body cream, 500ml',
+      benefits: [
+        'Same rich cream for dry skin',
+        'Old and new jars are the same product',
+        'Look for the new jar in stores',
+      ],
+      vegaBadge: '',
+      vegaBadgeBg: 'rgba(255,255,255,.18)',
+      vegaBadgeColor: '#fff',
+      ctaLabel: 'see cocoa butter cream',
+      ctaHref: '/product/339',
+      ctaBg: '#6B3A1F',
+      ctaColor: '#FFFFFF',
+    },
+    {
+      // Rebrand: Argan Oil body butter in the new brown and gold jar
+      image: '/banner/rebrand-argan-body-butter.webp',
+      overlayColor: 'rgba(40, 22, 6, 0.86)',
+      brandLockup: 'xbc®  |  xpel body care',
+      subLabel: 'argan oil · new look',
+      headlineLine1: 'Same Butter.',
+      headlineLine2: 'New Gold Jar.',
+      headlineColor: '#F7E3B0',
+      descriptor: 'Argan oil body butter, new look',
+      benefits: [
+        'Same body butter with Moroccan argan oil',
+        'Old and new jars are the same product',
+        'Look for the new jar in stores',
+      ],
+      vegaBadge: '',
+      vegaBadgeBg: 'rgba(255,255,255,.18)',
+      vegaBadgeColor: '#fff',
+      ctaLabel: 'see argan body butter',
+      ctaHref: '/product/411',
+      ctaBg: '#C8960A',
+      ctaColor: '#1B1205',
+    },
+    {
       // Banner 1 — Tea Tree (sage/lime-green wall, XHC green bottles)
       image: '/banner/banner 1.webp',
       overlayColor: 'rgba(78, 108, 28, 0.88)',
@@ -737,7 +806,7 @@ const LS_KEY = 'xpel_site_content';
  * On mismatch the heroSlides from storage are discarded and defaults are used,
  * while all other saved settings (text, banners, SEO…) are preserved.
  */
-const HERO_SLIDES_VERSION = 7; // bump when slides change
+const HERO_SLIDES_VERSION = 8; // bump when slides change
 const LS_HERO_VER_KEY = 'xpel_hero_ver';
 
 /** Convert an uploaded file to a base64 data URL (works without Supabase Storage). */
