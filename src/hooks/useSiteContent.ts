@@ -312,6 +312,98 @@ export const DEFAULT_CONTENT: SiteContent = {
       ctaColor: '#1B1205',
     },
     {
+      // Range: Papaya face care
+      image: '/banner/range-papaya.webp',
+      overlayColor: 'rgba(150, 70, 20, 0.86)',
+      brandLockup: 'xbc®  |  xpel beauty care',
+      subLabel: 'papaya',
+      headlineLine1: 'Papaya',
+      headlineLine2: 'Glow Routine',
+      headlineColor: '#FFE9D2',
+      descriptor: 'Face wash, toner, scrub & mask',
+      benefits: [
+        'Cleansing face wash and pore refining toner',
+        'Face & body scrub for visibly brighter skin',
+        'Vegan hydrating sheet mask',
+      ],
+      vegaBadge: '',
+      vegaBadgeBg: 'rgba(255,255,255,.18)',
+      vegaBadgeColor: '#fff',
+      ctaLabel: 'shop papaya',
+      ctaHref: '/collection/papaya',
+      ctaBg: '#E8761E',
+      ctaColor: '#FFFFFF',
+    },
+    {
+      // Range: XBC 500ml body creams
+      image: '/banner/range-xbc-creams.webp',
+      overlayColor: 'rgba(28, 48, 104, 0.86)',
+      brandLockup: 'xbc®  |  xpel body care',
+      subLabel: 'body creams',
+      headlineLine1: 'Everyday',
+      headlineLine2: 'Body Creams',
+      headlineColor: '#E6EEFF',
+      descriptor: 'Five creams, 500ml tubs',
+      benefits: [
+        'Aloe Vera, Olive Oil and Cocoa Butter',
+        'Aqueous Cream for relief of dry skin',
+        'Vitamin E to moisturise and soothe',
+      ],
+      vegaBadge: '',
+      vegaBadgeBg: 'rgba(255,255,255,.18)',
+      vegaBadgeColor: '#fff',
+      ctaLabel: 'shop body creams',
+      ctaHref: '/shop?q=Cream%20500ml',
+      ctaBg: '#1E4FB8',
+      ctaColor: '#FFFFFF',
+    },
+    {
+      // Range: Vitamin C skincare
+      image: '/banner/range-vitamin-c.webp',
+      overlayColor: 'rgba(170, 70, 0, 0.84)',
+      brandLockup: 'xbc®  |  xpel beauty care',
+      subLabel: 'vitamin c',
+      headlineLine1: 'Vitamin C',
+      headlineLine2: 'Radiance',
+      headlineColor: '#FFF1DC',
+      descriptor: 'Serum, face wash, scrubs, mask & wipes',
+      benefits: [
+        'With vitamin C and niacinamide',
+        'Serum helps boost skin\'s natural radiance',
+        'Vegan face wash, body scrub and mask',
+      ],
+      vegaBadge: '',
+      vegaBadgeBg: 'rgba(255,255,255,.18)',
+      vegaBadgeColor: '#fff',
+      ctaLabel: 'shop vitamin c',
+      ctaHref: '/collection/vitamin-c',
+      ctaBg: '#E86A00',
+      ctaColor: '#FFFFFF',
+    },
+    {
+      // Range: Charcoal face, body and oral care
+      image: '/banner/range-charcoal.webp',
+      overlayColor: 'rgba(18, 18, 22, 0.88)',
+      brandLockup: 'xbc®  xoc®  |  charcoal',
+      subLabel: 'charcoal',
+      headlineLine1: 'Deep Clean',
+      headlineLine2: 'Charcoal',
+      headlineColor: '#FFFFFF',
+      descriptor: 'Mask, scrub, wipes & oral care',
+      benefits: [
+        'Cleansing, revitalising, purifying',
+        'Detox face mask, scrub and cleansing wipes',
+        'Charcoal toothpaste and whitening mouthwash',
+      ],
+      vegaBadge: '',
+      vegaBadgeBg: 'rgba(255,255,255,.18)',
+      vegaBadgeColor: '#fff',
+      ctaLabel: 'shop charcoal',
+      ctaHref: '/shop?q=charcoal',
+      ctaBg: '#E6007E',
+      ctaColor: '#FFFFFF',
+    },
+    {
       // Banner 1 — Tea Tree (sage/lime-green wall, XHC green bottles)
       image: '/banner/banner 1.webp',
       overlayColor: 'rgba(78, 108, 28, 0.88)',
@@ -806,7 +898,7 @@ const LS_KEY = 'xpel_site_content';
  * On mismatch the heroSlides from storage are discarded and defaults are used,
  * while all other saved settings (text, banners, SEO…) are preserved.
  */
-const HERO_SLIDES_VERSION = 8; // bump when slides change
+const HERO_SLIDES_VERSION = 9; // bump when slides change
 const LS_HERO_VER_KEY = 'xpel_hero_ver';
 
 /** Convert an uploaded file to a base64 data URL (works without Supabase Storage). */
