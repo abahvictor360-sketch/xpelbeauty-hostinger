@@ -108,3 +108,18 @@ p { text-wrap: pretty; }
   }
   .iva-product:hover .iva-product-img { animation: none; transform: none; }
 }
+
+/* ── Page promo banners: full width, edge to edge ───────────── */
+/* Breaks out of the page's content column (Shop, Stores, Contact) */
+.promo-band {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
+  box-shadow: none;
+}
+.promo-band-img { max-height: 400px; min-height: 240px; }
+.promo-band-overlay { padding: 0 clamp(20px, 6vw, 96px); }
+/* 100vw counts the scrollbar; clip the sliver it would add */
+html, body { overflow-x: clip; }
