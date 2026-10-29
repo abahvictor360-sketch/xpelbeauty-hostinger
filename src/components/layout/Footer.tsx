@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
-import { mapsPinUrl, officePin } from '@/lib/map';
+import { officeMapUrl } from '@/lib/map';
 import { formatNgPhone } from '@/lib/phone';
 import './Footer.css';
 
@@ -71,7 +71,7 @@ export default function Footer() {
               {content.footerCompany}
               <br />
               <a
-                href={mapsPinUrl(officePin(content))}
+                href={officeMapUrl(content)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-address-link"

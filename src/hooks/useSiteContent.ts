@@ -12,6 +12,7 @@ export interface SiteContent {
   contactAddress: string;   // multiline — contact page address block
   officeLat?: number;       // office map pin (Contact page map, footer link, schema)
   officeLng?: number;
+  officeMapUrl?: string;    // Google Maps listing for the office (address links, schema)
   contactHours: string;     // multiline — contact page business hours
   freeShipping: string;
   footerTagline: string;
@@ -229,8 +230,9 @@ export const DEFAULT_CONTENT: SiteContent = {
   contactPhone: '08034883603',
   contactPhones: ['08034883603', '08140764150'],
   contactAddress: 'Zeal Plaza, Adjacent First Bank BBA, Beside Anambra Clusters, Trade Fair International Market, Lagos',
-  officeLat: 6.460998746759591,
-  officeLng: 3.2509487683946046,
+  officeLat: 6.4607962,
+  officeLng: 3.2508844,
+  officeMapUrl: 'https://www.google.com/maps/place/Xpel+Beauty+Trade+fair/@6.4607962,3.2508844,17z/data=!4m6!3m5!1s0x103b870024370df9:0x21cb46f8945bd1a9!8m2!3d6.4607962!4d3.2508844!16s%2Fg%2F11zf3k39wp',
   contactHours: 'Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM\nSunday: Closed',
   freeShipping: '25000',
   footerTagline: 'exclusive nigerian distributor of xpel beauty care. wholesale supply to distributors and retailers.',

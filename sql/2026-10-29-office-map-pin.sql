@@ -1,2 +1,2 @@
--- Xpel Beauty NG (2026-10-29): office map pin for the Contact page map and address links. Hostinger / MySQL. Safe to run more than once.
-UPDATE `site_content` SET `data` = JSON_SET(`data`, '$.officeLat', 6.460998746759591, '$.officeLng', 3.2509487683946046) WHERE `id` = 1;
+-- Xpel Beauty NG (2026-10-29): office location from the "Xpel Beauty Trade fair" Google Maps listing. Hostinger / MySQL. Safe to run more than once.
+UPDATE `site_content` SET `data` = JSON_SET(`data`, '$.officeLat', 6.4607962, '$.officeLng', 3.2508844, '$.officeMapUrl', 'https://www.google.com/maps/place/Xpel+Beauty+Trade+fair/@6.4607962,3.2508844,17z/data=!4m6!3m5!1s0x103b870024370df9:0x21cb46f8945bd1a9!8m2!3d6.4607962!4d3.2508844!16s%2Fg%2F11zf3k39wp') WHERE `id` = 1;

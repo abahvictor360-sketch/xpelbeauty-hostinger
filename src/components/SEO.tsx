@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSiteContent } from '@/hooks/useSiteContent';
-import { mapsPinUrl, officePin } from '@/lib/map';
+import { officeMapUrl, officePin } from '@/lib/map';
 import type { SEOPage } from '@/hooks/useSiteContent';
 
 interface SEOProps {
@@ -131,7 +131,7 @@ export default function SEO({ page, overrides, jsonLd }: SEOProps) {
           '@type': 'Place',
           address: content.contactAddress,
           geo: { '@type': 'GeoCoordinates', latitude: officePin(content).lat, longitude: officePin(content).lng },
-          hasMap: mapsPinUrl(officePin(content)),
+          hasMap: officeMapUrl(content),
         },
         areaServed: { '@type': 'Country', name: 'Nigeria' },
         knowsAbout: ['Wholesale beauty products', 'Hair care', 'Skin care', 'Oral care', 'Personal care distribution'],

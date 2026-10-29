@@ -15,7 +15,7 @@ import Catalogue from '../pages/Catalogue';
 import BlogPost from '../pages/BlogPost';
 import { DEFAULT_CONTENT } from '../hooks/useSiteContent';
 import { faqPageJsonLd } from '../lib/faq';
-import { mapsPinUrl, officePin } from '../lib/map';
+import { officeMapUrl, officePin } from '../lib/map';
 
 export interface RouteHead {
   title: string;
@@ -154,7 +154,7 @@ function orgJsonLd(): Record<string, unknown> {
     description: seo.defaultDescription,
     email: DEFAULT_CONTENT.contactEmail,
     address: { '@type': 'PostalAddress', streetAddress: DEFAULT_CONTENT.contactAddress, addressLocality: 'Lagos', addressCountry: 'NG' },
-    location: { '@type': 'Place', address: DEFAULT_CONTENT.contactAddress, geo: { '@type': 'GeoCoordinates', latitude: officePin(DEFAULT_CONTENT).lat, longitude: officePin(DEFAULT_CONTENT).lng }, hasMap: mapsPinUrl(officePin(DEFAULT_CONTENT)) },
+    location: { '@type': 'Place', address: DEFAULT_CONTENT.contactAddress, geo: { '@type': 'GeoCoordinates', latitude: officePin(DEFAULT_CONTENT).lat, longitude: officePin(DEFAULT_CONTENT).lng }, hasMap: officeMapUrl(DEFAULT_CONTENT) },
     areaServed: { '@type': 'Country', name: 'Nigeria' },
     contactPoint: ['sales', 'customer service'].map((contactType) => ({ '@type': 'ContactPoint', contactType, email: DEFAULT_CONTENT.contactEmail, areaServed: 'NG', availableLanguage: 'English' })),
   };

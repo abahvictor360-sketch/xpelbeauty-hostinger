@@ -1664,6 +1664,11 @@ export default function Admin() {
                   </div>
                   <small style={{ color: '#888' }}>Right-click the spot in Google Maps and copy the numbers. Used by the Contact page map and address links.</small></div>
 
+                <div className="form-group"><label>Google Maps listing link</label>
+                  <input className="form-input" type="url" value={content.officeMapUrl ?? ''} onChange={(e) => updateContent({ officeMapUrl: e.target.value })}
+                    placeholder="https://www.google.com/maps/place/..." />
+                  <small style={{ color: '#888' }}>Address links open this listing. Leave empty to open the map pin instead.</small></div>
+
                 <div className="form-group"><label>Business Hours (one line per row)</label>
                   <textarea className="form-input" rows={4} value={content.contactHours ?? ''} onChange={(e) => updateContent({ contactHours: e.target.value })} placeholder={'Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM\nSunday: Closed'} /></div>
 

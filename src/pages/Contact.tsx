@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Phone, Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { formatNgPhone } from '@/lib/phone';
-import { mapsDirectionsUrl, mapsEmbedUrl, mapsPinUrl, officePin } from '@/lib/map';
+import { mapsDirectionsUrl, mapsEmbedUrl, officeMapUrl, officePin } from '@/lib/map';
 import { api } from '@/lib/api';
 import PromoBanner from '@/components/PromoBanner';
 import SEO from '@/components/SEO';
@@ -265,7 +265,7 @@ export default function Contact() {
                 <p className="xp-contact-row-label">Address</p>
                 <p className="xp-contact-row-value">
                   <a
-                    href={mapsPinUrl(pin)}
+                    href={officeMapUrl(content)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
