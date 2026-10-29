@@ -287,10 +287,10 @@ export default function Contact() {
       </div>
 
       {/* Office map: exact pin from site settings */}
-      <section className="xp-office-map" aria-label="Our office on the map">
+      <section className="xp-office-map" aria-label="Our plaza on the map">
         <div className="xp-office-map-head">
           <div>
-            <h2 className="xp-office-map-title">Visit our office</h2>
+            <h2 className="xp-office-map-title">Visit our Plaza</h2>
             <p className="xp-office-map-addr">{content.contactAddress}</p>
           </div>
           <a className="xp-office-map-btn" href={mapsDirectionsUrl(pin)} target="_blank" rel="noopener noreferrer">
@@ -299,7 +299,7 @@ export default function Contact() {
         </div>
         <iframe
           className="xp-office-map-frame"
-          title="Map showing the Xpel Beauty NG office at Trade Fair International Market, Lagos"
+          title="Map showing Zeal Plaza, home of Xpel Beauty NG, at Trade Fair International Market, Lagos"
           src={mapsEmbedUrl(pin)}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
