@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Phone, Mail, MessageCircle, MapPin, Clock } from 'lucide-react';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { formatNgPhone } from '@/lib/phone';
+import { mapsDirectionsUrl, mapsEmbedUrl, mapsPinUrl, officePin } from '@/lib/map';
 import { api } from '@/lib/api';
 import PromoBanner from '@/components/PromoBanner';
 import SEO from '@/components/SEO';
@@ -80,6 +81,7 @@ export default function Contact() {
   };
 
   const waText = encodeURIComponent('Hi, I would like to make a trade enquiry with Xpel Beauty NG.');
+  const pin = officePin(content);
 
   return (
     <div className="max-w-6xl mx-auto px-4 pb-12">
@@ -263,7 +265,7 @@ export default function Contact() {
                 <p className="xp-contact-row-label">Address</p>
                 <p className="xp-contact-row-value">
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.contactAddress)}`}
+                    href={mapsPinUrl(pin)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -283,6 +285,27 @@ export default function Contact() {
           </div>
         </aside>
       </div>
+
+      {/* Office map: exact pin from site settings */}
+      <section className="xp-office-map" aria-label="Our office on the map">
+        <div className="xp-office-map-head">
+          <div>
+            <h2 className="xp-office-map-title">Visit our office</h2>
+            <p className="xp-office-map-addr">{content.contactAddress}</p>
+          </div>
+          <a className="xp-office-map-btn" href={mapsDirectionsUrl(pin)} target="_blank" rel="noopener noreferrer">
+            Get directions
+          </a>
+        </div>
+        <iframe
+          className="xp-office-map-frame"
+          title="Map showing the Xpel Beauty NG office at Trade Fair International Market, Lagos"
+          src={mapsEmbedUrl(pin)}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+      </section>
     </div>
   );
 }

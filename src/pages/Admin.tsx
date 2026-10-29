@@ -1655,6 +1655,15 @@ export default function Admin() {
                 <div className="form-group"><label>Business Address (one line per row)</label>
                   <textarea className="form-input" rows={3} value={content.contactAddress ?? ''} onChange={(e) => updateContent({ contactAddress: e.target.value })} placeholder={'Xpel Beauty NG\nNigeria'} /></div>
 
+                <div className="form-group"><label>Office map pin (latitude, longitude)</label>
+                  <div style={{ display: 'flex', gap: 8 }}>
+                    <input className="form-input" type="number" step="any" inputMode="decimal" aria-label="Office latitude" value={content.officeLat ?? ''}
+                      onChange={(e) => updateContent({ officeLat: e.target.value === '' ? undefined : Number(e.target.value) })} placeholder="6.460999" />
+                    <input className="form-input" type="number" step="any" inputMode="decimal" aria-label="Office longitude" value={content.officeLng ?? ''}
+                      onChange={(e) => updateContent({ officeLng: e.target.value === '' ? undefined : Number(e.target.value) })} placeholder="3.250949" />
+                  </div>
+                  <small style={{ color: '#888' }}>Right-click the spot in Google Maps and copy the numbers. Used by the Contact page map and address links.</small></div>
+
                 <div className="form-group"><label>Business Hours (one line per row)</label>
                   <textarea className="form-input" rows={4} value={content.contactHours ?? ''} onChange={(e) => updateContent({ contactHours: e.target.value })} placeholder={'Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM\nSunday: Closed'} /></div>
 

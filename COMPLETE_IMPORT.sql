@@ -3071,3 +3071,7 @@ UPDATE `site_content` SET `data` = JSON_SET(`data`,
   '$.seo.pages.stores.keywords', 'where to buy xpel beauty care, xpel beauty near me, xpel beauty stockists nigeria, xpel beauty care lagos store, xpel beauty abuja, buy xpel tea tree face wash, xpel beauty port harcourt',
   '$.seo.pages.contact.description', 'Contact Xpel Beauty NG in Lagos. Distributor and wholesale enquiries, product questions, and help finding a store that sells Xpel Beauty Care near you.',
   '$.seo.pages.contact.keywords', 'contact xpel beauty nigeria, become a distributor nigeria, xpel beauty wholesale enquiry, xpel beauty product question, where to buy xpel beauty care, xpel beauty customer care') WHERE `id` = 1;
+
+-- 2026-10-29 office map pin (same as sql/2026-10-29-office-map-pin.sql)
+-- Xpel Beauty NG (2026-10-29): office map pin for the Contact page map and address links. Hostinger / MySQL. Safe to run more than once.
+UPDATE `site_content` SET `data` = JSON_SET(`data`, '$.officeLat', 6.460998746759591, '$.officeLng', 3.2509487683946046) WHERE `id` = 1;

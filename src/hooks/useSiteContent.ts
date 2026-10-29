@@ -10,6 +10,8 @@ export interface SiteContent {
   contactPhone: string;
   contactPhones: string[];  // phone numbers listed on the contact page
   contactAddress: string;   // multiline — contact page address block
+  officeLat?: number;       // office map pin (Contact page map, footer link, schema)
+  officeLng?: number;
   contactHours: string;     // multiline — contact page business hours
   freeShipping: string;
   footerTagline: string;
@@ -227,6 +229,8 @@ export const DEFAULT_CONTENT: SiteContent = {
   contactPhone: '08034883603',
   contactPhones: ['08034883603', '08140764150'],
   contactAddress: 'Zeal Plaza, Adjacent First Bank BBA, Beside Anambra Clusters, Trade Fair International Market, Lagos',
+  officeLat: 6.460998746759591,
+  officeLng: 3.2509487683946046,
   contactHours: 'Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM\nSunday: Closed',
   freeShipping: '25000',
   footerTagline: 'exclusive nigerian distributor of xpel beauty care. wholesale supply to distributors and retailers.',
