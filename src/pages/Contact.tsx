@@ -82,7 +82,7 @@ export default function Contact() {
   const waText = encodeURIComponent('Hi, I would like to make a trade enquiry with Xpel Beauty NG.');
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 pb-12">
       <SEO page="contact" />
       <div className="mb-8"><PromoBanner banner={content.banners.contact} /></div>
       <h1 className="text-5xl font-cormorant mb-3">{content.contactTitle}</h1>

@@ -149,7 +149,7 @@ export default function Stores() {
   const shown = grouped.reduce((n, [, arr]) => n + arr.length, 0);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 pb-12">
       <SEO page="stores" />
       <div className="mb-8"><PromoBanner banner={content.banners.stores} /></div>
       <h1 className="text-5xl font-cormorant mb-3">{content.storesTitle}</h1>
