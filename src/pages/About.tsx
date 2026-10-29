@@ -189,8 +189,8 @@ export default function About() {
           <div className="about-diff-card">
             <h3>Proudly for Nigeria</h3>
             <p>
-              As the exclusive distributor of Xpel Beauty Care in Nigeria, we supply more than 600
-              stores in 22 states, so authentic products stay close to home and fairly priced.
+              As the exclusive distributor of Xpel Beauty Care in Nigeria, we supply distributors and
+              retailers in 22 states, who stock our products in more than 600 stores.
             </p>
           </div>
         </div>
@@ -205,8 +205,8 @@ export default function About() {
         <div className="about-success-content">
         <h2>{content.aboutCtaTitle}</h2>
         <p>{content.aboutCtaText}</p>
-        <Link to="/shop" className="about-cta-btn about-cta-light">
-          Shop the collection
+        <Link to="/contact" className="about-cta-btn about-cta-light">
+          Send a trade enquiry
         </Link>
         </div>
       </section>

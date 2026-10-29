@@ -89,7 +89,7 @@ export default function Catalogue() {
         page="shop"
         overrides={{
           fullTitle: 'Product Catalogue | Xpel Beauty NG',
-          description: 'Browse the full Xpel Beauty NG product catalogue - hair care, body care, oral care, nail care, foot care, make up essentials, men grooming and home essentials. Delivered across Nigeria.',
+          description: 'Browse the full Xpel Beauty NG product catalogue - hair care, body care, oral care, nail care, foot care, make up essentials, men grooming and home essentials. Available wholesale to distributors and retailers across Nigeria.',
           keywords: 'xpel beauty catalogue, beauty products nigeria, hair care nigeria, body care nigeria, oral care nigeria, nail care, foot care, make up essentials, men grooming nigeria, home essentials',
           canonicalPath: '/catalogue',
         }}

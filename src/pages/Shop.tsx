@@ -20,22 +20,22 @@ const CATEGORIES = ['Hair Care', 'Body & Beauty', 'Home', 'Gifting'];
 const CATEGORY_SEO: Record<string, { title: string; description: string; keywords: string }> = {
   'Hair Care': {
     title: 'Hair Care Products in Nigeria - Shampoo, Conditioner & Treatments',
-    description: 'Shop premium hair care products in Nigeria - shampoos, conditioners, hair oils and treatments for every hair type. Nature-infused formulas delivered to Lagos, Abuja, Port Harcourt and nationwide.',
-    keywords: 'hair care products nigeria, buy shampoo online nigeria, hair conditioner lagos, hair treatment nigeria, best hair care brand nigeria, natural hair products nigeria',
+    description: 'Shop premium hair care products in Nigeria - shampoos, conditioners, hair oils and treatments for every hair type. Available wholesale to distributors and retailers across Nigeria.',
+    keywords: 'hair care products nigeria, wholesale shampoo nigeria, hair conditioner lagos, hair treatment nigeria, best hair care brand nigeria, natural hair products nigeria',
   },
   'Body & Beauty': {
     title: 'Skin Care & Body Care Products in Nigeria',
-    description: 'Shop the best skincare and body care products in Nigeria - face washes, body lotions, scrubs, oral care and more. Trusted by customers in Lagos, Abuja, Port Harcourt and beyond.',
-    keywords: 'best skincare brand lagos, skin care products nigeria, body care products abuja, buy skincare online nigeria, face wash nigeria, body lotion nigeria',
+    description: 'Shop the best skincare and body care products in Nigeria - face washes, body lotions, scrubs, oral care and more. Available wholesale to distributors and retailers across Nigeria.',
+    keywords: 'best skincare brand lagos, skin care products nigeria, body care products abuja, wholesale skincare nigeria, face wash nigeria, body lotion nigeria',
   },
   Home: {
     title: 'Home & Household Beauty Essentials in Nigeria',
-    description: 'Shop household beauty essentials from Xpel Beauty NG, delivered across Lagos, Abuja, Port Harcourt and nationwide Nigeria.',
+    description: 'Household essentials from Xpel Beauty NG, available wholesale to distributors and retailers across Nigeria.',
     keywords: 'beauty essentials nigeria, household beauty products nigeria, xpel beauty home',
   },
   Gifting: {
     title: 'Beauty Gift Sets in Nigeria',
-    description: 'Shop Xpel Beauty gift sets in Nigeria - the perfect gift for birthdays, holidays and special occasions. Delivered to Lagos, Abuja, Port Harcourt and nationwide.',
+    description: 'Shop Xpel Beauty gift sets in Nigeria - for birthdays, holidays and special occasions. Available wholesale to distributors and retailers across Nigeria.',
     keywords: 'beauty gift sets nigeria, gift ideas lagos, xpel beauty gifting, beauty gift box nigeria',
   },
 };

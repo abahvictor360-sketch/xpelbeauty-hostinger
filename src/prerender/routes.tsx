@@ -14,6 +14,7 @@ import Collection from '../pages/Collection';
 import Catalogue from '../pages/Catalogue';
 import BlogPost from '../pages/BlogPost';
 import { DEFAULT_CONTENT } from '../hooks/useSiteContent';
+import { faqPageJsonLd } from '../lib/faq';
 
 export interface RouteHead {
   title: string;
@@ -96,9 +97,9 @@ async function getProducts(): Promise<Array<{ param: string; head: RouteHead }>>
   return items.map((p) => ({
     param: String(p.id),
     head: {
-      title: `${p.name} | XpelBeauty NG`,
-      description: p.description || `Discover ${p.name} by ${p.brand} - premium nature-infused beauty.`,
-      keywords: `${p.name}, ${p.brand}, buy beauty products nigeria${p.sku ? `, ${p.sku}` : ''}`,
+      title: `${p.name} | Wholesale Supply in Nigeria - Xpel Beauty NG`,
+      description: p.description || `${p.name} by ${p.brand}, available wholesale from Xpel Beauty NG, the exclusive Nigerian distributor of Xpel Beauty Care.`,
+      keywords: `${p.name}, ${p.brand}, ${p.name.toLowerCase()} wholesale nigeria, wholesale beauty products nigeria${p.sku ? `, ${p.sku}` : ''}`,
       ogImage: p.image,
       jsonLd: productJsonLd(p),
     },
@@ -118,8 +119,8 @@ async function getCollections(): Promise<Array<{ param: string; head: RouteHead 
     param: c.slug,
     head: {
       title: `${c.name} in Nigeria | Xpel Beauty NG`,
-      description: `${c.description} Shop online with delivery to Lagos, Abuja, Port Harcourt and nationwide Nigeria.`,
-      keywords: `${c.name.toLowerCase()} nigeria, buy ${c.name.toLowerCase()} online nigeria, ${c.name.toLowerCase()} lagos, xpel beauty nigeria, ${(c.subtitle || '').toLowerCase()}`,
+      description: `${c.description} Available wholesale to distributors and retailers across Nigeria.`,
+      keywords: `${c.name.toLowerCase()} nigeria, ${c.name.toLowerCase()} wholesale nigeria, ${c.name.toLowerCase()} lagos, xpel beauty nigeria, ${(c.subtitle || '').toLowerCase()}`,
     },
   }));
 }
@@ -142,15 +143,31 @@ async function getBlogPosts(): Promise<Array<{ param: string; head: RouteHead }>
   }));
 }
 
+function orgJsonLd(): Record<string, unknown> {
+  const site = ((import.meta.env.VITE_SITE_URL as string | undefined) ?? '').replace(/\/$/, '');
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: seo.siteTitle,
+    ...(site ? { url: site + '/', logo: site + '/images/logo-xpel-beauty-ng.png' } : {}),
+    description: seo.defaultDescription,
+    email: DEFAULT_CONTENT.contactEmail,
+    address: { '@type': 'PostalAddress', streetAddress: DEFAULT_CONTENT.contactAddress, addressLocality: 'Lagos', addressCountry: 'NG' },
+    areaServed: { '@type': 'Country', name: 'Nigeria' },
+    contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: DEFAULT_CONTENT.contactEmail, areaServed: 'NG', availableLanguage: 'English' },
+  };
+}
+
 export const prerenderRoutes: PrerenderRoute[] = [
-  { path: '/',        Component: Home,    head: pageHead('home') },
+  // Homepage carries the FAQ and the business description for search and answer engines
+  { path: '/',        Component: Home,    head: { ...pageHead('home'), jsonLd: [faqPageJsonLd(), orgJsonLd()] } },
   { path: '/shop',    Component: Shop,    head: pageHead('shop') },
   {
     path: '/catalogue',
     Component: Catalogue,
     head: {
       title: `Product Catalogue${seo.titleSeparator}${seo.siteTitle}`,
-      description: 'Browse the full Xpel Beauty NG product catalogue - hair care, body care, oral care, nail care, foot care, make up essentials, men grooming and home essentials. Delivered across Nigeria.',
+      description: 'Browse the full Xpel Beauty NG product catalogue - hair care, body care, oral care, nail care, foot care, make up essentials, men grooming and home essentials. Available wholesale to distributors and retailers across Nigeria.',
     },
   },
   { path: '/about',   Component: About,   head: pageHead('about') },

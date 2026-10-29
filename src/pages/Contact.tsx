@@ -79,7 +79,7 @@ export default function Contact() {
     }
   };
 
-  const waText = encodeURIComponent('Hi, I have an enquiry for Xpel Beauty NG.');
+  const waText = encodeURIComponent('Hi, I would like to make a trade enquiry with Xpel Beauty NG.');
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -91,13 +91,13 @@ export default function Contact() {
       <div className="xp-contact-grid">
         {/* Contact Form */}
         <div className="xp-contact-form-card">
-        <h3 className="xp-contact-form-title">Send a message</h3>
-        <p className="xp-contact-form-sub">Fill in the form and we'll reply within a few hours.</p>
+        <h3 className="xp-contact-form-title">Send a trade enquiry</h3>
+        <p className="xp-contact-form-sub">Tell us your business, your location and what you want to stock.</p>
         {status === 'done' ? (
           <div style={{ padding: '32px', background: '#f0fdf4', borderRadius: '12px', border: '1px solid #bbf7d0', textAlign: 'center' }}>
             <p style={{ fontSize: '24px', marginBottom: '8px' }}>✅</p>
             <h3 style={{ fontWeight: 700, marginBottom: '8px' }}>Message received!</h3>
-            <p style={{ color: '#166534' }}>We'll get back to you within a few hours.</p>
+            <p style={{ color: '#166534' }}>Our sales team will get back to you.</p>
             <button
               style={{ marginTop: '16px', padding: '8px 24px', background: 'var(--gold-raw)', color: '#fff', border: 'none', borderRadius: '99px', cursor: 'pointer', fontWeight: 600 }}
               onClick={() => setStatus('idle')}
@@ -129,7 +129,7 @@ export default function Contact() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="e.g. Adaeze Okafor"
+                placeholder="e.g. Adaeze Okafor, Ada Stores Ltd"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-raw"
                 style={errors.name ? { borderColor: '#dc2626' } : {}}
               />
@@ -157,7 +157,7 @@ export default function Contact() {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                placeholder="e.g. Product availability question"
+                placeholder="e.g. Distributor enquiry, Onitsha"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-raw"
                 style={errors.subject ? { borderColor: '#dc2626' } : {}}
               />
@@ -170,7 +170,7 @@ export default function Contact() {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Tell us what you'd like to know…"
+                placeholder="Your business, location and the products you want to stock…"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-raw"
                 style={errors.message ? { borderColor: '#dc2626' } : {}}
                 rows={5}
@@ -217,7 +217,7 @@ export default function Contact() {
         <aside className="xp-contact-panel">
           <h3 className="xp-contact-panel-title">Get in touch</h3>
           <p className="xp-contact-panel-sub">
-            Have questions? We'd love to hear from you. Reach out through any of the following channels.
+            Distributors, wholesalers and retailers can reach our sales team through any of these channels.
           </p>
 
           <div className="xp-contact-rows">

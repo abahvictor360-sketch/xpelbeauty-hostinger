@@ -72,7 +72,7 @@ export default function Product() {
 
   const waEnabled = content.whatsappEnabled !== false;
   const waNumber = formatWaNumber(content.whatsappNumber || content.footerPhone1 || '2347060521947');
-  const waText = encodeURIComponent(`Hi, I'd like to enquire about *${product.name}* by ${product.brand}.`);
+  const waText = encodeURIComponent(`Hi, I'd like to make a trade enquiry about *${product.name}* by ${product.brand}.`);
   const barcode = barcodeInfo(product.sku);
 
   const handleEnquirySubmit = async (e: React.FormEvent) => {
@@ -117,10 +117,10 @@ export default function Product() {
       <SEO
         page="shop"
         overrides={{
-          fullTitle: `${product.name} | Buy Online in Nigeria - XpelBeauty NG`,
-          description: product.description || `Discover ${product.name} by ${product.brand} - premium nature-infused beauty. Delivered to Lagos, Abuja, Port Harcourt and nationwide Nigeria.`,
+          fullTitle: `${product.name} | Wholesale Supply in Nigeria - Xpel Beauty NG`,
+          description: product.description || `${product.name} by ${product.brand}, available wholesale from Xpel Beauty NG, the exclusive Nigerian distributor of Xpel Beauty Care.`,
           ogImage: product.image || '',
-          keywords: `${product.name}, ${product.brand}, buy ${product.name.toLowerCase()} nigeria, ${product.brand} lagos, buy beauty products online nigeria, ${(product.category || '').toLowerCase()} products nigeria`,
+          keywords: `${product.name}, ${product.brand}, ${product.name.toLowerCase()} wholesale nigeria, ${product.brand} distributor nigeria, wholesale beauty products nigeria, ${(product.category || '').toLowerCase()} products nigeria`,
           canonicalPath: `/product/${product.id}`,
         }}
         jsonLd={[
@@ -223,7 +223,7 @@ export default function Product() {
             <ul className="product-assurances">
               <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Authentic Xpel Beauty Care product</li>
               <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Sold at 600+ stores across Nigeria</li>
-              <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Questions? Ask us on WhatsApp before you buy</li>
+              <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Wholesale and distributor enquiries welcome</li>
             </ul>
 
             {barcode && <p className="product-barcode">Barcode: <span>{barcode.code}</span></p>}
@@ -269,7 +269,7 @@ export default function Product() {
 
         {/* Enquiry form */}
         <div className="product-enquiry">
-          <h3>Have a question about this product?</h3>
+          <h3>Want to stock this product?</h3>
           <p className="product-enquiry-sub">Send us a message - we usually reply within a few hours.</p>
 
           {enquiryStatus === 'done' ? (

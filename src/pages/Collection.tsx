@@ -97,7 +97,7 @@ export default function Collection() {
         page="shop"
         overrides={{
           fullTitle: `${collection.name} in Nigeria | Xpel Beauty NG`,
-          description: `${collection.description} Shop online with delivery to Lagos, Abuja, Port Harcourt and nationwide Nigeria.`,
+          description: `${collection.description} Available wholesale to distributors and retailers across Nigeria.`,
           keywords: `${collection.name.toLowerCase()} nigeria, buy ${collection.name.toLowerCase()} online nigeria, ${collection.name.toLowerCase()} lagos, xpel beauty nigeria, ${collection.subtitle.toLowerCase()}`,
           canonicalPath: `/collection/${collection.slug}`,
         }}

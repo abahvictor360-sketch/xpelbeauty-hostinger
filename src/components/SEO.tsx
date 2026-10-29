@@ -109,15 +109,32 @@ export default function SEO({ page, overrides, jsonLd }: SEOProps) {
       const org = document.createElement('script');
       org.id = 'org-jsonld';
       org.type = 'application/ld+json';
+      // B2B: we sell to distributors and trade buyers, so answer engines should describe us as a distributor
       org.textContent = JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: seo.siteTitle || 'Xpel Beauty NG',
         url: window.location.origin,
         logo: window.location.origin + '/images/logo-xpel-beauty-ng.png',
+        description: seo.defaultDescription,
         email: content.contactEmail,
         telephone: content.contactPhone,
-        address: { '@type': 'PostalAddress', addressCountry: 'NG' },
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: content.contactAddress,
+          addressLocality: 'Lagos',
+          addressCountry: 'NG',
+        },
+        areaServed: { '@type': 'Country', name: 'Nigeria' },
+        knowsAbout: ['Wholesale beauty products', 'Hair care', 'Skin care', 'Oral care', 'Personal care distribution'],
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'sales',
+          email: content.contactEmail,
+          telephone: content.contactPhone,
+          areaServed: 'NG',
+          availableLanguage: 'English',
+        },
       });
       document.head.appendChild(org);
     }
