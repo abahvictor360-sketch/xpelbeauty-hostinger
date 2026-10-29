@@ -9,8 +9,12 @@ export const HOME_FAQS: Array<{ q: string; a: string }> = [
     a: 'Send a trade enquiry on the Contact page or message us on WhatsApp. Tell us your business name, your location and the products you want to stock, and our sales team will get back to you.',
   },
   {
-    q: 'Can I buy Xpel Beauty products directly as an individual?',
-    a: 'We supply businesses, not individual shoppers. You can buy any of our products at more than 600 supermarkets, pharmacies and beauty stores across Nigeria. The Stores page lists them by state and city.',
+    q: 'Where can I buy Xpel Beauty Care products near me?',
+    a: 'At more than 600 supermarkets, pharmacies and beauty stores in 22 states, including Lagos, Abuja and Port Harcourt. The Stores page lists them by state and city. If your area is not listed, message us on WhatsApp and we will point you to the nearest stockist.',
+  },
+  {
+    q: 'I am not a distributor. Can I still contact Xpel Beauty NG?',
+    a: 'Yes. Anyone can ask us about a product, what it is for, its size or where to find it. Use the Contact page, the enquiry form on each product page, or WhatsApp. We sell in bulk to businesses, so shoppers buy from our stockists.',
   },
   {
     q: 'Which parts of Nigeria do you supply?',

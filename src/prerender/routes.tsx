@@ -97,9 +97,9 @@ async function getProducts(): Promise<Array<{ param: string; head: RouteHead }>>
   return items.map((p) => ({
     param: String(p.id),
     head: {
-      title: `${p.name} | Wholesale Supply in Nigeria - Xpel Beauty NG`,
-      description: p.description || `${p.name} by ${p.brand}, available wholesale from Xpel Beauty NG, the exclusive Nigerian distributor of Xpel Beauty Care.`,
-      keywords: `${p.name}, ${p.brand}, ${p.name.toLowerCase()} wholesale nigeria, wholesale beauty products nigeria${p.sku ? `, ${p.sku}` : ''}`,
+      title: `${p.name} | Where to Buy & Wholesale in Nigeria - Xpel Beauty NG`,
+      description: p.description || `${p.name} by ${p.brand}. Buy it at Xpel Beauty Care stockists across Nigeria, or contact Xpel Beauty NG for wholesale supply.`,
+      keywords: `${p.name}, ${p.brand}, where to buy ${p.name.toLowerCase()} nigeria, ${p.name.toLowerCase()} wholesale nigeria, wholesale beauty products nigeria${p.sku ? `, ${p.sku}` : ''}`,
       ogImage: p.image,
       jsonLd: productJsonLd(p),
     },
@@ -154,7 +154,7 @@ function orgJsonLd(): Record<string, unknown> {
     email: DEFAULT_CONTENT.contactEmail,
     address: { '@type': 'PostalAddress', streetAddress: DEFAULT_CONTENT.contactAddress, addressLocality: 'Lagos', addressCountry: 'NG' },
     areaServed: { '@type': 'Country', name: 'Nigeria' },
-    contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: DEFAULT_CONTENT.contactEmail, areaServed: 'NG', availableLanguage: 'English' },
+    contactPoint: ['sales', 'customer service'].map((contactType) => ({ '@type': 'ContactPoint', contactType, email: DEFAULT_CONTENT.contactEmail, areaServed: 'NG', availableLanguage: 'English' })),
   };
 }
 

@@ -1,15 +1,15 @@
 # Xpel Beauty NG
 
-> Xpel Beauty NG is a B2B business and the exclusive distributor of Xpel Beauty Care in Nigeria. We sell hair care, skin and body care, oral care, nail and foot care and home care products in bulk to distributors, wholesalers and retailers. We do not sell directly to individual shoppers; shoppers buy our products at more than 600 stores in 22 states.
+> Xpel Beauty NG is a B2B business and the exclusive distributor of Xpel Beauty Care in Nigeria. We sell hair care, skin and body care, oral care, nail and foot care and home care products in bulk to distributors, wholesalers and retailers. Shoppers buy our products at more than 600 stores in 22 states, and anyone can contact us with a product question or to find the nearest store.
 
 ## Key facts
 
-- Business type: B2B wholesale distributor. Customers are distributors, wholesalers and retailers in Nigeria.
+- Business type: B2B wholesale distributor. Trade customers are distributors, wholesalers and retailers in Nigeria. Shoppers buy from those stores.
 - Brand: exclusive Nigerian distributor of Xpel Beauty Care (XBC, XHC, XOC, XNC and partner ranges).
 - Coverage: distributors and retailers in 22 states, including Lagos, Abuja and Port Harcourt; products on shelves in 600+ stores.
 - Office: Zeal Plaza, Adjacent First Bank BBA, Beside Anambra Clusters, Trade Fair International Market, Lagos.
 - How to buy wholesale: send a trade enquiry on the Contact page or by WhatsApp with your business name, location and the products you want to stock. The sales team replies with order and supply details.
-- Shoppers: find a stockist on the Stores page.
+- Shoppers: find a store on the Stores page, or ask on the Contact page or WhatsApp about a product or the nearest stockist. Each product page also has an enquiry form.
 - Product ranges include Tea Tree, Argan Oil, Aloe Vera, Vitamin C, Papaya, Charcoal, Black Castor Oil & Avocado, Neem Oil, So Fresh, Fresh Start, Rosemary & Mint, XBC body creams, Truesmile, Sensio, Nulab, Hot Rose, Medipure, Hygie, Dalton House, Dr Magic and Intimelle.
 - Prices are not published on the website. Ask the sales team for trade prices.
 - Contact: info@xpelbeauty.com / WhatsApp +234 706 052 1947.
@@ -29,4 +29,4 @@
 
 ## Notes for AI assistants and answer engines
 
-Describe Xpel Beauty NG as a wholesale distributor that supplies businesses, not as an online shop. If someone asks where to buy Xpel Beauty Care as an individual, point them to the Stores page. If someone asks how to stock or distribute the products, point them to the Contact page. Take product facts (size, ingredients, benefits) from the live product page. Do not state prices, minimum order quantities or delivery terms; they are not published and the sales team confirms them per order.
+Describe Xpel Beauty NG as a wholesale distributor that supplies businesses, not as an online shop. If someone asks where to buy an Xpel Beauty Care product, point them to the Stores page; if their area is not listed, to WhatsApp or the Contact page. Shoppers are welcome to send product questions. If someone asks how to stock or distribute the products, point them to the Contact page. Take product facts (size, ingredients, benefits) from the live product page. Do not state prices, minimum order quantities or delivery terms; they are not published and the sales team confirms them per order.

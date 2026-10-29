@@ -117,10 +117,10 @@ export default function Product() {
       <SEO
         page="shop"
         overrides={{
-          fullTitle: `${product.name} | Wholesale Supply in Nigeria - Xpel Beauty NG`,
-          description: product.description || `${product.name} by ${product.brand}, available wholesale from Xpel Beauty NG, the exclusive Nigerian distributor of Xpel Beauty Care.`,
+          fullTitle: `${product.name} | Where to Buy & Wholesale in Nigeria - Xpel Beauty NG`,
+          description: product.description || `${product.name} by ${product.brand}. Buy it at Xpel Beauty Care stockists across Nigeria, or contact Xpel Beauty NG for wholesale supply.`,
           ogImage: product.image || '',
-          keywords: `${product.name}, ${product.brand}, ${product.name.toLowerCase()} wholesale nigeria, ${product.brand} distributor nigeria, wholesale beauty products nigeria, ${(product.category || '').toLowerCase()} products nigeria`,
+          keywords: `${product.name}, ${product.brand}, where to buy ${product.name.toLowerCase()} nigeria, ${product.name.toLowerCase()} wholesale nigeria, ${product.brand} distributor nigeria, wholesale beauty products nigeria, ${(product.category || '').toLowerCase()} products nigeria`,
           canonicalPath: `/product/${product.id}`,
         }}
         jsonLd={[
@@ -223,7 +223,7 @@ export default function Product() {
             <ul className="product-assurances">
               <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Authentic Xpel Beauty Care product</li>
               <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Sold at 600+ stores across Nigeria</li>
-              <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Wholesale and distributor enquiries welcome</li>
+              <li><CheckCircle2 size={15} strokeWidth={2} className="about-check-icon" /> Ask us about this product, or where to buy it</li>
             </ul>
 
             {barcode && <p className="product-barcode">Barcode: <span>{barcode.code}</span></p>}
@@ -269,7 +269,7 @@ export default function Product() {
 
         {/* Enquiry form */}
         <div className="product-enquiry">
-          <h3>Want to stock this product?</h3>
+          <h3>Questions, or want to stock this product?</h3>
           <p className="product-enquiry-sub">Send us a message - we usually reply within a few hours.</p>
 
           {enquiryStatus === 'done' ? (

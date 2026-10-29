@@ -127,14 +127,25 @@ export default function SEO({ page, overrides, jsonLd }: SEOProps) {
         },
         areaServed: { '@type': 'Country', name: 'Nigeria' },
         knowsAbout: ['Wholesale beauty products', 'Hair care', 'Skin care', 'Oral care', 'Personal care distribution'],
-        contactPoint: {
-          '@type': 'ContactPoint',
-          contactType: 'sales',
-          email: content.contactEmail,
-          telephone: content.contactPhone,
-          areaServed: 'NG',
-          availableLanguage: 'English',
-        },
+        // sales for trade buyers; customer service for shoppers asking about products or where to buy
+        contactPoint: [
+          {
+            '@type': 'ContactPoint',
+            contactType: 'sales',
+            email: content.contactEmail,
+            telephone: content.contactPhone,
+            areaServed: 'NG',
+            availableLanguage: 'English',
+          },
+          {
+            '@type': 'ContactPoint',
+            contactType: 'customer service',
+            email: content.contactEmail,
+            telephone: content.contactPhone,
+            areaServed: 'NG',
+            availableLanguage: 'English',
+          },
+        ],
       });
       document.head.appendChild(org);
     }

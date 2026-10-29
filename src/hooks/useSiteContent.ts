@@ -521,7 +521,7 @@ export const DEFAULT_CONTENT: SiteContent = {
     'Xpel Beauty NG is a B2B business. We supply Xpel Beauty Care in bulk to distributors, wholesalers and retailers across Nigeria, and our trade partners put it on the shelves of more than 600 stores.',
   aboutStoryTitle: "We're here to make it simple",
   aboutStoryBody1:
-    'Xpel Beauty Care makes personal care, beauty and household products, from shampoo and face wash to toothpaste and hand wash. Xpel Beauty NG is the exclusive distributor of Xpel Beauty Care in Nigeria. We sell to distributors and trade buyers, not directly to shoppers.',
+    'Xpel Beauty Care makes personal care, beauty and household products, from shampoo and face wash to toothpaste and hand wash. Xpel Beauty NG is the exclusive distributor of Xpel Beauty Care in Nigeria. We sell in bulk to distributors and retailers, and shoppers buy our products in their stores. Anyone can ask us about a product or where to find it.',
   aboutStoryBody2:
     'Each range is built around one key ingredient, like tea tree, aloe vera or argan oil, and every pack says what the product is for. We supply more than 600 shops in 22 states, so most people can find our products close to home.',
   aboutValue1: 'Ranges built around one key ingredient',
@@ -584,10 +584,10 @@ export const DEFAULT_CONTENT: SiteContent = {
   shopSubtitle: 'Hair care, skin and body care, oral care, nail and foot care, and home essentials.',
 
   contactTitle: 'Trade & distributor enquiries',
-  contactIntro: 'We sell in bulk to distributors, wholesalers and retailers. Tell us your business name, location and the products you want to stock, and our sales team will get back to you. Shoppers can buy our products at any of our 600+ stockists.',
+  contactIntro: 'We sell in bulk to distributors, wholesalers and retailers. Tell us your business name, location and the products you want to stock, and our sales team will get back to you. Shoppers are welcome too: ask us about any product or where to buy it near you.',
 
   storesTitle: 'find us in store',
-  storesIntro: 'Find Xpel Beauty Care at more than 600 stores across Nigeria.',
+  storesIntro: 'Find a store near you that sells Xpel Beauty Care. Can\'t see your area? Message us on WhatsApp and we will point you to the nearest stockist.',
 
   blogTitle: 'Popular articles',
   blogIntro: 'Tips, guides and stories from the world of Xpel Beauty Care.',
@@ -625,7 +625,7 @@ export const DEFAULT_CONTENT: SiteContent = {
     contact: {
       image: '/banner/Product-Face-Care.webp',
       title: 'Become a distributor',
-      text: 'Distributor, wholesale and trade enquiries welcome.',
+      text: 'Trade enquiries, product questions and where to buy.',
       cta: '',
       href: '',
     },
@@ -635,15 +635,15 @@ export const DEFAULT_CONTENT: SiteContent = {
   seo: {
     siteTitle: 'Xpel Beauty NG',
     titleSeparator: ' | ',
-    defaultDescription: 'Xpel Beauty NG is the exclusive Nigerian distributor of Xpel Beauty Care, supplying hair, skin, oral and home care products in bulk to distributors and retailers in 22 states.',
+    defaultDescription: 'Exclusive Nigerian distributor of Xpel Beauty Care. We supply distributors and retailers in 22 states, and shoppers can buy our products at 600+ stores.',
     defaultOgImage: '/banner/Brand_Argan_Oil_V3.webp',
     twitterHandle: '',
     googleVerification: '',
     pages: {
       home: {
         title: 'Wholesale Hair, Skin & Body Care Distributor in Nigeria',
-        description: 'Exclusive Nigerian distributor of Xpel Beauty Care. We supply 180+ hair, skin, body, oral and home care products in bulk to distributors and retailers in 22 states.',
-        keywords: 'xpel beauty distributor nigeria, wholesale beauty products nigeria, wholesale cosmetics lagos, beauty products distributor nigeria, bulk hair care products nigeria, wholesale skin care nigeria, personal care wholesaler lagos, xpel beauty care nigeria, tea tree products wholesale, argan oil products wholesale nigeria',
+        description: 'Exclusive Nigerian distributor of Xpel Beauty Care. We supply 180+ hair, skin, body and home care products to distributors and retailers. Shoppers can buy at 600+ stores.',
+        keywords: 'xpel beauty distributor nigeria, wholesale beauty products nigeria, beauty products distributor nigeria, wholesale cosmetics lagos, bulk hair care products nigeria, where to buy xpel beauty care, xpel beauty near me, xpel beauty care nigeria, tea tree products nigeria, argan oil products nigeria',
         ogImage: '',
         robots: 'index, follow',
       },
@@ -663,8 +663,8 @@ export const DEFAULT_CONTENT: SiteContent = {
       },
       contact: {
         title: 'Distributor & Wholesale Enquiries',
-        description: 'Become an Xpel Beauty Care distributor or stockist in Nigeria. Send a wholesale or trade enquiry to Xpel Beauty NG, Trade Fair International Market, Lagos.',
-        keywords: 'become a distributor nigeria, xpel beauty wholesale enquiry, beauty products distributor lagos, trade enquiry xpel beauty, stock xpel beauty care',
+        description: 'Contact Xpel Beauty NG in Lagos. Distributor and wholesale enquiries, product questions, and help finding a store that sells Xpel Beauty Care near you.',
+        keywords: 'contact xpel beauty nigeria, become a distributor nigeria, xpel beauty wholesale enquiry, xpel beauty product question, where to buy xpel beauty care, xpel beauty customer care',
         ogImage: '',
         robots: 'index, follow',
       },
@@ -676,9 +676,9 @@ export const DEFAULT_CONTENT: SiteContent = {
         robots: 'index, follow',
       },
       stores: {
-        title: 'Find Xpel Beauty Stockists Near You in Nigeria',
-        description: 'Find a store that stocks Xpel Beauty Care. More than 600 stores in Lagos, Abuja, Port Harcourt and 19 more states, supplied by our distributors.',
-        keywords: 'xpel beauty stockists nigeria, where to buy xpel beauty care lagos, beauty store near me nigeria, xpel store locations abuja',
+        title: 'Where to Buy Xpel Beauty Care Near You in Nigeria',
+        description: 'Find a store near you that sells Xpel Beauty Care. More than 600 supermarkets, pharmacies and beauty stores in Lagos, Abuja, Port Harcourt and 19 more states.',
+        keywords: 'where to buy xpel beauty care, xpel beauty near me, xpel beauty stockists nigeria, xpel beauty care lagos store, xpel beauty abuja, buy xpel tea tree face wash, xpel beauty port harcourt',
         ogImage: '',
         robots: 'index, follow',
       },
