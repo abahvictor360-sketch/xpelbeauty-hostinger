@@ -57,3 +57,11 @@ Options -Indexes
   ExpiresByType text/css     "access plus 1 month"
   ExpiresByType application/javascript "access plus 1 month"
 </IfModule>
+
+# ── Hide stack fingerprints (PHP version, server software) ───────────────────
+ServerSignature Off
+<IfModule mod_headers.c>
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+  Header always unset X-LiteSpeed-Cache
+</IfModule>

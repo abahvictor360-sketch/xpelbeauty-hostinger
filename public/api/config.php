@@ -40,6 +40,10 @@ defined('ALLOWED_ORIGIN')|| define('ALLOWED_ORIGIN', '*');
 // production, every write request must be rejected (fail closed) — never
 // silently accept a fixed, publicly-known placeholder value instead.
 
+// Hide the PHP version from response headers.
+if (function_exists('header_remove')) { header_remove('X-Powered-By'); }
+@ini_set('expose_php', '0');
+
 // ── CORS ─────────────────────────────────────────────────────────────────────
 function xpel_cors(): void {
     $origin = ALLOWED_ORIGIN === '*' ? '*' : ALLOWED_ORIGIN;

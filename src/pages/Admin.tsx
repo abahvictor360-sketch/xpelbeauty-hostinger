@@ -685,10 +685,10 @@ export default function Admin() {
   // Check API connection
   useEffect(() => {
     api.products.getAllAdmin()
-      .then(() => setSupabaseStatus({ connected: true, message: 'Connected to MySQL API' }))
-      .catch((err: Error) => setSupabaseStatus({
+      .then(() => setSupabaseStatus({ connected: true, message: 'Database connected' }))
+      .catch(() => setSupabaseStatus({
         connected: false,
-        message: 'Failed to connect: ' + (err?.message || 'unknown error'),
+        message: 'Cannot reach the database. Check your connection and refresh.',
       }));
   }, []);
 
