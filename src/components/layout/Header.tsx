@@ -34,7 +34,7 @@ function HeaderSearch({ onNavigate }: { onNavigate?: () => void }) {
     setOpen(false);
     setQ('');
     onNavigate?.();
-    navigate(`/shop?q=${encodeURIComponent(term)}`);
+    navigate(`/search?q=${encodeURIComponent(term)}`);
   };
 
   const goToSuggestion = (s: import('@/hooks/useSearchSuggestions').Suggestion) => {

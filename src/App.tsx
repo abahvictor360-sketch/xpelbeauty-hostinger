@@ -46,6 +46,7 @@ import BlogPost from './pages/BlogPost';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Stores from './pages/Stores';
+import Search from './pages/Search';
 import Admin from './pages/Admin';
 import Collection from './pages/Collection';
 import Catalogue from './pages/Catalogue';
@@ -84,6 +85,7 @@ function Layout() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/stores" element={<Stores />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/scan" element={<Scan />} />
           <Route path="*" element={<NotFound />} />
