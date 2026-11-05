@@ -220,7 +220,41 @@ export interface HeroSlide {
   ctaHref: string;       // "/shop?cat=body-beauty"
   ctaBg: string;         // button background colour — sampled from product/brand colour
   ctaColor: string;      // button text colour — chosen to contrast with ctaBg
+  imageOnly?: boolean;   // banner already has its text baked in: show the whole image, no text overlay
+  imageAlt?: string;     // alt text for imageOnly banners
+  imageBg?: string;      // fill colour around an imageOnly banner on narrow screens
+  endsAt?: string;       // ISO date; the slide hides itself after this moment
 }
+
+/**
+ * Time-limited promo banners shown first in the hero slider, ahead of the saved slides.
+ * Kept apart from heroSlides because saved slides merge by position. Each hides itself after endsAt.
+ */
+export const PROMO_SLIDES: HeroSlide[] = [
+  {
+    // Black Friday 2026 promo banner (text is part of the image). Hides itself after 30 Nov.
+    image: '/banner/black-friday-2026.webp',
+    imageOnly: true,
+    imageAlt: 'Black Friday is here. 1st to 30th November. Terms and conditions apply. @xpelbeautyng',
+    imageBg: '#FDB04A',
+    endsAt: '2026-11-30T23:59:59+01:00',
+    overlayColor: 'rgba(253, 176, 74, 1)',
+    brandLockup: '',
+    subLabel: '',
+    headlineLine1: 'Black Friday',
+    headlineLine2: 'is here',
+    headlineColor: '#fff',
+    descriptor: '',
+    benefits: [],
+    vegaBadge: '',
+    vegaBadgeBg: '',
+    vegaBadgeColor: '',
+    ctaLabel: '',
+    ctaHref: '/shop',
+    ctaBg: '',
+    ctaColor: '',
+  },
+];
 
 export const DEFAULT_CONTENT: SiteContent = {
   announcement: 'wholesale supply to distributors across nigeria. trade enquiries welcome.',

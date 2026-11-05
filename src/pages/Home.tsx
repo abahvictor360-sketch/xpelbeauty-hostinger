@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
 import { useProducts } from '@/hooks/useProducts';
-import { useSiteContent } from '@/hooks/useSiteContent';
+import { useSiteContent, PROMO_SLIDES } from '@/hooks/useSiteContent';
 import SEO from '@/components/SEO';
 import { HOME_FAQS } from '@/lib/faq';
 import Testimonials from '@/components/Testimonials';
@@ -29,7 +29,7 @@ export default function Home() {
     ? chosenIds.map((id) => products.find((p) => p.id === id)).filter((p): p is (typeof products)[number] => !!p).slice(0, 12)
     : (withImages.length >= 12 ? withImages : products).slice(0, 12);
 
-  const heroSlides = content.heroSlides ?? [];
+  const heroSlides = [...PROMO_SLIDES, ...(content.heroSlides ?? [])].filter((s) => !s.endsAt || Date.parse(s.endsAt) > Date.now());
 
   const faqs = HOME_FAQS;
 
@@ -120,13 +120,22 @@ export default function Home() {
           {heroSlides.map((slide, idx) => (
             <div
               key={idx}
-              className={`carousel-slide ${idx === currentSlide ? 'active' : ''}`}
-              style={{
+              className={`carousel-slide ${idx === currentSlide ? 'active' : ''}${slide.imageOnly ? ' hs-imageonly' : ''}`}
+              style={slide.imageOnly ? { backgroundColor: slide.imageBg || '#000' } : {
                 '--hs-overlay': slide.overlayColor || 'rgba(20,10,5,.88)',
                 // Fallback background if image fails to load — extracted from overlayColor
                 backgroundColor: (slide.overlayColor || 'rgba(20,10,5,1)').replace(/[\d.]+\)$/, '1)'),
               } as React.CSSProperties}
             >
+              {slide.imageOnly ? (
+                slide.ctaHref ? (
+                  <Link to={slide.ctaHref} className="hs-full-link" tabIndex={idx === currentSlide ? 0 : -1}>
+                    <img src={slide.image} alt={slide.imageAlt || ''} loading={idx === 0 ? 'eager' : 'lazy'} />
+                  </Link>
+                ) : (
+                  <img src={slide.image} alt={slide.imageAlt || ''} loading={idx === 0 ? 'eager' : 'lazy'} />
+                )
+              ) : (<>
               {/* Background image */}
               <img src={slide.image} alt={slide.headlineLine1 + ' ' + slide.headlineLine2} loading={idx === 0 ? 'eager' : 'lazy'} />
 
@@ -194,6 +203,7 @@ export default function Home() {
                   </Link>
                 )}
               </div>
+              </>)}
             </div>
           ))}
         </div>
