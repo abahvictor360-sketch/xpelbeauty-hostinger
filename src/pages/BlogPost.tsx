@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useBlogPost } from '@/hooks/useBlog';
 import { siteOrigin } from '@/lib/site';
 import SEO from '@/components/SEO';
+import PostBody from '@/components/PostBody';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -11,7 +12,7 @@ export default function BlogPost() {
   if (error) return <div className="text-red-500 text-center py-12">{error}</div>;
   if (!post) return <div className="text-center py-12">Blog post not found</div>;
 
-  const postDesc = post.excerpt || (post.content || '').slice(0, 155);
+  const postDesc = post.excerpt || (post.content || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 155);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -60,11 +61,11 @@ export default function BlogPost() {
         <img
           src={post.image}
           alt={post.title}
-          className="w-full h-96 object-cover rounded-lg mb-8"
+          className="w-full h-auto max-h-96 object-cover rounded-lg mb-8"
         />
 
-        <div className="prose prose-lg max-w-none mb-8">
-          <p className="whitespace-pre-wrap text-gray-700 leading-relaxed">{post.content}</p>
+        <div className="mb-8">
+          <PostBody content={post.content} />
         </div>
 
         <div className="bg-gray-50 rounded-lg p-6 mt-12">
