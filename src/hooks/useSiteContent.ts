@@ -231,28 +231,28 @@ export interface HeroSlide {
  * Kept apart from heroSlides because saved slides merge by position. Each hides itself after endsAt.
  */
 export const PROMO_SLIDES: HeroSlide[] = [
-  {
-    // Black Friday 2026 promo banner (text is part of the image). Hides itself after 30 Nov.
-    image: '/banner/black-friday-2026.webp',
-    imageOnly: true,
-    imageAlt: 'Black Friday is here. 1st to 30th November. Terms and conditions apply. @xpelbeautyng',
-    imageBg: '#FDB04A',
-    endsAt: '2026-11-30T23:59:59+01:00',
-    overlayColor: 'rgba(253, 176, 74, 1)',
-    brandLockup: '',
-    subLabel: '',
-    headlineLine1: 'Black Friday',
-    headlineLine2: 'is here',
-    headlineColor: '#fff',
-    descriptor: '',
-    benefits: [],
-    vegaBadge: '',
-    vegaBadgeBg: '',
-    vegaBadgeColor: '',
-    ctaLabel: '',
-    ctaHref: '/shop',
-    ctaBg: '',
-    ctaColor: '',
+  {
+    // Black Friday 2026 promo banner (text is part of the image). Hides itself after 30 Nov.
+    image: '/banner/black-friday-2026.webp',
+    imageOnly: true,
+    imageAlt: 'Black Friday is here. 1st to 30th November. Terms and conditions apply. @xpelbeautyng',
+    imageBg: '#FDB04A',
+    endsAt: '2026-11-30T23:59:59+01:00',
+    overlayColor: 'rgba(253, 176, 74, 1)',
+    brandLockup: '',
+    subLabel: '',
+    headlineLine1: 'Black Friday',
+    headlineLine2: 'is here',
+    headlineColor: '#fff',
+    descriptor: '',
+    benefits: [],
+    vegaBadge: '',
+    vegaBadgeBg: '',
+    vegaBadgeColor: '',
+    ctaLabel: '',
+    ctaHref: '/shop',
+    ctaBg: '',
+    ctaColor: '',
   },
 ];
 
