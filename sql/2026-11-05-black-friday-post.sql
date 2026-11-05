@@ -1,7 +1,6 @@
 -- Xpel Beauty NG (2026-11-05): Black Friday 2026 price list blog post. Safe to re-run (updates on slug).
 INSERT INTO blog_posts (id, title, slug, content, excerpt, author, category, featured_image, published)
-SELECT COALESCE(MAX(b.id), 0) + 1, 'Black Friday Price List: Up to 28% Off Cartons, 1 to 30 November', 'black-friday-2026-price-list', '<figure><img src="/banner/black-friday-2026.webp" alt="Black Friday is here. 1st to 30th November. Terms and conditions apply."></figure>
-<p>Black Friday runs all month at Xpel Beauty NG. From <strong>1 to 30 November 2026</strong>, 22 lines across XBC skincare and XHC hair care carry promo carton prices, with discounts from 5% to 28%.</p>
+SELECT COALESCE(MAX(b.id), 0) + 1, 'Black Friday Price List: Up to 28% Off Cartons, 1 to 30 November', 'black-friday-2026-price-list', '<p>Black Friday runs all month at Xpel Beauty NG. From <strong>1 to 30 November 2026</strong>, 22 lines across XBC skincare and XHC hair care carry promo carton prices, with discounts from 5% to 28%.</p>
 <p>The deepest cuts are on the XHC heat defence sprays (28% off), the XBC Hemp Face Mask (27%) and the XBC Charcoal Detox Facial Mask (23%). The XHC Argan Oil, Rosemary &amp; Mint and Aloe Vera leave-in conditioners are 20% off.</p>
 <p>Prices are per carton (CTN). The unit price is the carton price divided by the pieces in the carton. All prices are in naira.</p>
 <h2>Skincare</h2>
